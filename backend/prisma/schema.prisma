@@ -1,0 +1,43 @@
+// schema.prisma
+
+// Specify the database provider
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define the database model
+datasource db {
+  provider = "postgresql" // Change this based on your database
+  url      = env("DATABASE_URL") // Your database connection string
+}
+
+// User Model
+model User {
+  id          Int        @id @default(autoincrement()) // Unique ID for each user
+  username    String     @unique                      // Unique username
+  email       String     @unique                      // Unique email address
+  password    String     // Password hash
+  playlists    Playlist[] // Relation to playlists created by the user
+  createdAt   DateTime   @default(now())              // Date of user creation
+  updatedAt   DateTime   @updatedAt                    // Date of last update
+}
+
+// Playlist Model
+model Playlist {
+  id        Int       @id @default(autoincrement()) // Unique ID for each playlist
+  name      String    // Name of the playlist
+  userId    Int       // Reference to the User who created the playlist
+  user      User      @relation(fields: [userId], references: [id]) // Relation to User
+  songs     Song[]    @relation("PlaylistSongs") // Relation to songs in the playlist
+  createdAt DateTime  @default(now()) // Date of playlist creation
+  updatedAt DateTime  @updatedAt // Date of last update
+}
+
+// Song Model
+model Song {
+  id         Int      @id @default(autoincrement()) // Unique ID for each song
+  videoId    String   @unique                       // YouTube video ID
+  title      String                                   // Title of the song
+  thumbnail  String                                   // Thumbnail URL of the song
+  playlists  Playlist[] @relation("PlaylistSongs")   // Relation to playlists that contain this song
+}
