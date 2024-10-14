@@ -1,11 +1,14 @@
-import express from 'express';
+
 import cors from 'cors';
 import dotenv from 'dotenv';
 import userRoutes from './routes/userRoutes'; 
 import playlistRoutes from './routes/playlistRoutes'
 import songRoutes from './routes/songRoutes'
+import express, { Express,Request, Response } from 'express';
+
+
 dotenv.config();
-const app = express();
+const app:Express = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
