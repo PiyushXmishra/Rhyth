@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "@/components/navbar";
+import YoutubePlayer from "@/components/YoutubePlayer";
+import Playlist from "@/components/playlist";
+import SideBar from "@/components/SideBar";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -28,7 +32,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Navbar />
+        <div className="container px-6 pt-5">
+          <div className="flex h-full gap-10">
+            <div className="flex w-1/12 bg-secondary rounded-3xl h-min p-4">
+              <SideBar />
+            </div>
+            {children}
+            <div className="flex-1 bg-secondary rounded-3xl p-4 h-min"> 
+              <YoutubePlayer videoId="enidMo5izlE" />
+            </div>
+          </div>
+        </div>
       </body>
     </html>
   );
