@@ -1,6 +1,6 @@
 // VolumeControl.tsx
 "use client"
-import React from 'react';
+import React, { useState } from 'react';
 
 
 interface VolumeControlProps {
@@ -9,19 +9,35 @@ interface VolumeControlProps {
 }
 
 const VolumeControl: React.FC<VolumeControlProps> = ({ volume, onVolumeChange }) => {
+  const [lastVolume, setLastVolume] = useState<number>(volume); // Track last volume before muting
+  const [isMuted, setIsMuted] = useState<boolean>(volume === 0); // Set mute state based on initial volume
+
   // Function to handle volume icon click
   const handleVolumeClick = () => {
-    if (volume > 0) {
-      onVolumeChange(0); // Set volume to 0
+    if (isMuted) {
+      // Restore the last volume when unmuting
+      onVolumeChange(lastVolume);
     } else {
-      onVolumeChange(50); // Restore to a default volume (change this value if needed)
+      // Save current volume and mute
+      setLastVolume(volume);
+      onVolumeChange(0); // Mute the volume
+    }
+    setIsMuted(!isMuted); // Toggle mute state
+  };
+
+  // Function to handle slider change
+  const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = Number(e.target.value);
+    onVolumeChange(newVolume); // Change the volume without affecting mute state
+    if (newVolume > 0) {
+      setIsMuted(false); // Unmute if volume is above 0
     }
   };
 
   return (
     <div className='flex items-center space-x-2'>
-      {/* Show VolumeIcon if volume is 0, otherwise show Volume2Icon */}
-      {volume === 0 ? (
+      {/* Show VolumeIcon if muted, otherwise show Volume2Icon */}
+      {isMuted ? (
         <VolumeIcon className="h-6 w-6 cursor-pointer" onClick={handleVolumeClick} />
       ) : (
         <Volume2Icon className="h-6 w-6 cursor-pointer" onClick={handleVolumeClick} />
@@ -31,8 +47,8 @@ const VolumeControl: React.FC<VolumeControlProps> = ({ volume, onVolumeChange })
         type="range"
         min="0"
         max="100"
-        value={volume}
-        onChange={(e) => onVolumeChange(Number(e.target.value))}
+        value={isMuted ? 0 : volume} // Set slider value to 0 if muted
+        onChange={handleSliderChange} // Handle volume change through slider
         className="flex-1" // Allow the input to take the remaining space
       />
     </div>
@@ -41,7 +57,7 @@ const VolumeControl: React.FC<VolumeControlProps> = ({ volume, onVolumeChange })
 
 export default VolumeControl;
 
-// VolumeIcon.tsx
+// VolumeIcon.tsx (no changes needed here)
 function VolumeIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
   return (
     <svg
@@ -61,7 +77,7 @@ function VolumeIcon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVG
   );
 }
 
-// Volume2Icon.tsx
+// Volume2Icon.tsx (no changes needed here)
 function Volume2Icon(props: React.JSX.IntrinsicAttributes & React.SVGProps<SVGSVGElement>) {
   return (
     <svg
