@@ -106,11 +106,4 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": [
-    "server.ts",
-    "routes/**/*.ts",
-    "controllers/**/*.ts",
-    "models/**/*.ts",
-    "express.d.ts" // Add this line if it's in the root
-  ]
 }

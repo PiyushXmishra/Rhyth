@@ -5,6 +5,7 @@ import Navbar from "@/components/navbar";
 import YoutubePlayer from "@/components/YoutubePlayer";
 import Playlist from "@/components/playlist";
 import SideBar from "@/components/SideBar";
+import { SearchProvider } from '@/components/contexts/searchContext';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -32,6 +33,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+      <SearchProvider>
         <Navbar />
         <div className="container px-6 pt-5">
           <div className="flex h-full gap-10">
@@ -44,6 +46,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
+        </SearchProvider>
       </body>
     </html>
   );
