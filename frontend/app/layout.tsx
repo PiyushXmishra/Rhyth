@@ -6,6 +6,8 @@ import YoutubePlayer from "@/components/YoutubePlayer";
 import Playlist from "@/components/playlist";
 import SideBar from "@/components/SideBar";
 import { SearchProvider } from '@/components/contexts/searchContext';
+import { PlayerProvider } from "@/components/contexts/PlayerContext";
+import PlayerWrapper from "@/components/PlayerWrapper";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -34,18 +36,18 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
       <SearchProvider>
+      <PlayerProvider>
         <Navbar />
         <div className="container px-6 pt-5">
           <div className="flex h-full gap-10">
-            <div className="flex w-1/12 bg-secondary rounded-3xl h-min p-4">
+            <div className="flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
               <SideBar />
             </div>
             {children}
-            <div className="flex-1 bg-secondary rounded-3xl p-4 h-min"> 
-              <YoutubePlayer videoId="enidMo5izlE" />
-            </div>
+            <PlayerWrapper/>
           </div>
         </div>
+        </PlayerProvider>
         </SearchProvider>
       </body>
     </html>

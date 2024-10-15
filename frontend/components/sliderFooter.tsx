@@ -24,14 +24,14 @@ const StickyControls: React.FC<StickyControlsProps> = ({
   onVolumeChange,
 }) => {
   return (
-    <div className="flex w-full gap-x-10 px-5">
-      <div className='flex-none '>
+    <div className="flex w-full gap-x-8 px-5">
+      <div className=' '>
       <PlayPauseButton isPlaying={isPlaying} onClick={onPlayPause} />
       </div>
-      <div className='flex-1'>
+      <div className=' items-center flex'>
         <SeekBar elapsedTime={elapsedTime} duration={duration} onSeekChange={onSeekChange} />
       </div>
-      <div className='flex-initial'>
+      <div className=''>
         <VolumeControl volume={volume} onVolumeChange={onVolumeChange} />
       </div>
     </div>
