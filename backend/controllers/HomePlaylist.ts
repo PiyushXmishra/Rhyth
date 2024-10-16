@@ -19,7 +19,7 @@ export const HomePlaylists = async (req: Request, res: Response) => {
                 playlists.push(playlist);
     
                 // Store in Redis
-                await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 86400); // Cache for 1 day
+                await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 3600); // Cache for 1 hr
             }
         }
     

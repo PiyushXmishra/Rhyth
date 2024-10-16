@@ -1,39 +1,38 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
 import { usePlayer } from "./contexts/PlayerContext";
-import StickyControls from "./sliderFooter";  // Assuming you have this component
+import StickyControls from "./sliderFooter";
+import { motion } from "framer-motion"; 
 
-const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
-  //@ts-ignore
+export default function YoutubePlayer({ videoId }: { videoId: string }) {
   const playerRef = useRef<YT.Player | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState(100); // Default volume set to 100%
-  const [elapsedTime, setElapsedTime] = useState(0); // Track elapsed time
-  const [duration, setDuration] = useState(0); // Track video duration
-  const [isMuted, setIsMuted] = useState(true); // State to track muting
+  const [volume, setVolume] = useState(100);
+  const [elapsedTime, setElapsedTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isMuted, setIsMuted] = useState(true);
+  const [hidden, setHidden] = useState(false);
   const { playNextSong } = usePlayer();
 
-  // YouTube player options with 16:9 aspect ratio
   const opts = {
-    height: '303.75', // Maintain 16:9 ratio
-    width: '540', // Base width
+    height: "303.75",
+    width: "540",
     playerVars: {
-      autoplay: 1, // Autoplay enabled
-      controls: 0, // Hide YouTube default controls
-      mute: 0, // Start muted
+      autoplay: 1,
+      controls: 0,
+      mute: 0,
       rel: 0,
     },
   };
 
-  // Handle player ready
   const onReady = (event: any) => {
     playerRef.current = event.target;
     playerRef.current.setVolume(volume);
-    playerRef.current.playVideo(); // Start video on load
+    playerRef.current.playVideo();
   };
 
-  // Handle state change
   const onStateChange = (event: any) => {
     if (event.data === YouTube.PlayerState.PLAYING) {
       setIsPlaying(true);
@@ -41,11 +40,10 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
       setIsPlaying(false);
     } else if (event.data === YouTube.PlayerState.ENDED) {
       setIsPlaying(false);
-      playNextSong(); 
+      playNextSong();
     }
   };
 
-  // Update volume
   useEffect(() => {
     if (playerRef.current) {
       playerRef.current.setVolume(volume);
@@ -53,7 +51,6 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
     }
   }, [volume]);
 
-  // Update elapsed time and duration
   useEffect(() => {
     const interval = setInterval(() => {
       if (playerRef.current) {
@@ -61,33 +58,28 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         setElapsedTime(currentTime);
         setDuration(playerRef.current.getDuration());
       }
-    }, 100); // Update every 100 ms
+    }, 100);
 
     return () => clearInterval(interval);
-  }, [isMuted]); // Depend on isMuted to re-run when it changes
+  }, [isMuted]);
 
-  
-  // Play/Pause video
   const handlePlayPause = () => {
     if (isPlaying) {
-      playerRef.current.pauseVideo();
+      playerRef.current?.pauseVideo();
       setIsPlaying(false);
     } else {
-      playerRef.current.playVideo();
-      setIsPlaying(true); // Update state when playing
+      playerRef.current?.playVideo();
+      setIsPlaying(true);
     }
   };
 
-  // Handle seek bar change
   const handleSeekChange = (seekTime: number) => {
     if (playerRef.current) {
       playerRef.current.seekTo(seekTime, true);
-      setElapsedTime(seekTime); // Update elapsed time state
-      
+      setElapsedTime(seekTime);
     }
   };
 
-  // Keyboard control for play/pause
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const target = event.target as HTMLElement;
@@ -97,7 +89,7 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         target.isContentEditable;
 
       if (!isInputField && event.code === "Space") {
-        event.preventDefault(); // Prevent spacebar from scrolling the page
+        event.preventDefault();
         handlePlayPause();
       }
     };
@@ -107,12 +99,29 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isPlaying]); // Re-run this effect when play state changes
+  }, [isPlaying]);
+
+  function ToggleOnlyMusic(): void {
+    setHidden(!hidden);
+  }
 
   return (
-    <div className="flex flex-col items-start bg-accent pb-3 w-max rounded-2xl gap-y-5" style={{ width: "540px" }}>
-      {/* YouTube Video */}
-      <div style={{ position: 'relative', width: '540px', height: '303.75px' }}>
+    <div
+      className="flex flex-col items-start bg-accent w-max rounded-2xl"
+      style={{ width: "540px" }}
+    >
+      <motion.div
+        initial={{ height: "303.75px", opacity: 1 }} // Initial state
+        animate={{
+          height: hidden ? 0 : "303.75px", // Animate height when hidden
+          opacity: hidden ? 0 : 1, // Animate opacity
+        }}
+        transition={{
+          duration: 0.4, 
+          ease: "easeInOut",
+        }}
+        style={{ position: "relative", width: "540px", overflow: "hidden" }}
+      >
         <YouTube
           iframeClassName="rounded-xl"
           videoId={videoId}
@@ -120,21 +129,23 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
           onReady={onReady}
           onStateChange={onStateChange}
         />
-
-        {/* Transparent Overlay to Disable Interaction */}
+        {/* Transparent Overlay */}
         <div
           style={{
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
-            width: '100%',
-            height: '303.75px',
-            backgroundColor: isPlaying ? 'rgba(255, 255, 255, 0)' : 'rgba(255, 255, 255, 0.01)', // Change background based on isPlaying
-            backdropFilter: isPlaying ? 'none' : 'blur(15px)', // Apply blur when not playing
-            pointerEvents: 'all', // Capture all pointer events
-          }} className='rounded-xl'
+            width: "100%",
+            height: "100%",
+            backgroundColor: isPlaying
+              ? "rgba(255, 255, 255, 0)"
+              : "rgba(255, 255, 255, 0.01)",
+            backdropFilter: isPlaying ? "none" : "blur(15px)",
+            pointerEvents: "all",
+          }}
+          className="rounded-xl"
         />
-      </div>
+      </motion.div>
 
       {/* Sticky Controls */}
       <StickyControls
@@ -145,9 +156,8 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         onPlayPause={handlePlayPause}
         onSeekChange={handleSeekChange}
         onVolumeChange={setVolume}
+        onHide={ToggleOnlyMusic}
       />
     </div>
   );
-};
-
-export default YoutubePlayer;
+}

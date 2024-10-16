@@ -3,6 +3,8 @@ import React from 'react';
 import PlayPauseButton from './PlayPauseButton';
 import SeekBar from './SeekBar';
 import VolumeControl from './VolumeControl';
+import { Music2 } from 'lucide-react';
+import { Button } from './ui/button';
 
 interface StickyControlsProps {
   isPlaying: boolean;
@@ -12,6 +14,7 @@ interface StickyControlsProps {
   onPlayPause: () => void;
   onSeekChange: (time: number) => void;
   onVolumeChange: (volume: number) => void;
+  onHide:()=>void
 }
 
 const StickyControls: React.FC<StickyControlsProps> = ({
@@ -22,18 +25,29 @@ const StickyControls: React.FC<StickyControlsProps> = ({
   onPlayPause,
   onSeekChange,
   onVolumeChange,
+  onHide
 }) => {
   return (
-    <div className="flex w-full gap-x-8 px-5">
-      <div className=' '>
+    <div className="flex w-full items-center justify-between px-4 py-3">
+      <div className=''>
       <PlayPauseButton isPlaying={isPlaying} onClick={onPlayPause} />
-      </div>
-      <div className=' items-center flex'>
-        <SeekBar elapsedTime={elapsedTime} duration={duration} onSeekChange={onSeekChange} />
       </div>
       <div className=''>
         <VolumeControl volume={volume} onVolumeChange={onVolumeChange} />
       </div>
+      <div className=' items-center flex'>
+        <SeekBar elapsedTime={elapsedTime} duration={duration} onSeekChange={onSeekChange} />
+      </div>
+      
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={onHide}
+        className="hover:bg-secondary "
+      >
+        <Music2/>
+      </Button>
+      
     </div>
   );
 };

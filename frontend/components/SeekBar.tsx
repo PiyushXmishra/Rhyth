@@ -11,11 +11,12 @@ interface SeekBarProps {
 
 export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBarProps) {
   return (
-    <div className=" items-center flex space-x-4">
+    <div className=" items-center w-full ">
        {/* <div className="flex justify-between text-sm text-muted-foreground">
         
         
       </div> */}
+      <div className='flex space-x-4' >
       <span>{formatTime(elapsedTime)}</span>
       <Slider
         value={[elapsedTime]}
@@ -23,9 +24,10 @@ export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBar
         max={duration}
         step={5}
         onValueChange={(value: number[]) => onSeekChange(value[0])}
-        className="flex items-center min-w-[160px]"
+        className="flex items-center max-w-[220px] min-w-[180px]"
       />
      <span>{formatTime(duration)}</span>
+     </div>
     </div>
   )
 }

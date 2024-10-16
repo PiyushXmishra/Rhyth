@@ -28,7 +28,7 @@ const TrendingTracks: React.FC = () => {
                   <div className='rounded-xl bg-accent'>
                     <div className='p-2 flex flex-col items-center space-y-2 cursor-pointer'> {/* Stack items vertically */}
                       <img 
-                        src={track.thumbnails?.medium?.url} // Use medium thumbnail
+                        src={track.thumbnails?.maxres?.url} // Use medium thumbnail
                         alt={track.name} 
                         className='w-48 h-44 object-cover object-center rounded-xl' // Tailwind classes for styling
                       />
