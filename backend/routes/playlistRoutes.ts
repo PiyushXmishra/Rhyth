@@ -5,7 +5,7 @@ import { HomePlaylists } from '../controllers/HomePlaylist';
 
 const router = Router();
 
-router.get('/homeplaylists', HomePlaylists)
+router.post('/homeplaylists', HomePlaylists)
 router.post('/', createPlaylist);
 router.get('/:userId', getUserPlaylists);
 

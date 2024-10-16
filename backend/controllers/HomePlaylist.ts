@@ -10,6 +10,7 @@ export const HomePlaylists = async (req: Request, res: Response) => {
             // Check Redis for playlist info
             const cachedPlaylist = await redisClient.get(`playlist:${playlistId}`);
             if (cachedPlaylist) {
+                console.log("returning cached tracks")
                 playlists.push(JSON.parse(cachedPlaylist));
             } else {
                 // Fetch from YouTube API

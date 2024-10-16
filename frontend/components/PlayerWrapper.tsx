@@ -43,7 +43,7 @@ const PlayerWrapper: React.FC = () => {
 
   return (
     <div className="flex-1 bg-secondary rounded-3xl p-4 max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)]">
-      <YoutubePlayer videoId={videoId} /> {/* Pass the dynamic videoId */}
+      <YoutubePlayer videoId={videoId}/> {/* Pass the dynamic videoId */}
 
       {/* Display song info below the player */}
       <div className="mt-2 p-3 bg-accent rounded-xl">
@@ -57,8 +57,8 @@ const PlayerWrapper: React.FC = () => {
               className="w-20 h-16 rounded-lg mr-4"
             />
             <div>
-              <h3 className="text-lg font-semibold">
-                {truncateTitle(songInfo.title, 70)} {/* Truncate title to 50 chars */}
+              <h3 className=" text-base font-semibold">
+                {truncateTitle(songInfo.title, 90)} {/* Truncate title to 50 chars */}
               </h3>
               <p className="text-sm text-muted-foreground">
                 By {songInfo.author_name}

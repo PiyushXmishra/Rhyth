@@ -1,7 +1,8 @@
 "use client";
-import React, { useEffect, useRef, useState } from 'react';
-import YouTube from 'react-youtube';
-import StickyControls from './sliderFooter'; // Assuming you have this component
+import React, { useEffect, useRef, useState } from "react";
+import YouTube from "react-youtube";
+import { usePlayer } from "./contexts/PlayerContext";
+import StickyControls from "./sliderFooter";  // Assuming you have this component
 
 const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
   //@ts-ignore
@@ -11,6 +12,7 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
   const [elapsedTime, setElapsedTime] = useState(0); // Track elapsed time
   const [duration, setDuration] = useState(0); // Track video duration
   const [isMuted, setIsMuted] = useState(true); // State to track muting
+  const { playNextSong } = usePlayer();
 
   // YouTube player options with 16:9 aspect ratio
   const opts = {
@@ -19,7 +21,7 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
     playerVars: {
       autoplay: 1, // Autoplay enabled
       controls: 0, // Hide YouTube default controls
-      mute: 1, // Start muted
+      mute: 0, // Start muted
       rel: 0,
     },
   };
@@ -29,20 +31,17 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
     playerRef.current = event.target;
     playerRef.current.setVolume(volume);
     playerRef.current.playVideo(); // Start video on load
-    console.log("Player is ready. Video started playing.");
   };
 
   // Handle state change
   const onStateChange = (event: any) => {
     if (event.data === YouTube.PlayerState.PLAYING) {
       setIsPlaying(true);
-      console.log("Video is now playing.");
     } else if (event.data === YouTube.PlayerState.PAUSED) {
       setIsPlaying(false);
-      console.log("Video is paused.");
     } else if (event.data === YouTube.PlayerState.ENDED) {
       setIsPlaying(false);
-      console.log("Video has ended.");
+      playNextSong(); 
     }
   };
 
@@ -61,30 +60,21 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
         const currentTime = playerRef.current.getCurrentTime();
         setElapsedTime(currentTime);
         setDuration(playerRef.current.getDuration());
-        console.log(`Elapsed time: ${currentTime}, Duration: ${duration}`);
-
-        // Unmute the video if elapsed time is greater than 0.1 seconds (100 ms)
-        if (isMuted && currentTime > 0.1) {
-          playerRef.current.unMute();
-          setIsMuted(false); // Update the mute state
-          console.log("Video unmuted after elapsed time exceeded 100 ms.");
-        }
       }
     }, 100); // Update every 100 ms
 
     return () => clearInterval(interval);
   }, [isMuted]); // Depend on isMuted to re-run when it changes
 
+  
   // Play/Pause video
   const handlePlayPause = () => {
     if (isPlaying) {
       playerRef.current.pauseVideo();
       setIsPlaying(false);
-      console.log("Video paused by user.");
     } else {
       playerRef.current.playVideo();
       setIsPlaying(true); // Update state when playing
-      console.log("Video played by user.");
     }
   };
 
@@ -93,7 +83,7 @@ const YoutubePlayer: React.FC<{ videoId: string }> = ({ videoId }) => {
     if (playerRef.current) {
       playerRef.current.seekTo(seekTime, true);
       setElapsedTime(seekTime); // Update elapsed time state
-      console.log(`Seeked to: ${seekTime}`);
+      
     }
   };
 

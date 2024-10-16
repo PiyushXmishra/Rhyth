@@ -31,7 +31,10 @@ export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBar
 }
 
 const formatTime = (time: number) => {
-  const minutes = Math.floor(time / 60)
-  const seconds = Math.floor(time % 60)
-  return `${minutes}:${seconds.toString().padStart(2, '0')}`
+  if (isNaN(time) || time < 0) {
+    return "0:00"; // Fallback for invalid time
+  }
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+  return `${minutes}:${seconds.toString().padStart(2, '0')}`;
 }

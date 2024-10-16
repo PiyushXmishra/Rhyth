@@ -1,30 +1,54 @@
+// PlayerContext.tsx
 "use client"
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from "react";
 
-// Define the types for the context
-interface PlayerContextProps {
+// Define the shape of your context
+interface PlayerContextType {
   videoId: string;
-  setVideoId: (id: string) => void;
+  setVideoId: (videoId: string) => void;
+  playlist: string[]; // Array of videoIds in the playlist
+  currentSongIndex: number;
+  playNextSong: () => void;
+  setPlaylist: (playlist: string[]) => void;
 }
 
-// Create context with initial undefined values
-const PlayerContext = createContext<PlayerContextProps | undefined>(undefined);
+// Create the context
+const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 
 // Custom hook to use the PlayerContext
-export const usePlayer = (): PlayerContextProps => {
+export const usePlayer = () => {
   const context = useContext(PlayerContext);
   if (!context) {
-    throw new Error('usePlayer must be used within a PlayerProvider');
+    throw new Error("usePlayer must be used within a PlayerProvider");
   }
   return context;
 };
 
-// PlayerProvider component that wraps children
-export const PlayerProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [videoId, setVideoId] = useState<string>('c_VrTcIY8kA'); // Initial video ID
+// Define the props for the PlayerProvider component
+interface PlayerProviderProps {
+  children: ReactNode; // Define children prop type
+}
+
+// Create the PlayerProvider component
+export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
+  const [videoId, setVideoId] = useState<string>("Tb3x5I0ulCg");
+  const [playlist, setPlaylist] = useState<string[]>([]);
+  const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
+
+  const playNextSong = () => {
+    console.log(playlist.length)
+    console.log(currentSongIndex)
+    if (currentSongIndex < playlist.length ) {
+      const nextIndex = currentSongIndex + 1;
+      setCurrentSongIndex(nextIndex);
+      setVideoId(playlist[nextIndex]);
+    }
+  };
 
   return (
-    <PlayerContext.Provider value={{ videoId, setVideoId }}>
+    <PlayerContext.Provider
+      value={{ videoId, setVideoId, playlist, setPlaylist, currentSongIndex, playNextSong }}
+    >
       {children}
     </PlayerContext.Provider>
   );

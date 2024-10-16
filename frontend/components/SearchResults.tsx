@@ -29,7 +29,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
   };
 
   return (
-    <div className="w-full h-full  rounded-lg shadow-lg">
+    <div className="w-full h-full rounded-lg shadow-lg">
       <div className="h-full overflow-y-auto">
         {results.length > 0 ? (
           results.map((result, index) => (
@@ -47,8 +47,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
 
               {/* Text on the right */}
               <div className="ml-4">
-                <h3 className="text-md font-medium">
-                  {truncateTitle(result.snippet.title, 40)} {/* Max 40 characters */}
+                <h3 className="text-md font-semibold">
+                  {truncateTitle(result.snippet.title, 60)} {/* Max 40 characters */}
                 </h3>
                 {/* Optional: display artist info */}
                 {/* <p className="text-sm text-gray-600">{result.artist}</p> */}
