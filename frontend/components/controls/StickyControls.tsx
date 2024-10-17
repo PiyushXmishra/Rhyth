@@ -4,7 +4,7 @@ import PlayPauseButton from './PlayPauseButton';
 import SeekBar from './SeekBar';
 import VolumeControl from './VolumeControl';
 import { Music2 } from 'lucide-react';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 interface StickyControlsProps {
   isPlaying: boolean;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Play, Pause } from 'lucide-react'; // Importing Play and Pause icons
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 interface PlayPauseButtonProps {
   isPlaying: boolean;

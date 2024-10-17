@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { usePlayer } from "./contexts/PlayerContext";
+import { usePlayer } from "../contexts/PlayerContext";
 import YoutubePlayer from "./YoutubePlayer";
-import { Skeleton } from "./ui/skeleton";
+import { Skeleton } from "../ui/skeleton";
 
 interface SongInfo {
   title: string;

@@ -2,12 +2,10 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar";
-import YoutubePlayer from "@/components/YoutubePlayer";
-import Playlist from "@/components/playlist";
 import SideBar from "@/components/SideBar";
 import { SearchProvider } from '@/components/contexts/searchContext';
 import { PlayerProvider } from "@/components/contexts/PlayerContext";
-import PlayerWrapper from "@/components/PlayerWrapper";
+import PlayerWrapper from "@/components/player/PlayerWrapper";
 import { TracksProvider } from "@/components/contexts/TracksContext";
 
 const geistSans = localFont({

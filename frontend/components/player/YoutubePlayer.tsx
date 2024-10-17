@@ -2,8 +2,8 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { usePlayer } from "./contexts/PlayerContext";
-import StickyControls from "./sliderFooter";
+import { usePlayer } from "../contexts/PlayerContext";
+import StickyControls from "../controls/StickyControls";
 import { motion } from "framer-motion"; 
 
 export default function YoutubePlayer({ videoId }: { videoId: string }) {
