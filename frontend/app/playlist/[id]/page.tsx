@@ -4,6 +4,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { X } from 'lucide-react';
 import { usePlayer } from '@/components/contexts/PlayerContext';
+import SkeletonLoading from '../../../components/loaders/PlaylistLoading';
 // Define a type for the song details
 interface Song {
   title: string;
@@ -54,9 +55,9 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
   // Loading state
   if (loading) {
     return (
-      <div className="flex max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-5/12 bg-secondary rounded-3xl p-4">
-        
-      </div>
+      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-5/12 bg-secondary rounded-3xl p-4">
+   <SkeletonLoading count={20}/>
+    </div>
     );
   }
 
