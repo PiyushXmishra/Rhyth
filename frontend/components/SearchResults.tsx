@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePlayer } from './contexts/PlayerContext';
+import { motion } from 'framer-motion';
 
 interface SearchResult {
   snippet: any;
@@ -33,7 +34,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
       <div className="h-full overflow-y-auto">
         {results.length > 0 ? (
           results.map((result, index) => (
-            <div
+            <motion.div 
+          whileHover={{
+            scale: 1.03,
+            transition: { duration: 0.01 },
+          }}
+          whileTap={{ scale: 0.9 }}
               key={index}
               className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out bg-accent rounded-xl m-2"
               onClick={() => handleVideoSelect(result.id.videoId)} // Set onClick handler
@@ -53,7 +59,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
                 {/* Optional: display artist info */}
                 {/* <p className="text-sm text-gray-600">{result.artist}</p> */}
               </div>
-            </div>
+            </motion.div>
           ))
         ) : (
           <div className="p-4 text-muted-foreground">No results found.</div>

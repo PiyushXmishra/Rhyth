@@ -5,15 +5,8 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton componen
 
 const SkeletonLoading: React.FC<{ count: number }> = ({ count }) => {
   return (
-    <div className='overflow-y-auto'>
-      <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold mb-2 px-2">
-        <Skeleton className="h-7 w-2/4 bg-muted-foreground/30" /> {/* Shadcn skeleton for title */}
-        <div className="flex items-center">
-          <Link href="/">
-            <X className="cursor-pointer" />
-          </Link>
-        </div>
-      </div>
+    <div>
+     
       <div className="overflow-y-auto ">
         {/* Generate skeleton loaders */}
         {[...Array(count)].map((_, index) => (

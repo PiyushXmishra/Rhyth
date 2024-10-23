@@ -44,13 +44,15 @@ export default function RootLayout({
         <SearchProvider>
           <PlayerProvider>
             <Navbar />
-            <div className=" px-6 pt-5">
-              <div className="flex justify-between h-full gap-10">
-                <div className="flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+            <div className=" px-6 md:pt-5">
+              <div className="flex flex-row justify-between h-full gap-10">
+                <div className="hidden md:flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
                   <SideBar />
                 </div>
                 {children}
+                <div className="hidden md:flex">
                 <PlayerWrapper />
+                </div>
               </div>
             </div>
           </PlayerProvider>

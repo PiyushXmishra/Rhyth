@@ -7,6 +7,7 @@ import StickyControls from "../controls/StickyControls";
 import { motion } from "framer-motion"; 
 
 export default function YoutubePlayer({ videoId }: { videoId: string }) {
+  //@ts-ignore
   const playerRef = useRef<YT.Player | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(100);
@@ -107,10 +108,9 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
 
   return (
     <div
-      className="flex flex-col items-start bg-accent w-max rounded-2xl"
-      style={{ width: "540px" }}
-    >
+      className="flex flex-col items-start bg-accent w-max rounded-2xl">
       <motion.div
+      className="hidden md:flex"
         initial={{ height: "303.75px", opacity: 1 }} // Initial state
         animate={{
           height: hidden ? 0 : "303.75px", // Animate height when hidden

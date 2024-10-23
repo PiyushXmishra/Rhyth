@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { X } from 'lucide-react';
 import { usePlayer } from '@/components/contexts/PlayerContext';
 import SkeletonLoading from '../../../components/loaders/PlaylistLoading';
+import { motion } from 'framer-motion';
 // Define a type for the song details
 interface Song {
   title: string;
@@ -86,8 +87,13 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
       </div>
       <div className='overflow-y-auto'>
         {songs.map((song) => (
-          
-          <div key={song.videoId}  onClick={() => handleVideoSelect(song.videoId)}
+          <motion.div 
+          whileHover={{
+            scale: 1.03,
+            transition: { duration: 0.01 },
+          }}
+          whileTap={{ scale: 0.9 }}
+          key={song.videoId}  onClick={() => handleVideoSelect(song.videoId)}
                className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out bg-accent rounded-xl m-2">
             <img
               src={song.thumbnail.default.url}
@@ -99,7 +105,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
                 {truncateTitle(song.title, 60)} {/* Max 40 characters */}
               </h3>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video PiP Example</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f5f5f5;
+        }
+        iframe {
+            border: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>YouTube Video in Picture-in-Picture</h1>
+    <iframe id="youtubeVideo" width="640" height="360"
+            src="https://www.youtube.com/embed/wBw6Leb5F2U?enablejsapi=1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen></iframe>
+    
+    <button id="pipButton">Toggle Picture-in-Picture</button>
+
+    <script>
+        // Load the YouTube API
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        const firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+
+        // Create the YouTube player
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubeVideo', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            const pipButton = document.getElementById('pipButton');
+
+            pipButton.addEventListener('click', async () => {
+                const videoElement = document.querySelector('iframe');
+
+                // Check if the video is already in Picture-in-Picture mode
+                if (document.pictureInPictureElement) {
+                    // Exit Picture-in-Picture mode
+                    await document.exitPictureInPicture();
+                } else {
+                    // Request Picture-in-Picture mode
+                    try {
+                        await videoElement.requestPictureInPicture();
+                    } catch (error) {
+                        console.error('Failed to enter Picture-in-Picture mode:', error);
+                    }
+                }
+            });
+        }
+
+        // Optional: Add an event listener for when the user leaves Picture-in-Picture mode
+        document.addEventListener('leavepictureinpicture', () => {
+            console.log('Left Picture-in-Picture mode');
+        });
+    </script>
+
+</body>
+</html>

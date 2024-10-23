@@ -9,7 +9,7 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ count }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 px-2 pt-4">
       {Array.from({ length: count }).map((_, index) => (
-        <Skeleton key={index} className="rounded-xl bg-accent p-2 flex flex-col items-center space-y-2 cursor-pointer">
+        <Skeleton key={index} className="rounded-xl bg-accent p-2 flex flex-col items-center space-y-2 ">
           {/* Image skeleton */}
           <Skeleton className="w-48 h-44 rounded-xl " />
           
