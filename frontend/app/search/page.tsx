@@ -12,10 +12,10 @@ const Page: React.FC = () => {
   const showLoader = isSearching && results.length === 0; // Show loader when searching and no results
 
   return (
-    <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-5/12 bg-secondary rounded-3xl p-4">
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
       {/* Header Section */}
       <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold mb-2 px-2">
-        <h1>Search Results</h1>
+        <h1 className="text-base md:text-xl">Search Results</h1>
         <div className="flex items-center">
           <Link href={"/"}>
             <X className="cursor-pointer" onClick={clearResults} />

@@ -43,7 +43,7 @@ const StickyControls: React.FC<StickyControlsProps> = ({
         variant="ghost"
         size="icon"
         onClick={onHide}
-        className="hover:bg-secondary  "
+        className="hover:bg-secondary hidden md:flex "
       >
         <Music2/>
       </Button>

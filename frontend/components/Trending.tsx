@@ -26,7 +26,7 @@ const TrendingTracks: React.FC = () => {
       <h1 className='hidden md:flex text-xl font-semibold text-muted-foreground p-4 pb-0'>Trending Tracks</h1>
       <div className='overflow-y-auto'>
         {loading || tracks.length === 0 ? ( // Check if loading
-          <LoadingSkeleton count={10} />
+          <LoadingSkeleton count={6} />
         ) : (
           <div className='grid grid-cols-2 gap-4 md:px-2 md:pt-4 w-full'> 
             {(

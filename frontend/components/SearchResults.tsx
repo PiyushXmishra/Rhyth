@@ -48,12 +48,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
               <img
                 src={result.snippet.thumbnails.high.url}
                 alt={result.snippet.title}
-                className="w-20 h-16 rounded-lg object-cover" // Adjust the size of the image here
+                className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover" // Adjust the size of the image here
               />
 
               {/* Text on the right */}
               <div className="ml-4">
-                <h3 className="text-md font-semibold">
+                <h3 className="text-xs md:text-base font-semibold">
                   {truncateTitle(result.snippet.title, 60)} {/* Max 40 characters */}
                 </h3>
                 {/* Optional: display artist info */}

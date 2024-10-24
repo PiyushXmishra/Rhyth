@@ -46,7 +46,7 @@ interface SongInfo {
 
 
     return (
-      <div className="p-2 md:p-3 bg-accent rounded-xl">
+      <div className="p-2 md:p-3 md:bg-accent rounded-xl">
           {/* Song info at the bottom */}
           {loading ? (
             <CurrentVideoLoader/>
@@ -61,10 +61,10 @@ interface SongInfo {
                 <h3 className="hidden md:flex text-base font-semibold">
                   {truncateTitle(songInfo.title, 90)}{" "}
                 </h3>
-                <h3 className="md:hidden text-base font-semibold">
+                <h3 className="md:hidden text-sm font-semibold">
                   {truncateTitle(songInfo.title, 16)}{" "}
                 </h3>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs md:text-sm text-muted-foreground">
                   By {songInfo.author_name}
                 </p>
               </div>

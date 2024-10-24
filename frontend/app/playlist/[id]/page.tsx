@@ -56,7 +56,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
   // Loading state
   if (loading) {
     return (
-      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-5/12 bg-secondary rounded-3xl p-4">
+      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
    <SkeletonLoading count={20}/>
     </div>
     );
@@ -76,9 +76,9 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
 
   // Render song details
   return (
-    <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-5/12 bg-secondary rounded-3xl p-4">
+    <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
       <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold mb-2 px-2">
-        <h1 className='text-muted-foreground'>{playlistTitle}</h1> 
+        <h1 className='text-muted-foreground text-base md:text-xl'>{playlistTitle}</h1> 
         <div className="flex items-center">
           <Link href={"/"}>
             <X className="cursor-pointer"/>
@@ -98,10 +98,10 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
             <img
               src={song.thumbnail.default.url}
               alt={song.title}
-              className="w-20 h-16 rounded-lg object-cover" 
+              className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover" 
             />
             <div className="ml-4">
-              <h3 className="text-md font-semibold">
+              <h3 className="text-xs md:text-base font-semibold">
                 {truncateTitle(song.title, 60)} {/* Max 40 characters */}
               </h3>
             </div>
