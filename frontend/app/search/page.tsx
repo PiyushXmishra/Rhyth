@@ -6,7 +6,7 @@ import { X } from "lucide-react";
 import Link from "next/link";
 
 const Page: React.FC = () => {
-  const { searchTerm, setSearchTerm, results, isSearching, clearResults } =
+  const { results, isSearching, clearResults } =
     useSearchContext();
   const showResults = results.length > 0 && isSearching;
   const showLoader = isSearching && results.length === 0; // Show loader when searching and no results

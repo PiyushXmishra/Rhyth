@@ -7,7 +7,7 @@ export const getBrowserInfo = () => {
     const browserName = browser.getBrowser();
 
     // Check for Brave browser
-    //@ts-ignore
+    //@ts-expect-error
     const isBrave = window.navigator.brave && window.navigator.brave.isBrave() || 
                     window.navigator.userAgent.includes("Brave");
 

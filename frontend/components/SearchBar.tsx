@@ -5,7 +5,7 @@ import Link from 'next/link'
 import useDebounce from '@/components/hooks/useDebounce'
 import React, { useEffect } from 'react'
 export default function SearchBar() {
-  const { searchTerm, setSearchTerm, isSearching, setIsSearching } = useSearchContext()
+  const { searchTerm, setSearchTerm, setIsSearching } = useSearchContext()
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
 
   useEffect(() => {

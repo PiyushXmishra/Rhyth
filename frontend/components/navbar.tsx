@@ -1,20 +1,16 @@
 "use client";
 import { useState } from "react";
 import { ArrowLeft } from "lucide-react";
-import { Search, SearchIcon, Settings } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Search, Settings } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import SearchBar from "./SearchBar";
 import { useSearchContext } from "@/components/contexts/searchContext";
 import Link from "next/link";
-import { div } from "framer-motion/client";
 
 export default function Navbar() {
   const { isSearching } = useSearchContext();
-
   const [isSearchActive, setIsSearchActive] = useState(false);
-
   const toggleSearch = () => {
     setIsSearchActive(!isSearchActive);
   };

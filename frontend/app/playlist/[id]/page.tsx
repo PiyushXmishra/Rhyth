@@ -43,6 +43,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
         setLoading(false); // Set loading to false
       } catch (error) {
         setError('Failed to fetch song details'); // Set error message
+        console.log(error)
         setLoading(false); // Set loading to false
       }
     };

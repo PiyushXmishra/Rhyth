@@ -1,11 +1,8 @@
 "use client";
-
-import { Skeleton } from "../ui/skeleton";
 import { usePlayer } from "../contexts/PlayerContext";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CurrentVideoLoader from "../loaders/CurrentVideoLoader";
-import PlayPauseButton from "../controls/PlayPauseButton";
 
 interface SongInfo {
     title: string;

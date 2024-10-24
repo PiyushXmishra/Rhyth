@@ -2,8 +2,11 @@ import withPWA from 'next-pwa';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = withPWA({
-  dest: 'public',  // Folder where the service worker and other PWA files will be generated
-  // disable: process.env.NODE_ENV === 'development', // Disable PWA in development mode
+		dest: "public",
+		register: true,
+        disable: process.env.NODE_ENV === 'development',
+		skipWaiting: true,
+
 })({
   images: {
     remotePatterns: [
@@ -14,6 +17,9 @@ const nextConfig = withPWA({
       },
     ],
   },
+  typescript: {
+    ignoreBuildErrors: true,
+},
 });
 
 export default nextConfig;

@@ -13,7 +13,7 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
   const [volume, setVolume] = useState(100);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted] = useState(true);
   const [hidden, setHidden] = useState(false);
   const { playNextSong } = usePlayer();
 
