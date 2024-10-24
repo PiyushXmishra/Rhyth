@@ -43,7 +43,7 @@ export const TracksProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       try {
         // Fetch only if tracks are empty
         if (tracks.length === 0) {
-          const response = await axios.post<Track[]>('http://localhost:3000/api/playlist/homeplaylists', {
+          const response = await axios.post<Track[]>(`${process.env.NEXT_PUBLIC_URL}/api/playlist/homeplaylists`, {
             playlistIds: trackIds
           });
           setTracks(response.data); // Set the tracks

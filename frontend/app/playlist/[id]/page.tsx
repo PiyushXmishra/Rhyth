@@ -36,7 +36,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
   useEffect(() => {
     const fetchSongDetails = async () => {
       try {
-        const response = await axios.get<Song[]>(`http://localhost:3000/api/songs/${params.id}`);
+        const response = await axios.get<Song[]>(`${process.env.NEXT_PUBLIC_URL}/api/songs/${params.id}`);
         setSongs(response.data);
         const videoIds = response.data.map(song => song.videoId);
         setPlaylist(videoIds); // Set playlist in context

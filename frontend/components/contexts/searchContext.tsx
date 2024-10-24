@@ -30,7 +30,7 @@ export const SearchProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     setIsSearching(true);
 
     try {
-      const response = await axios.get('http://localhost:3000/api/songs/search', {
+      const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/songs/search`, {
         params: { query: term },
       });
       setResults(response.data);
