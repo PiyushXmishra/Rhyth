@@ -1,7 +1,7 @@
 {
-  "name": "My PWA App",
+  "name": "Rhyth",
   "short_name": "PWA",
-  "description": "My Next.js PWA App",
+  "description": "Spotify alternative",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
