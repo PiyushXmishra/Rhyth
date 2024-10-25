@@ -78,7 +78,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
   // Render song details
   return (
     <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
-      <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold mb-2 px-2">
+      <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold font-sans mb-2 px-2">
         <h1 className='text-muted-foreground text-base md:text-xl'>{playlistTitle}</h1> 
         <div className="flex items-center">
           <Link href={"/"}>
@@ -102,7 +102,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
               className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover" 
             />
             <div className="ml-4">
-              <h3 className="text-xs md:text-base font-semibold">
+              <h3 className="text-xs md:text-base font-semibold font-sans">
                 {truncateTitle(song.title, 60)} {/* Max 40 characters */}
               </h3>
             </div>

@@ -38,7 +38,7 @@ const BraveSupportBanner: React.FC = () => {
         <div className="flex items-center justify-between bg-accent rounded-xl p-3">
             {/* Left Section: Conditional Text */}
             <div className="flex-1"> {/* Allow this section to grow */}
-                <h2 className="text-lg font-semibold text-foreground">
+                <h2 className="text-lg font-semibold font-sans text-foreground">
                     {isBrave ? "Welcome, Brave User!" : "Use Brave for a better experience!"}
                 </h2>
                 <p className="text-sm text-foreground mt-2">

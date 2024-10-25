@@ -23,7 +23,7 @@ const TrendingTracks: React.FC = () => {
 
   return (
     <div className='flex flex-row md:flex-col md:px-2 h-full w-full'>
-      <h1 className='hidden md:flex text-xl font-semibold text-muted-foreground p-4 pb-0'>Trending Tracks</h1>
+      <h1 className='hidden md:flex text-xl font-semibold font-sans text-muted-foreground p-4 pb-0'>Trending Tracks</h1>
       <div className='overflow-y-auto w-full'>
         {loading || tracks.length === 0 ? (
           <LoadingSkeleton count={6} />
@@ -47,7 +47,7 @@ const TrendingTracks: React.FC = () => {
                       className='absolute top-0 left-0 w-full h-full object-cover'
                     />
                   </motion.div>
-                  <h2 className='flex-1 pl-3 sm:pl-2 md:pl-0 font-semibold text-sm md:text-base text-white text-start line-clamp-2 md:line-clamp-none'>
+                  <h2 className='flex-1 pl-3 sm:pl-2 md:pl-0 font-semibold font-sans text-sm md:text-base text-white text-start line-clamp-2 md:line-clamp-none'>
                     {truncateTitle(track.name)}
                   </h2>
                 </motion.div>

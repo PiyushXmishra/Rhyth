@@ -53,7 +53,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
 
               {/* Text on the right */}
               <div className="ml-4">
-                <h3 className="text-xs md:text-base font-semibold">
+                <h3 className="text-xs md:text-base font-semibold font-sans">
                   {truncateTitle(result.snippet.title, 60)} {/* Max 40 characters */}
                 </h3>
                 {/* Optional: display artist info */}
