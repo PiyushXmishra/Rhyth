@@ -11,6 +11,7 @@ import { TracksProvider } from "@/components/contexts/TracksContext";
 import MobileWrapper from "@/components/player/MobileWrapper";
 import CurrentVideo from "@/components/player/CurrentVideo";
 import useMediaQuery from "@/components/hooks/useMediaQuery";  // Import the custom hook
+import UserPlaylists from "@/components/UserPlaylists";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -43,12 +44,17 @@ export default function ClientLayout({
                 </div>
                 {children}
                 {isMobile ? (
+                  <>
+                  <div className="md:hidden">
+       <UserPlaylists/>
+      </div>
                   <div className="md:hidden">
                     <div className="flex items-center justify-between bg-secondary rounded-lg">
                       <CurrentVideo />
                       <MobileWrapper />
                     </div>
                   </div>
+                  </>
                 ) : (
                   <div className="hidden md:flex">
                     <PlayerWrapper />
