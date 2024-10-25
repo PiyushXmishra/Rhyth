@@ -1,6 +1,7 @@
 // app/layout.tsx
 import type { Metadata } from "next";
 import ClientLayout from "./clientLayout"; // Import the client component
+import InstallPrompt from "./BeforeInstallPrompt";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -21,7 +22,10 @@ export default function RootLayout({
       </head>
       <body>
         {/* Render the client-side layout */}
-        <ClientLayout>{children}</ClientLayout>
+        <ClientLayout>
+          {children}
+          <InstallPrompt />
+        </ClientLayout>
       </body>
     </html>
   );
