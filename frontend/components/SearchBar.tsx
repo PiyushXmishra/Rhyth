@@ -27,7 +27,6 @@ export default function SearchBar() {
       <div className="relative flex items-center">
         <Link href={"/search"} className="flex-grow">
           <Input
-            type="search"
             placeholder="Search"
             className="block w-full pl-5 pr-12 bg-secondary text-md"
             value={searchTerm}
