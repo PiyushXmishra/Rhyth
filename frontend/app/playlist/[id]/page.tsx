@@ -57,7 +57,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
   // Loading state
   if (loading) {
     return (
-      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
+      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full md:bg-secondary rounded-md md:rounded-3xl  md:p-4">
    <SkeletonLoading count={20}/>
     </div>
     );
@@ -77,7 +77,7 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
 
   // Render song details
   return (
-    <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] bg-secondary rounded-md md:rounded-3xl p-2 md:p-4">
+    <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] md:bg-secondary rounded-md md:rounded-3xl md:p-4">
       <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold font-sans mb-2 px-2">
         <h1 className='text-muted-foreground text-base md:text-xl'>{playlistTitle}</h1> 
         <div className="flex items-center">
@@ -95,9 +95,9 @@ export default function SongDetails({ params, searchParams }: { params: { id: st
           }}
           whileTap={{ scale: 0.9 }}
           key={song.videoId}  onClick={() => handleVideoSelect(song.videoId)}
-               className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out bg-accent rounded-xl m-2">
+               className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2">
             <img
-              src={song.thumbnail.default.url}
+              src={song.thumbnail.high.url}
               alt={song.title}
               className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover" 
             />

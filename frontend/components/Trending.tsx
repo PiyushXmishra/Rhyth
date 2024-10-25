@@ -35,10 +35,7 @@ const TrendingTracks: React.FC = () => {
                   whileHover={{scale: 1.05}}
                   className='rounded-md md:rounded-xl bg-accent md:p-2 flex flex-row md:flex-col items-center md:space-y-2 cursor-pointer'
                 >
-                  <motion.div
-                    initial="hidden"
-                    animate="visible"
-                    variants={imageVariants}
+                  <div
                     className='relative w-16 h-14 md:h-44 md:w-full overflow-hidden rounded-l-md md:rounded-xl'
                   >
                     <img 
@@ -46,7 +43,7 @@ const TrendingTracks: React.FC = () => {
                       alt={track.name} 
                       className='absolute top-0 left-0 w-full h-full object-cover'
                     />
-                  </motion.div>
+                  </div>
                   <h2 className='flex-1 pl-3 sm:pl-2 md:pl-0 font-semibold font-sans text-sm md:text-base text-white text-start line-clamp-2 md:line-clamp-none'>
                     {truncateTitle(track.name)}
                   </h2>

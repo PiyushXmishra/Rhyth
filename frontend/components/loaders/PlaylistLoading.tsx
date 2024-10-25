@@ -17,7 +17,7 @@ const SkeletonLoading: React.FC<{ count: number }> = ({ count }) => {
       <div className="overflow-y-auto ">
         {/* Generate skeleton loaders */}
         {[...Array(count)].map((_, index) => (
-          <Skeleton key={index} className="flex items-center p-2 bg-accent rounded-xl m-2">
+          <Skeleton key={index} className="flex items-center p-2 md:bg-accent rounded-xl md:m-2 bg-transparent">
             <Skeleton className="w-20 h-12 md:w-28 md:h-16 bg-muted-foreground/30" /> {/* Shadcn skeleton for thumbnail */}
             <div className="ml-4 w-full space-y-2">
               <Skeleton className="h-4 w-full bg-muted-foreground/30" />

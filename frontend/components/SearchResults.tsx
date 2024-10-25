@@ -41,7 +41,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
           }}
           whileTap={{ scale: 0.9 }}
               key={index}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out bg-accent rounded-xl m-2"
+              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2"
               onClick={() => handleVideoSelect(result.id.videoId)} // Set onClick handler
             >
               {/* Image on the left */}
