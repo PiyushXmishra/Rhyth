@@ -17,7 +17,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`p-1 md:p-4 px-6 sticky top-0 z-10 bg-background/30 rounded-b-xl backdrop-blur-md ${
+      className={`p-2 md:p-4 px-6 sticky top-0 z-10 bg-background/30 rounded-b-xl backdrop-blur-md ${
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >

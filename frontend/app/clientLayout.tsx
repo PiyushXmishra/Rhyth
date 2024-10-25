@@ -44,17 +44,12 @@ export default function ClientLayout({
                 </div>
                 {children}
                 {isMobile ? (
-                  <>
-                  <div className="md:hidden">
-       <UserPlaylists/>
-      </div>
                   <div className="md:hidden">
                     <div className="flex items-center justify-between bg-secondary rounded-lg">
                       <CurrentVideo />
                       <MobileWrapper />
                     </div>
                   </div>
-                  </>
                 ) : (
                   <div className="hidden md:flex">
                     <PlayerWrapper />
