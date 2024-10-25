@@ -46,6 +46,7 @@ export const TracksProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           const response = await axios.post<Track[]>(`${process.env.NEXT_PUBLIC_URL}/api/playlist/homeplaylists`, {
             playlistIds: trackIds
           });
+          console.log(response.data)
           setTracks(response.data); // Set the tracks
         }
       } catch (error) {

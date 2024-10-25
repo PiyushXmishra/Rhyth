@@ -22,6 +22,5 @@ export const HomePlaylists = async (req: Request, res: Response) => {
                 await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 3600); // Cache for 1 hr
             }
         }
-    
         res.json(playlists);
     };
