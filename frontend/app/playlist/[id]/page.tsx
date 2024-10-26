@@ -124,7 +124,7 @@ export default function SongDetails({
               alt={song.title}
               className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover"
             />
-            <div className="ml-4">
+            <div className="mx-4 md:ml-4">
               <h3 className="text-xs md:text-base font-semibold font-sans">
                 {truncateTitle(song.title, 60)}
               </h3>
