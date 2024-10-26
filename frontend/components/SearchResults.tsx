@@ -51,7 +51,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
                   className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover"
                 />
 
-                <div className="mx-4 md:ml-4">
+                <div className="ml-4 mr-2 md:ml-4 md:mr-0">
                   <h3 className="text-xs md:text-base font-semibold font-sans">
                     {truncateTitle(result.snippet.title, 60)}
                   </h3>
