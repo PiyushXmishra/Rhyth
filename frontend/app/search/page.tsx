@@ -14,7 +14,7 @@ const Page: React.FC = () => {
   return (
     <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full md:bg-secondary rounded-md md:rounded-3xl pt-2 md:p-4">
       {/* Header Section */}
-      <div className="flex flex-row justify-between text-xl text-muted-foreground font-semibold font-sans mb-2 px-2">
+      <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground font-semibold font-sans mb-2 px-2">
         <h1 className="text-base md:text-xl">Search Results</h1>
         <div className="flex items-center">
           <Link href={"/"}>

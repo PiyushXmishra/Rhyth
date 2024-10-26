@@ -1,6 +1,7 @@
-import React from 'react';
-import { usePlayer } from './contexts/PlayerContext';
-import { motion } from 'framer-motion';
+import React from "react";
+import { usePlayer } from "./contexts/PlayerContext";
+import { motion } from "framer-motion";
+import { EllipsisVertical } from "lucide-react";
 
 interface SearchResult {
   snippet: any;
@@ -34,35 +35,37 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
       <div className="h-full overflow-y-auto">
         {results.length > 0 ? (
           results.map((result, index) => (
-            <motion.div 
-          whileHover={{
-            scale: 1.03,
-            transition: { duration: 0.01 },
-          }}
-          whileTap={{ scale: 0.9 }}
+            <motion.div
+              whileHover={{
+                scale: 1.03,
+                transition: { duration: 0.01 },
+              }}
+              whileTap={{ scale: 0.9 }}
               key={index}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2"
-              onClick={() => handleVideoSelect(result.id.videoId)} // Set onClick handler
+              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2 justify-between"  
             >
-              {/* Image on the left */}
-              <img
-                src={result.snippet.thumbnails.high.url}
-                alt={result.snippet.title}
-                className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover" // Adjust the size of the image here
-              />
+              <div className="flex items-center w-full" onClick={() => handleVideoSelect(result.id.videoId)} >
+                <img
+                  src={result.snippet.thumbnails.high.url}
+                  alt={result.snippet.title}
+                  className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover"
+                />
 
-              {/* Text on the right */}
-              <div className="ml-4">
-                <h3 className="text-xs md:text-base font-semibold font-sans">
-                  {truncateTitle(result.snippet.title, 60)} {/* Max 40 characters */}
-                </h3>
-                {/* Optional: display artist info */}
-                {/* <p className="text-sm text-gray-600">{result.artist}</p> */}
+                <div className="ml-4">
+                  <h3 className="text-xs md:text-base font-semibold font-sans">
+                    {truncateTitle(result.snippet.title, 60)}
+                  </h3>
+                  {/* Optional: display artist info */}
+                  {/* <p className="text-xs font-sans font-semibold text-muted-foreground">{result.snippet.channelTitle}</p> */}
+                </div>
+              </div>
+              <div className="flex">
+                <EllipsisVertical className="fill-white" />
               </div>
             </motion.div>
           ))
         ) : (
-          <div className="p-4 text-muted-foreground">No results found.</div>
+          <div className="p-4 text-muted-foreground"></div>
         )}
       </div>
     </div>
@@ -70,7 +73,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
 };
 
 export default SearchResults;
-function useSearchContext(): { searchTerm: any; setSearchTerm: any; results: any; isSearching: any; clearResults: any; } {
-  throw new Error('Function not implemented.');
+function useSearchContext(): {
+  searchTerm: any;
+  setSearchTerm: any;
+  results: any;
+  isSearching: any;
+  clearResults: any;
+} {
+  throw new Error("Function not implemented.");
 }
-
