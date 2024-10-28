@@ -7,6 +7,7 @@ import Image from "next/image"
 import SearchBar from "./SearchBar"
 import { useSearchContext } from "@/components/contexts/searchContext"
 import Link from "next/link"
+import Logo from "@/public/android-launchericon-512-512.png"
 
 export default function Navbar() {
   const { isSearching } = useSearchContext()
@@ -24,10 +25,10 @@ export default function Navbar() {
       <div className="hidden lg:flex max-w-7xl mx-auto items-center justify-between">
         <div className="flex items-center">
           <Image
-            src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Green.png"
+            src={Logo}
             alt="Logo"
-            width={50}
-            height={50}
+            width={100}
+            height={100}
           />
         </div>
         <SearchBar />
@@ -66,11 +67,11 @@ export default function Navbar() {
                 <Search className="h-6 w-6" />
               </button>
               <Image
-                src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Green.png"
+                src={Logo}
                 alt="Logo"
-                width={100}
-                height={30}
-                className="h-8 w-auto"
+                width={70}
+                height={70}
+                className=""
               />
               <button className="p-2">
                 <Settings className="h-6 w-6" />
