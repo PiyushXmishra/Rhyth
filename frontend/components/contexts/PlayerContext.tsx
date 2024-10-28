@@ -1,6 +1,6 @@
 // PlayerContext.tsx
 "use client"
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, ReactNode, useEffect } from "react";
 
 // Define the shape of your context
 interface PlayerContextType {
@@ -30,16 +30,22 @@ interface PlayerProviderProps {
 }
 
 // Create the PlayerProvider component
-const LastVidId = localStorage.getItem("LastVidId");
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
-  const [videoId, setVideoId] = useState<string>(LastVidId || "Tb3x5I0ulCg");
   const [playlist, setPlaylist] = useState<string[]>([]);
+  const [videoId, setVideoId] = useState<string>(""); // Initialize with an empty string
   const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
 
+  useEffect(() => {
+    const lastVidId = window.localStorage.getItem("LastVidId");
+    if (lastVidId) {
+      setVideoId(lastVidId); // Set videoId from local storage
+    } else {
+      setVideoId("Tb3x5I0ulCg"); // Set default videoId
+    }
+  }, []); // This will run only once on mount
+
   const playNextSong = () => {
-    console.log(playlist.length)
-    console.log(currentSongIndex)
-    if (currentSongIndex < playlist.length ) {
+    if (currentSongIndex < playlist.length - 1) { // Check to prevent out-of-bounds error
       const nextIndex = currentSongIndex + 1;
       setCurrentSongIndex(nextIndex);
       setVideoId(playlist[nextIndex]);
