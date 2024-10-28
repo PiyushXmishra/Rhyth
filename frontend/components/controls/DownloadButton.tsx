@@ -27,7 +27,10 @@ import axios from "axios"
     async function DownloadSong(videoId: string) {
         try {
         const response =   await axios.get(`${process.env.NEXT_PUBLIC_SONG_DOWNLAOD_URL}/${videoId}`, {
-            responseType: 'blob', // Set response type to blob for binary data
+            responseType: 'blob',
+            headers: {
+                'ngrok-skip-browser-warning': 'true', // Set the custom header
+            }, 
           })
           const url = URL.createObjectURL(response.data)
           const link = document.createElement('a')
