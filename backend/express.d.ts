@@ -5,16 +5,14 @@ import { User } from '@prisma/client'; // Adjust based on your User model locati
 declare global {
   namespace Express {
     interface Request {
-      user?: any // or whatever structure you have for user
+      user?: {
+        id: string;         // Ensure this matches your actual user id type
+        email: string;      // Ensure this matches your actual email type
+        name: string;       // Ensure this matches your actual name type
+        picture?: string;   // Optional field
+      };
     }
   }
 }
 
 
-declare global {
-  namespace Express {
-    interface Request {
-      user?: any; // or whatever type your user object is
-    }
-  }
-}

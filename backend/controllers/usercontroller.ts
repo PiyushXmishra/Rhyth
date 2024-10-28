@@ -12,9 +12,8 @@ export const registerUser = async (req: Request, res: Response) => {
   try {
     const newUser = await prisma.user.create({
       data: {
-        username,
+  
         email,
-        password: hashedPassword,
       },
     });
     res.json(newUser);
@@ -32,7 +31,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
   }
 
   // Compare password
-  const isValidPassword = await bcrypt.compare(password, user.password);
+  const isValidPassword = await bcrypt.compare(password, user.id);
   if (!isValidPassword) {
       return res.status(401).json({ error: "Invalid credentials." });
   }

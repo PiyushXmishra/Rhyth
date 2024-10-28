@@ -12,6 +12,7 @@ import MobileWrapper from "@/components/player/MobileWrapper";
 import CurrentVideo from "@/components/player/CurrentVideo";
 import useMediaQuery from "@/components/hooks/useMediaQuery";  // Import the custom hook
 import UserPlaylists from "@/components/UserPlaylists";
+import SessionProviderWrapper from "./SessionProvider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -33,6 +34,7 @@ export default function ClientLayout({
 
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <SessionProviderWrapper>
       <TracksProvider>
         <SearchProvider>
           <PlayerProvider>
@@ -60,6 +62,7 @@ export default function ClientLayout({
           </PlayerProvider>
         </SearchProvider>
       </TracksProvider>
+      </SessionProviderWrapper>
     </div>
   );
 }
