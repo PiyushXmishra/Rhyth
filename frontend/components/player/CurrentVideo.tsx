@@ -38,12 +38,13 @@ interface SongInfo {
 
     if (videoId) {
       fetchSongInfo();
+      localStorage.setItem("LastVidId", videoId)
     }
   }, [videoId]); // Fetch song info when videoId changes
 
 
     return (
-      <div className="p-2 md:p-3 md:bg-accent rounded-xl">
+      <div className="p-2 lg:p-3 lg:bg-accent rounded-xl">
           {/* Song info at the bottom */}
           {loading ? (
             <CurrentVideoLoader/>
@@ -52,16 +53,16 @@ interface SongInfo {
               <img
                 src={songInfo.thumbnail_url}
                 alt={songInfo.title}
-                className="w-14 h-10 md:w-20 md:h-16 rounded-lg mr-4"
+                className="w-14 h-10 lg:w-20 lg:h-16 rounded-lg mr-4"
               />
               <div>
-                <h3 className="hidden md:flex text-base font-semibold font-sans">
+                <h3 className="hidden lg:flex text-base font-semibold font-sans">
                   {truncateTitle(songInfo.title, 90)}{" "}
                 </h3>
-                <h3 className="md:hidden text-sm font-semibold font-sans">
+                <h3 className="lg:hidden text-sm font-semibold font-sans">
                   {truncateTitle(songInfo.title, 16)}{" "}
                 </h3>
-                <p className="text-xs md:text-sm text-muted-foreground">
+                <p className="text-xs lg:text-sm text-muted-foreground">
                   By {songInfo.author_name}
                 </p>
               </div>

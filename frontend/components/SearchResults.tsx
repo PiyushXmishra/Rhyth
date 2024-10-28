@@ -2,6 +2,7 @@ import React from "react";
 import { usePlayer } from "./contexts/PlayerContext";
 import { motion } from "framer-motion";
 import { EllipsisVertical } from "lucide-react";
+import { Dropdown } from "./controls/DownloadButton";
 
 interface SearchResult {
   snippet: any;
@@ -42,17 +43,17 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
               }}
               whileTap={{ scale: 0.9 }}
               key={index}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2 justify-between"  
+              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"  
             >
               <div className="flex items-center w-full" onClick={() => handleVideoSelect(result.id.videoId)} >
                 <img
                   src={result.snippet.thumbnails.high.url}
                   alt={result.snippet.title}
-                  className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover"
+                  className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
                 />
 
-                <div className="ml-4 mr-2 md:ml-4 md:mr-0">
-                  <h3 className="text-xs md:text-base font-semibold font-sans">
+                <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
+                  <h3 className="text-xs lg:text-base font-semibold font-sans">
                     {truncateTitle(result.snippet.title, 60)}
                   </h3>
                   {/* Optional: display artist info */}
@@ -60,7 +61,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
                 </div>
               </div>
               <div className="flex">
-                <EllipsisVertical className="fill-white" />
+                <Dropdown videoId={result.id.videoId} videoTitle={result.snippet.title}/>
               </div>
             </motion.div>
           ))

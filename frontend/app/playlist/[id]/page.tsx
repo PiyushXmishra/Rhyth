@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import { cn } from "@/lib/utils";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { EllipsisVertical } from "lucide-react"
+import { Dropdown } from "@/components/controls/DownloadButton"
 
 interface Song {
   title: string
@@ -71,7 +72,7 @@ export default function SongDetails({
 
   if (loading) {
     return (
-      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full md:bg-secondary rounded-md md:rounded-3xl md:p-4">
+      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl lg:p-4">
         <SkeletonLoading count={20} />
       </div>
     )
@@ -89,7 +90,7 @@ export default function SongDetails({
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] md:bg-secondary rounded-md md:rounded-3xl md:p-4">
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] lg:bg-secondary rounded-md lg:rounded-3xl lg:p-4">
       
       <div className="overflow-y-auto relative">
      
@@ -104,7 +105,7 @@ export default function SongDetails({
             alt={playlistTitle}
             className="h-32 w-32 object-cover rounded-lg z-50"
           />
-          <h1 className="text-white shadow-lg underline underline-offset-4 decoration-muted-foreground text-base md:text-xl mt-4 self-start">
+          <h1 className="text-white shadow-lg underline underline-offset-4 decoration-muted-foreground text-base lg:text-xl mt-4 self-start">
             {playlistTitle}
           </h1>
         </div>
@@ -116,22 +117,22 @@ export default function SongDetails({
             }}
             whileTap={{ scale: 0.9 }}
             key={song.videoId}
-            className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out md:bg-accent rounded-xl md:m-2 justify-between"
+            className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"
           >
             <div className="flex items-center " onClick={() => handleVideoSelect(song.videoId)}>
             <img
               src={song.thumbnail.high.url}
               alt={song.title}
-              className="w-16 h-12 md:w-20 md:h-16 rounded-lg object-cover"
+              className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
             />
-            <div className="mx-4 md:ml-4">
-              <h3 className="text-xs md:text-base font-semibold font-sans">
+            <div className="mx-4 lg:ml-4">
+              <h3 className="text-xs lg:text-base font-semibold font-sans">
                 {truncateTitle(song.title, 60)}
               </h3>
             </div>
             </div>
             <div className="flex">
-                <EllipsisVertical className="fill-white" />
+            <Dropdown videoId={song.videoId} videoTitle={song.title}/>
               </div>
           </motion.div>
         ))}

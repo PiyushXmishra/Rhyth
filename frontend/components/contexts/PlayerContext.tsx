@@ -30,8 +30,9 @@ interface PlayerProviderProps {
 }
 
 // Create the PlayerProvider component
+const LastVidId = localStorage.getItem("LastVidId");
 export const PlayerProvider: React.FC<PlayerProviderProps> = ({ children }) => {
-  const [videoId, setVideoId] = useState<string>("Tb3x5I0ulCg");
+  const [videoId, setVideoId] = useState<string>(LastVidId || "Tb3x5I0ulCg");
   const [playlist, setPlaylist] = useState<string[]>([]);
   const [currentSongIndex, setCurrentSongIndex] = useState<number>(0);
 

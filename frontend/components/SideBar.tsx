@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function SideBar() {
   return (
-    <div className="hidden md:flex flex-col justify-between">
+    <div className="hidden lg:flex flex-col justify-between">
       <div className="flex flex-col space-y-8 p-4">
         <Link href={"/"}>
           <House className="w-8 h-8" />

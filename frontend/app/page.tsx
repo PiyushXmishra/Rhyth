@@ -4,11 +4,11 @@ import UserPlaylists from "@/components/UserPlaylists";
 const Home: React.FC = () => {
   return (
     <>
-    <div className="z-50 flex md:max-h-[calc(100vh-8rem)] md:min-h-[calc(100vh-8rem)] w-full md:bg-secondary rounded-3xl md:pb-4 flex-col ">
-      <h1 className="flex md:hidden text-2xl p-2  font-sans font-bold text-white text-start ">Hey User !</h1>
+    <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-3xl lg:pb-4 flex-col ">
+      <h1 className="flex lg:hidden text-2xl p-2  font-sans font-bold text-white text-start ">Hey User !</h1>
       <TrendingTracks />
     </div>
-    <div className="md:hidden">
+    <div className="lg:hidden">
        {/* <UserPlaylists/> */}
       </div>
     </>

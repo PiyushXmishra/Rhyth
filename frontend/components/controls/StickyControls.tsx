@@ -32,10 +32,10 @@ const StickyControls: React.FC<StickyControlsProps> = ({
       <div className=''>
       <PlayPauseButton isPlaying={isPlaying} onClick={onPlayPause} />
       </div>
-      <div className='hidden md:flex'>
+      <div className='hidden lg:flex'>
         <VolumeControl volume={volume} onVolumeChange={onVolumeChange} />
       </div>
-      <div className='hidden md:flex items-center'>
+      <div className='hidden lg:flex items-center'>
         <SeekBar elapsedTime={elapsedTime} duration={duration} onSeekChange={onSeekChange} />
       </div>
 
@@ -43,7 +43,7 @@ const StickyControls: React.FC<StickyControlsProps> = ({
         variant="ghost"
         size="icon"
         onClick={onHide}
-        className="hover:bg-secondary hidden md:flex "
+        className="hover:bg-secondary hidden lg:flex "
       >
         <Music2/>
       </Button>

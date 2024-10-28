@@ -17,11 +17,11 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`p-2 md:p-4 px-6 sticky top-0 z-10 bg-background/30 rounded-b-xl backdrop-blur-md ${
+      className={`p-2 lg:p-4 px-6 sticky top-0 z-10 bg-background/30 rounded-b-xl backdrop-blur-md ${
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >
-      <div className="hidden md:flex max-w-7xl mx-auto items-center justify-between">
+      <div className="hidden lg:flex max-w-7xl mx-auto items-center justify-between">
         <div className="flex items-center">
           <Image
             src="https://storage.googleapis.com/pr-newsroom-wp/1/2023/05/Spotify_Primary_Logo_RGB_Green.png"
@@ -47,7 +47,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      <div className="md:hidden relative h-12">
+      <div className="lg:hidden relative h-12">
         <div className="flex items-center justify-between absolute inset-0">
           {isSearchActive ? (
             <div className="flex items-center w-full">
