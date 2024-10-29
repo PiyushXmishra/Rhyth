@@ -28,7 +28,7 @@ async function decryptToken(token: string, secret: string) {
 
 // Middleware for user authentication
 const authMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const NEXTAUTH_JWT_TOKEN = req.cookies['__Secure-next-auth.session-token'];
+  const NEXTAUTH_JWT_TOKEN = req.cookies['next-auth.session-token'];
   console.log(NEXTAUTH_JWT_TOKEN)
 
   // Check if token exists
