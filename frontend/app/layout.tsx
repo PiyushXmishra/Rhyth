@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("___Secure-next-auth.session-token")?.value || null;
+  const nextAuthSessionToken = nextCookies.get("__Secure-next-auth.session-token")?.value || null;
   return (
     <html lang="en">
       <head>
