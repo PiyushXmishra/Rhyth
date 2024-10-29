@@ -29,6 +29,7 @@ export default function RootLayout({
         <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>
           {children}
+          <Analytics/>
         </ClientLayout>
         </TokenProvider>
       </body>
