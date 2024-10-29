@@ -15,7 +15,7 @@ const options: AuthOptions = {
       options: {
         domain: 'rhyth.onrender.com',  
         httpOnly: true,
-        sameSite: "None",
+        sameSite: "strict",
         secure: process.env.NODE_ENV === "production",
       },
     },
