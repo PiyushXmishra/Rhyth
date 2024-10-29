@@ -9,16 +9,7 @@ const options: AuthOptions = {
     }),
   ],
   secret: process.env.JWT_SECRET,
-  cookies: {
-    sessionToken: {
-      name: `__Secure-next-auth.session-token`,
-      options: {
-        domain: 'rhyth.vercel.app',  
-        httpOnly: true,
-        secure: true,
-      },
-    },
-  }
+ 
 };
 export const handler = NextAuth(options);
 
