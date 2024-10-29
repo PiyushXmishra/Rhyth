@@ -12,6 +12,18 @@ const options: AuthOptions = {
   session: {
     strategy: "jwt", // TypeScript now understands this as a valid strategy
   },
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`, // Change cookie name if needed
+      options: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
+        sameSite: 'lax',
+        path: '/',
+      },
+    },
+  },
+  
 };
 
 export const handler = NextAuth(options);
