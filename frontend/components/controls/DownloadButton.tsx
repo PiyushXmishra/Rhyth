@@ -2,8 +2,6 @@ import {
   Download,
   EllipsisVertical,
   ListMusic,
-  Mail,
-  MessageSquare,
   PlusCircle,
 } from "lucide-react";
 
@@ -13,7 +11,6 @@ import {
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuPortal,
-  DropdownMenuSeparator,
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
@@ -22,8 +19,10 @@ import {
 
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
 
 export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle: string }) {
+  const { sessionToken } = useToken(); // Get the session token from context
   const [playlists, setPlaylists] = useState<any[]>([]); // State to hold playlists
   const [loading, setLoading] = useState(true); // State to manage loading state
 
@@ -52,6 +51,9 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/playlist/getplaylist`, {
         withCredentials: true,
+        headers: {
+          'session-token': sessionToken || '', // Include session token if available
+        },
       });
       setPlaylists(response.data); // Assuming the response contains the playlists
     } catch (error) {
@@ -69,6 +71,9 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
         { videoId },
         {
           withCredentials: true, // Include credentials for auth
+          headers: {
+            'session-token': sessionToken || '', // Include session token if available
+          },
         }
       );
 
@@ -82,7 +87,7 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
 
   return (
     <DropdownMenu onOpenChange={fetchPlaylists}>
-      <DropdownMenuTrigger asChild >
+      <DropdownMenuTrigger asChild>
         <EllipsisVertical className="fill-white" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -96,7 +101,7 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
           <DropdownMenuSub>
             <DropdownMenuSubTrigger>
               <ListMusic />
-              <span className="ml-2">Add to PlayList</span>
+              <span className="ml-2">Add to Playlist</span>
             </DropdownMenuSubTrigger>
             <DropdownMenuPortal>
               <DropdownMenuSubContent>
@@ -112,7 +117,6 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
                     </DropdownMenuItem>
                   ))
                 )}
-    
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>

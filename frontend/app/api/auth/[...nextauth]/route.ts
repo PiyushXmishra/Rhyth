@@ -9,7 +9,6 @@ const options: AuthOptions = {
     }),
   ],
   secret: process.env.JWT_SECRET,
- 
 };
 export const handler = NextAuth(options);
 

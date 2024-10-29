@@ -1,37 +1,44 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
-import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "axios"; // Regular axios import
 import UserPlaylists from "@/components/UserPlaylists";
 import LoginPage from "@/components/Login";
 import useMediaQuery from "@/components/hooks/useMediaQuery";
 import { redirect } from "next/navigation";
+import { useToken } from '@/components/contexts/TokenContext';
 
 function YourPlaylist() {
+  const { sessionToken } = useToken(); // Get session token from context
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const { data: session } = useSession();
+  const [hasRegistered, setHasRegistered] = useState(false);
+
   useEffect(() => {
     if (isMobile) {
       redirect("/");
     }
   }, [isMobile]);
 
-  axios.defaults.withCredentials = true;
-
-  const { data: session } = useSession();
-  const [hasRegistered, setHasRegistered] = useState(false);
   useEffect(() => {
     const registerUser = async () => {
       try {
+        // Explicitly set the session-token in the header for this request
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_URL}/api/playlist/createuser`,
-          {}
+          {},
+          {
+            headers: {
+              'session-token': sessionToken || '', // Send the session token here
+            }
+          }
         );
         console.log(response.data);
         setHasRegistered(true);
         localStorage.setItem("hasRegistered", "true"); // Store in local storage
       } catch (error) {
-        console.error("Error registering user:", error);
+        //@ts-ignore
+        console.error("Error registering user:", error.response ? error.response.data : error);
       }
     };
 
@@ -41,7 +48,7 @@ function YourPlaylist() {
     } else if (hasRegisteredLocal) {
       setHasRegistered(true); // Update state if already registered
     }
-  }, [session, hasRegistered]);
+  }, [session, hasRegistered, sessionToken]); // Added sessionToken to dependencies
 
   return (
     <div className="flex w-5/12 bg-secondary rounded-3xl p-4">

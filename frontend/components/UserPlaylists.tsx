@@ -23,6 +23,8 @@ import {
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
 import LoginPage from './Login';
+import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
+import axios from 'axios'; // Import Axios
 
 type Playlist = {
   id: number;
@@ -31,30 +33,31 @@ type Playlist = {
 
 export default function UserPlaylists() {
   const { data: session } = useSession();
+  const { sessionToken } = useToken(); // Get the session token from context
   const [playlistName, setPlaylistName] = useState<string>('');
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
+  const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_URL, // Set your base URL here
+  });
+
+  // Add an interceptor to conditionally set the session token
+  axiosInstance.interceptors.request.use((config) => {
+    if (sessionToken) {
+      config.headers['session-token'] = sessionToken; // Set the session token in the header if available
+    }
+    return config; // Return the modified config
+  });
+
   const createPlaylist = async () => {
     if (session) {
       try {
-        const response = await fetch(
-          `${process.env.NEXT_PUBLIC_URL}/api/playlist/createplaylist`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            credentials: 'include',  // Include cookies
-            body: JSON.stringify({ name: playlistName }),
-          }
-        );
+        const response = await axiosInstance.post('/api/playlist/createplaylist', {
+          name: playlistName,
+        });
 
-        if (!response.ok) {
-          throw new Error('Failed to create playlist');
-        }
-
-        const data = await response.json();
+        const data = response.data;
         setPlaylists((prev) => [...prev, data]);
         setPlaylistName('');
       } catch (error) {
@@ -67,26 +70,19 @@ export default function UserPlaylists() {
     if (session) {
       const fetchPlaylists = async () => {
         try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/playlist/getplaylist`, {
-            credentials: 'include',  // Include cookies
-          });
-
-          if (!response.ok) {
-            throw new Error('Failed to fetch playlists');
-          }
-
-          const data = await response.json();
+          const response = await axiosInstance.get('/api/playlist/getplaylist');
+          const data = response.data;
           setPlaylists(data);
           setIsLoading(false);
         } catch (error) {
-          console.error('Failed to fetch playlists');
+          console.error('Failed to fetch playlists', error);
           setIsLoading(false);
         }
       };
 
       fetchPlaylists();
     }
-  }, [session]);
+  }, [session, sessionToken]); // Added sessionToken to dependencies
 
   const PlaylistSkeleton = () => (
     <Card className="flex flex-col items-center h-20 w-full">
