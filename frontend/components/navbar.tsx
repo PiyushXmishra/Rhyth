@@ -7,8 +7,8 @@ import Image from "next/image"
 import SearchBar from "./SearchBar"
 import { useSearchContext } from "@/components/contexts/searchContext"
 import Link from "next/link"
-import Logo from "@/public/android-launchericon-512-512.png"
-import Logo2 from "@/public/android-launchericon-192-192.png"
+import Logo from "@/public/NavbarImage.png"
+import Logo2 from "@/public/NavbarImage.png"
 import User from "./User"
 
 export default function Navbar() {
