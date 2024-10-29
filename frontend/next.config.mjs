@@ -15,6 +15,11 @@ const nextConfig = withPWA({
         hostname: 'storage.googleapis.com',
         port: '',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        port: '',
+      },
     ],
   },
   typescript: {

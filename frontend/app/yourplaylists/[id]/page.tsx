@@ -1,19 +1,20 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { motion } from 'framer-motion';
+import SkeletonLoading from '@/components/loaders/SearchLoader';
+import { usePlayer } from '@/components/contexts/PlayerContext';
 
 function Page({ params }: { params: { id: string } }) {
-  const [songs, setSongs] = useState<any[]>([]); // State to hold the songs
-  const [loading, setLoading] = useState(true); // State to manage loading state
-  const [error, setError] = useState<string | null>(null); // State to manage errors
-
-  // Get the playlistId from params
+  const [songs, setSongs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { setVideoId } = usePlayer();
   const playlistId = params.id;
 
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        // Fetch the songs from the updated API endpoint
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_URL}/api/playlist/getsongsofuserplaylist/${playlistId}`,
           {},
@@ -21,47 +22,71 @@ function Page({ params }: { params: { id: string } }) {
             headers: {
               'Content-Type': 'application/json',
             },
-            withCredentials: true, // Include credentials (cookies)
+            withCredentials: true,
           }
         );
-
-        // Set the songs with video details directly
-        setSongs(response.data); // Now response.data contains detailed song objects
+        setSongs(response.data);
       } catch (err: any) {
-        setError(err.message); // Set the error message if any error occurs
+        setError(err.message);
       } finally {
-        setLoading(false); // Set loading to false after the fetch
+        setLoading(false);
       }
     };
 
-    fetchSongs(); // Call the fetch function
-  }, [playlistId]); // Run effect when playlistId changes
+    fetchSongs();
+  }, [playlistId]);
 
-  // Render loading state
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  const truncateTitle = (title: string, maxLength: number) => {
+    return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
+  };
 
-  // Render error state
+  const handleVideoSelect = (videoId: string) => {
+    setVideoId(videoId);
+  };
+
   if (error) {
     return <div>Error: {error}</div>;
   }
 
-  // Render the list of songs
   return (
-    <div>
-      <h2>Songs in Playlist</h2>
-      <ul>
-        {songs.map((song) => (
-          <li key={song.videoId} className="flex items-center mb-4">
-            <img src={song.thumbnail} alt={song.title} className="w-16 h-16 mr-2" />
-            <div>
-              <h3 className="font-semibold">{song.title}</h3>
-              {/* You can add more details if needed */}
-            </div>
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl pt-2 lg:p-4">
+ <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground font-semibold font-sans mb-2 px-2">
+        <h1 className="text-base lg:text-xl">Songs</h1>
+      </div>
+      <div className="h-full overflow-y-auto">
+        {loading ? (
+       <SkeletonLoading count={10} />
+        ):(
+    songs.map((song, index) => (
+            <motion.div
+              whileHover={{
+                scale: 1.03,
+                transition: { duration: 0.01 },
+              }}
+              whileTap={{ scale: 0.9 }}
+              key={index}
+              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"  
+            >
+              <div className="flex items-center w-full" onClick={() => handleVideoSelect(song.videoId)} >
+                <img
+                  src={song.thumbnail}
+                  alt={song.title}
+                  className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
+                />
+
+                <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
+                  <h3 className="text-xs lg:text-base font-semibold font-sans">
+                    {truncateTitle(song.title, 60)}
+                  </h3>
+                  {/* Optional: display additional song info, e.g., artist */}
+                  {/* <p className="text-xs font-sans font-semibold text-muted-foreground">{song.artist}</p> */}
+                </div>
+              </div>
+            </motion.div>
+          ))
+        )}
+  
+      </div>
     </div>
   );
 }

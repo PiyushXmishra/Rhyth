@@ -82,7 +82,7 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
 
   return (
     <DropdownMenu onOpenChange={fetchPlaylists}>
-      <DropdownMenuTrigger asChild>
+      <DropdownMenuTrigger asChild >
         <EllipsisVertical className="fill-white" />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
@@ -112,20 +112,7 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
                     </DropdownMenuItem>
                   ))
                 )}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <Mail />
-                  <span>Email</span>
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <MessageSquare />
-                  <span>Message</span>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <PlusCircle />
-                  <span>More...</span>
-                </DropdownMenuItem>
+    
               </DropdownMenuSubContent>
             </DropdownMenuPortal>
           </DropdownMenuSub>

@@ -8,6 +8,8 @@ import SearchBar from "./SearchBar"
 import { useSearchContext } from "@/components/contexts/searchContext"
 import Link from "next/link"
 import Logo from "@/public/android-launchericon-512-512.png"
+import Logo2 from "@/public/android-launchericon-192-192.png"
+import User from "./User"
 
 export default function Navbar() {
   const { isSearching } = useSearchContext()
@@ -25,27 +27,14 @@ export default function Navbar() {
       <div className="hidden lg:flex max-w-7xl mx-auto items-center justify-between">
         <div className="flex items-center">
           <Image
-            src={Logo}
+            src={Logo2}
             alt="Logo"
-            width={100}
-            height={100}
+            height={50}
+            width={50}
           />
         </div>
         <SearchBar />
-        <div className="flex items-center space-x-2 gap-4">
-          <Button
-            variant="outline"
-            className="bg-secondary text-md font-medium text-secondary-foreground rounded-full py-6 px-5"
-          >
-            Sign In
-          </Button>
-          <Button
-            variant="default"
-            className="bg-primary text-md font-medium text-secondary-foreground rounded-full py-6 px-5"
-          >
-            Sign Up
-          </Button>
-        </div>
+       <User/>
       </div>
 
       <div className="lg:hidden relative h-12">
@@ -73,9 +62,7 @@ export default function Navbar() {
                 height={70}
                 className=""
               />
-              <button className="p-2">
-                <Settings className="h-6 w-6" />
-              </button>
+             <User/>
             </>
           )}
         </div>

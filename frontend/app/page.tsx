@@ -9,7 +9,7 @@ const Home: React.FC = () => {
       <TrendingTracks />
     </div>
     <div className="lg:hidden">
-       {/* <UserPlaylists/> */}
+       <UserPlaylists/>
       </div>
     </>
   );

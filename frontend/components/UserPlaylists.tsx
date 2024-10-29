@@ -1,22 +1,43 @@
+'use client'
+
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
-import { PlusCircle } from "lucide-react"; // Importing PlusCircle icon for the button
+import Image from 'next/image';
+import playistlogo from "@/public/playlist.png";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
+import LoginPage from './Login';
 
 type Playlist = {
   id: number;
   name: string;
 };
 
-function UserPlaylists() {
+export default function UserPlaylists() {
   const { data: session } = useSession();
   const [playlistName, setPlaylistName] = useState<string>('');
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
-  const [hasFetchedPlaylists, setHasFetchedPlaylists] = useState<boolean>(false);
-  const [isCreatingPlaylist, setIsCreatingPlaylist] = useState<boolean>(false); // State to toggle input visibility
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Function to create a new playlist
   async function createPlaylist() {
     if (session) {
       try {
@@ -25,81 +46,130 @@ function UserPlaylists() {
           { name: playlistName },
           { withCredentials: true }
         );
-        setPlaylists((prev) => [...prev, response.data]); // Add the new playlist to the list
-        setPlaylistName(''); // Reset input after creation
-        setIsCreatingPlaylist(false); // Hide the input box after creation
+        setPlaylists((prev) => [...prev, response.data]);
+        setPlaylistName('');
       } catch (error) {
         console.error('Failed to create playlist', error);
       }
     }
   }
 
-  // Fetch playlists only once when session is active
   useEffect(() => {
-    if (session && !hasFetchedPlaylists) {
+    if (session) {
       const fetchPlaylists = async () => {
         try {
           const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/playlist/getplaylist`, {
             withCredentials: true,
           });
           setPlaylists(response.data);
-          setHasFetchedPlaylists(true); // Prevents re-fetching playlists
+          setIsLoading(false);
         } catch (error) {
           console.error('Failed to fetch playlists');
+          setIsLoading(false);
         }
       };
       fetchPlaylists();
     }
-  }, [session, hasFetchedPlaylists]); // Add hasFetchedPlaylists as a dependency
+  }, [session]);
+
+  const PlaylistSkeleton = () => (
+    <Card className="flex flex-col items-center h-20 w-full">
+      <CardContent className="flex flex-row items-center justify-start p-4 h-full w-full space-x-4">
+        <Skeleton className="h-12 w-full rounded-full" />
+        {/* <Skeleton className="h-4 w-3/4" /> */}
+      </CardContent>
+    </Card>
+  );
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
+    <div className="mx-auto p-4 bg-secondary lg:bg-none rounded-2xl w-full">
       <h2 className="text-2xl font-semibold mb-4">Your Playlists</h2>
-      
-      {/* Playlists Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-        {playlists.length > 0 ? (
-          playlists.map((playlist) => (
-            <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
-              <div className="p-4 border rounded-lg shadow-lg hover:shadow-xl transition-shadow">
-                <h3 className="text-lg font-medium">{playlist.name}</h3>
-              </div>
-            </Link>
-          ))
-        ) : (
-          <p>No playlists available</p>
-        )}
-      </div>
 
-      {/* Button to Create New Playlist */}
-      <div className="flex items-center mb-4">
-        <button 
-          onClick={() => setIsCreatingPlaylist(!isCreatingPlaylist)} 
-          className="flex items-center text-blue-500 hover:underline">
-          <PlusCircle className="mr-2" />
-          <span>{isCreatingPlaylist ? "Cancel" : "Create New Playlist"}</span>
-        </button>
-      </div>
-
-      {/* Input to Create New Playlist */}
-      {isCreatingPlaylist && (
-        <div className="flex">
-          <input
-            type="text"
-            value={playlistName}
-            onChange={(e) => setPlaylistName(e.target.value)}
-            placeholder="Enter playlist name"
-            className="border rounded-lg p-2 flex-1 mr-2"
-          />
-          <button 
-            onClick={createPlaylist} 
-            className="bg-blue-500 text-white rounded-lg px-4 py-2 hover:bg-blue-600 transition">
-            Create
-          </button>
+{ session ? (
+  <>
+  {/* Carousel for Playlists */}
+  <Carousel
+  opts={{
+    align: "start",
+    loop: true,
+  }}
+  className="w-full  mx-auto"
+>
+  <CarouselContent>
+    {isLoading ? (
+      // Loader
+      <CarouselItem className="basis-full p-2">
+        <div className="grid grid-cols-2 gap-6">
+          {[...Array(2)].map((_, index) => (
+            <PlaylistSkeleton key={index} />
+          ))}
         </div>
-      )}
+      </CarouselItem>
+    ) : playlists.length > 0 ? (
+      // Playlists
+      Array.from({ length: Math.ceil(playlists.length / 2) }).map((_, index) => (
+        <CarouselItem key={index} className="basis-full p-2">
+          <div className="grid grid-cols-2 gap-6">
+            {playlists.slice(index * 2, index * 2 + 2).map((playlist) => (
+              <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
+                <Card className="flex flex-col items-center h-20 w-full">
+                  <CardContent className="flex flex-row items-center justify-start p-4 h-full w-full space-x-4">
+                    <Image
+                      src={playistlogo}
+                      alt="Playlist logo"
+                      height={48}
+                      width={48}
+                      className="rounded-full"
+                    />
+                    <h3 className="text-lg font-semibold overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)]">
+                      {playlist.name}
+                    </h3>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </CarouselItem>
+      ))
+    ) : (
+      <p>No playlists available</p>
+    )}
+  </CarouselContent>
+</Carousel>
+
+{/* Dialog for Creating a New Playlist */}
+<Dialog>
+  <div className="flex justify-center mt-4">
+    <DialogTrigger asChild>
+      <Button variant="outline">Create Playlist</Button>
+    </DialogTrigger>
+  </div>
+  <DialogContent className="sm:max-w-[425px]">
+    <DialogHeader>
+      <DialogTitle>New Playlist</DialogTitle>
+    </DialogHeader>
+    <div className="grid gap-4 py-4">
+      <Input
+        id="text"
+        className="rounded-sm"
+        value={playlistName}
+        onChange={(e) => setPlaylistName(e.target.value)}
+        placeholder="Enter playlist name"
+      />
+    </div>
+    <DialogFooter>
+      <DialogClose asChild>
+        <Button onClick={createPlaylist}>Create</Button>
+      </DialogClose>
+    </DialogFooter>
+  </DialogContent>
+</Dialog>
+</>
+):(
+
+  <LoginPage/>
+) }
+    
     </div>
   );
 }
-
-export default UserPlaylists;
