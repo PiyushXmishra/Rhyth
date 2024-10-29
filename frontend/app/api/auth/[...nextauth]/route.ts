@@ -18,7 +18,7 @@ const options: AuthOptions = {
       options: {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', // Use secure cookies in production
-        sameSite: 'lax',
+        sameSite: 'None',
         path: '/',
       },
     },
