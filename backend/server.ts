@@ -10,7 +10,7 @@ import express, { Express,Request, Response } from 'express';
 dotenv.config();
 const app:Express = express();
 const PORT = process.env.PORT || 4000;
-const allowedOrigins = ['http://localhost:3000','https://localhost:3000','https://rhyth.vercel.app','*'];
+const allowedOrigins = ['http://localhost:3000','https://localhost:3000','https://rhyth.vercel.app'];
 app.use(cors({
     origin: allowedOrigins,
     credentials: true,  // Allow cookies to be sent with requests
