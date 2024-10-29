@@ -1,8 +1,7 @@
 // middlewares/authMiddleware.ts
 
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
+import jwt from 'jsonwebtoken'; // If you're using it somewhere else, keep it; otherwise, you can remove it
 import prisma from '../models/prismaclient';
 import { jwtDecrypt } from "jose";
 import hkdf from '@panva/hkdf';
@@ -29,19 +28,19 @@ async function decryptToken(token: string, secret: string) {
 
 // Middleware for user authentication
 const authMiddleware = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const NEXTAUTH_JWT_TOKEN = req.cookies['__Secure-next-auth.session-token'];
-  console.log(NEXTAUTH_JWT_TOKEN)
+  const sessionToken = req.headers['session-token'] as string; // Get the session token from the header
+  console.log('Session Token:', sessionToken);
 
   // Check if token exists
-  if (!NEXTAUTH_JWT_TOKEN) {
-    console.error('No token provided in cookies:', req.cookies);
+  if (!sessionToken) {
+    console.error('No token provided in headers:', req.headers);
     res.status(401).json({ message: 'Unauthorized: No token provided' });
     return; // Stop execution
   }
 
   try {
     // Decrypt token to extract payload
-    const result = await decryptToken(NEXTAUTH_JWT_TOKEN, NEXTAUTH_SECRET);
+    const result = await decryptToken(sessionToken, NEXTAUTH_SECRET);
 
     // Extract user data from payload
     const { email, name, picture } = result as { email?: string; name?: string; picture?: string };
@@ -52,9 +51,8 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction): 
         where: { email },
       });
 
-      if(user){
-        console.log("user found !!!!")
-        console.log(user)
+      if (user) {
+        console.log("User found:", user);
       }
 
       // Create a new user if not found
@@ -66,14 +64,16 @@ const authMiddleware = async (req: Request, res: Response, next: NextFunction): 
             image: picture,
           },
         });
-        console.log("user created successfully")
+        console.log("User created successfully");
       }
-//@ts-ignore
+
+      // Attach user data to request object
+      //@ts-ignore
       req.user = {
         id: user.id,
-        email: user.email || "" ,
+        email: user.email || "",
         name: user.name || "",
-        picture: user.image ||"",
+        picture: user.image || "",
       };
 
       // Continue to next middleware or route
