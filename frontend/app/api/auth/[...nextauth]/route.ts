@@ -8,9 +8,18 @@ const options: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
   ],
-  secret: process.env.JWT_SECRET,  
+  secret: process.env.JWT_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        httpOnly: true,
+        sameSite: "None",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  },
 };
-
 export const handler = NextAuth(options);
 
 export { handler as GET, handler as POST };
