@@ -9,6 +9,17 @@ const options: AuthOptions = {
     }),
   ],
   secret: process.env.JWT_SECRET,
+  cookies: {
+    sessionToken: {
+      name: `__Secure-next-auth.session-token`,
+      options: {
+        domain: 'rhyth.onrender.com',  
+        httpOnly: true,
+        sameSite: "None",
+        secure: process.env.NODE_ENV === "production",
+      },
+    },
+  }
 };
 export const handler = NextAuth(options);
 
