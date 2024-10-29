@@ -2,6 +2,7 @@
 
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import cookieParser from 'cookie-parser';
 import prisma from '../models/prismaclient';
 import { jwtDecrypt } from "jose";
 import hkdf from '@panva/hkdf';

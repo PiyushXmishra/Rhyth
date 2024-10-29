@@ -6,8 +6,9 @@ import authMiddleware from '../middlewares/middleware';
 import {createUser } from "../controllers/createUser";
 import { getSongsOfUserPlaylist } from '../controllers/getSongsOfUserPlaylist';
 import { addSongToPlaylist, deleteSongFromPlaylist } from '../controllers/songcontroller';
+import cookieParser from 'cookie-parser';
 const router = Router();
-
+router.use(cookieParser());
 router.post('/homeplaylists', HomePlaylists)
 router.post('/createuser', authMiddleware , createUser)
 router.post('/createplaylist', authMiddleware, createPlaylist);
