@@ -13,10 +13,9 @@ const options: AuthOptions = {
     sessionToken: {
       name: `__Secure-next-auth.session-token`,
       options: {
-        domain: 'rhyth.vercel.app',  
+        domain: 'https://rhyth.onrender.com',  
         httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
+        secure: true,
       },
     },
   }
