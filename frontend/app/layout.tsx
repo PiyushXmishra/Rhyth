@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import ClientLayout from "./clientLayout"; // Import the client component
 import { TokenProvider } from "@/components/contexts/TokenContext";
 import { cookies } from "next/headers";
+import { Analytics } from "@vercel/analytics/react"
 export const metadata: Metadata = {
   title: "Rhyth",
   description: "Music Platform",
