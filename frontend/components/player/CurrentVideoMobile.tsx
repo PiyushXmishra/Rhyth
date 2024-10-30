@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/drawer"
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
+import MobileWrapper from './MobileWrapper'
 
 interface SongInfo {
   title: string
@@ -81,7 +82,7 @@ function CurrentVideoMobile() {
                     />
                   )}
                   <div>
-                    <h3 className="text-md font-sans font-semibold"> {truncateTitle(songInfo.title, 70)}{" "}</h3>
+                    <h3 className="text-base font-sans font-semibold"> {truncateTitle(songInfo.title, 70)}{" "}</h3>
                     <p className="text-sm text-muted-foreground">{songInfo.author_name}</p>
                   </div>
                 </div>

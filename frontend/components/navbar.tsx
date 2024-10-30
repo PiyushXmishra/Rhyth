@@ -34,37 +34,33 @@ export default function Navbar() {
           />
         </div>
         <SearchBar />
-       <User/>
+        <User />
       </div>
 
-      <div className="lg:hidden relative h-12">
-        <div className="flex items-center justify-between absolute inset-0">
-          {isSearchActive ? (
-            <div className="flex items-center w-full">
-              <Link href="/">
-                <div onClick={toggleSearch} className="p-2">
-                  <ArrowLeft className="h-6 w-6" />
-                </div>
-              </Link>
-              <div className="flex-grow">
-                <SearchBar />
-              </div>
+      <div className="lg:hidden relative h-12 overflow-hidden">
+        <div className={`flex items-center justify-between absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? '-translate-x-full' : 'translate-x-0'}`}>
+          <button onClick={toggleSearch} aria-label="Search" className="p-2">
+            <Search className="h-6 w-6" />
+          </button>
+          <Image
+            src={Logo}
+            alt="Logo"
+            width={70}
+            height={70}
+            className=""
+          />
+          <User />
+        </div>
+
+        <div className={`flex items-center w-full absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? 'translate-x-0' : 'translate-x-full'}`}>
+          <Link href="/">
+            <div onClick={toggleSearch} className="p-2">
+              <ArrowLeft className="h-6 w-6" />
             </div>
-          ) : (
-            <>
-              <button onClick={toggleSearch} aria-label="Search" className="p-2">
-                <Search className="h-6 w-6" />
-              </button>
-              <Image
-                src={Logo}
-                alt="Logo"
-                width={70}
-                height={70}
-                className=""
-              />
-             <User/>
-            </>
-          )}
+          </Link>
+          <div className="flex-grow">
+            <SearchBar />
+          </div>
         </div>
       </div>
     </nav>
