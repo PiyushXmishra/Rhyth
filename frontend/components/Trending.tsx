@@ -28,7 +28,7 @@ const TrendingTracks: React.FC = () => {
         {loading || tracks.length === 0 ? (
           <LoadingSkeleton count={6} />
         ) : (
-          <div className='grid grid-cols-2  gap-4 lg:px-2 pt-2 lg:pt-4 w-full'> 
+          <div className='grid grid-cols-2 gap-4 lg:px-2 pt-2 lg:pt-4 w-full'> 
             {tracks.map((track) => (
               <Link key={track.id} href={`/playlist/${track.id}?title=${track.name}`} passHref>
                 <motion.div 

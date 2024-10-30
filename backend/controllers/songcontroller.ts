@@ -2,6 +2,8 @@
 import { Request, Response } from 'express';
 import prisma from '../models/prismaclient';
 import axios from 'axios';
+import { decode } from "html-entities";
+
 import redisClient from '../redis/redisclient';
 
 export const addSongToPlaylist = async (req: Request<{ playlistId: string }>, res: Response):Promise<any> => {
@@ -141,44 +143,46 @@ export const deleteSongFromPlaylist = async (req: Request<{ playlistId: string }
 
 
 
-
-
-
-
-
-
-
-
-export const searchSongs = async (req: Request, res: Response):Promise<any> => { 
-  console.log(req.query);
-  const { query } = req.query; // Destructure the 'query' parameter
-
-  // Check Redis cache for search results
-  const cachedResults = await redisClient.get(query as string); // Cast query to string
-
-  if (cachedResults) {
-    // If cache exists, return cached results
-    console.log('Returning cached results');
-    return res.json(JSON.parse(cachedResults));
-  }
-
-  try {
-    // If not in cache, fetch from YouTube API
-    const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
-      params: {
-        part: 'snippet',
-        q: query,
-        type: 'video',
-        maxResults: 10,
-        key: process.env.YOUTUBE_API_KEY,
-      },
-    });
-
-    // Cache the results in Redis with an expiration time of one day (86400 seconds)
-    await redisClient.set(query as string, JSON.stringify(response.data.items), 'EX', 86400);
-
-    res.json(response.data.items);
-  } catch (error) {
-    res.status(500).json({ error });
-  }
-};
+export const searchSongs = async (req: Request, res: Response): Promise<any> => {
+    console.log(req.query);
+    const { query } = req.query;
+  
+    // Check Redis cache for search results
+    const cachedResults = await redisClient.get(query as string);
+  
+    if (cachedResults) {
+      console.log("Returning cached results");
+      return res.json(JSON.parse(cachedResults));
+    }
+  
+    try {
+      // Fetch from YouTube API if not in cache
+      const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
+        params: {
+          part: "snippet",
+          q: query,
+          type: "video",
+          maxResults: 10,
+          key: process.env.YOUTUBE_API_KEY,
+        },
+      });
+  
+      // Decode HTML entities in the titles
+      const decodedItems = response.data.items.map((item: any) => ({
+        ...item,
+        snippet: {
+          ...item.snippet,
+          title: decode(item.snippet.title), // Decode title
+        },
+      }));
+  
+      // Cache the decoded results in Redis
+      await redisClient.set(query as string, JSON.stringify(decodedItems), "EX", 86400);
+  
+      res.json(decodedItems);
+    } catch (error) {
+        //@ts-ignore
+      res.status(500).json({ error: error.message });
+    }
+  };
+  

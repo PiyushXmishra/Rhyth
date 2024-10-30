@@ -13,7 +13,7 @@ import CurrentVideo from "@/components/player/CurrentVideo";
 import useMediaQuery from "@/components/hooks/useMediaQuery";  // Import the custom hook
 import UserPlaylists from "@/components/UserPlaylists";
 import SessionProviderWrapper from "./SessionProvider";
-
+import CurrentVideoMobile from "@/components/player/CurrentVideoMobile";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -48,7 +48,7 @@ export default function ClientLayout({
                 {isMobile ? (
                   <div className="lg:hidden">
                     <div className="flex items-center justify-between bg-secondary rounded-lg">
-                      <CurrentVideo />
+                      <CurrentVideoMobile/>
                       <MobileWrapper />
                     </div>
                   </div>
