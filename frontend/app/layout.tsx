@@ -18,13 +18,13 @@ export default function RootLayout({
   const nextAuthSessionToken = nextCookies.get("__Secure-next-auth.session-token")?.value || null;
   console.log(nextAuthSessionToken)
   return (
-    <html lang="en">
+    <html lang="en" style={{WebkitFontSmoothing:"antialiased"}}>
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body>
+      <body style={{WebkitFontSmoothing:"antialiased"}}>
         {/* Render the client-side layout */}
         <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>
