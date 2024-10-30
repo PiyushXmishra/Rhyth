@@ -72,13 +72,12 @@ function CurrentVideoMobile() {
           ) : songInfo ? (
             <div className="p-4 pb-0">
               <div className="space-y-4">
-                <div className="flex flex-col items-center ">
+                <div className="flex flex-col items-center">
                   {songInfo.thumbnail_url && (
                     <img
                       src={songInfo.thumbnail_url}
                       alt={songInfo.title}
-                      
-                      className="rounded-md"
+                      className="rounded-xl pb-2"
                     />
                   )}
                   <div>
