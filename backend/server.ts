@@ -18,6 +18,11 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 
+app.get("/",(req,res)=>{
+  res.status(200);
+  res.send("hello from rhyth")
+})
+
 app.use('/api/users', userRoutes);
 app.use('/api/songs' , songRoutes);
 app.use('/api/playlist' , playlistRoutes)
