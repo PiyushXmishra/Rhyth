@@ -12,10 +12,6 @@ interface SeekBarProps {
 export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBarProps) {
   return (
     <div className=" items-center w-full ">
-       {/* <div className="flex justify-between text-sm text-muted-foreground">
-        
-        
-      </div> */}
       <div className='flex space-x-4' >
       <span>{formatTime(elapsedTime)}</span>
       <Slider

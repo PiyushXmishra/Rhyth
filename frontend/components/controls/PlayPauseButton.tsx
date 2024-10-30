@@ -1,18 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Play, Pause } from 'lucide-react'; // Importing Play and Pause icons
 import { Button } from '../ui/button';
+import { usePlayerControl } from '../contexts/ControlContext';
 
-interface PlayPauseButtonProps {
-  isPlaying: boolean;
-  onClick: () => void;
-}
+const PlayPauseButton: React.FC = () => {
+  const {isPlaying ,setIsPlaying} = usePlayerControl()
 
-const PlayPauseButton: React.FC<PlayPauseButtonProps> = ({ isPlaying, onClick }) => {
+ const handlePlayPause =()=>{
+setIsPlaying((prev) => !prev);
+ }
+  
   return (
     <Button
     variant="ghost"
     size="icon" 
-    onClick={onClick}
+    onClick={handlePlayPause}
     className="hover:bg-secondary">
     {isPlaying ? <Pause size={24} /> : <Play size={24} />}
     </Button>

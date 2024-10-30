@@ -18,6 +18,7 @@ import {
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import MobileWrapper from './MobileWrapper'
+import PlayPauseButton from '../controls/PlayPauseButton'
 
 interface SongInfo {
   title: string
@@ -85,6 +86,11 @@ function CurrentVideoMobile() {
                     <h2 className="font-semibold font-sans text-base "> {truncateTitle(songInfo.title, 70)}{" "}</h2>
                     <p className="text-sm text-muted-foreground">{songInfo.author_name}</p>
                   </div>
+                </div>
+                <div className='w-full justify-center flex'>
+                  <div className='p-2 bg-secondary rounded-full'>
+                <PlayPauseButton/>
+                </div>
                 </div>
               </div>
             </div>

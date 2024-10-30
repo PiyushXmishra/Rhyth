@@ -14,6 +14,8 @@ import useMediaQuery from "@/components/hooks/useMediaQuery";  // Import the cus
 import UserPlaylists from "@/components/UserPlaylists";
 import SessionProviderWrapper from "./SessionProvider";
 import CurrentVideoMobile from "@/components/player/CurrentVideoMobile";
+import { PlayerControlProvider } from "@/components/contexts/ControlContext";
+import PlayPauseButton from "@/components/controls/PlayPauseButton";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -34,6 +36,7 @@ export default function ClientLayout({
 
   return (
     <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+      <PlayerControlProvider>
       <SessionProviderWrapper>
       <TracksProvider>
         <SearchProvider>
@@ -49,7 +52,10 @@ export default function ClientLayout({
                   <div className="lg:hidden">
                     <div className="flex items-center justify-between bg-secondary rounded-lg">
                       <CurrentVideoMobile/>
-                      <MobileWrapper />
+                      <MobileWrapper/>
+                      <div className=" items-center justify-between px-4 py-2">
+                     <PlayPauseButton/>
+                     </div>
                     </div>
                   </div>
                 ) : (
@@ -63,6 +69,7 @@ export default function ClientLayout({
         </SearchProvider>
       </TracksProvider>
       </SessionProviderWrapper>
+      </PlayerControlProvider>
     </div>
   );
 }

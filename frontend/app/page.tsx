@@ -1,4 +1,5 @@
 "use client";
+import PlayPauseButton from "@/components/controls/PlayPauseButton";
 import TrendingTracks from "@/components/Trending";
 import UserPlaylists from "@/components/UserPlaylists";
 const Home: React.FC = () => {

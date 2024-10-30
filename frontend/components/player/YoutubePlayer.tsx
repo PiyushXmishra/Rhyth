@@ -5,11 +5,11 @@ import YouTube from "react-youtube";
 import { usePlayer } from "../contexts/PlayerContext";
 import StickyControls from "../controls/StickyControls";
 import { motion } from "framer-motion"; 
-
+import { usePlayerControl } from "../contexts/ControlContext";
 export default function YoutubePlayer({ videoId }: { videoId: string }) {
+  const {isPlaying , setIsPlaying} = usePlayerControl();
   //@ts-ignore
   const playerRef = useRef<YT.Player | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(100);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -73,6 +73,16 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
       setIsPlaying(true);
     }
   };
+  useEffect(() => {
+    if (playerRef.current) {
+      if (isPlaying) {
+        playerRef.current.playVideo();
+      } else {
+        playerRef.current.pauseVideo();
+      }
+    }
+  }, [isPlaying]);
+  
 
   const handleSeekChange = (seekTime: number) => {
     if (playerRef.current) {
@@ -149,11 +159,9 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
 
       {/* Sticky Controls */}
       <StickyControls
-        isPlaying={isPlaying}
         elapsedTime={elapsedTime}
         duration={duration}
         volume={volume}
-        onPlayPause={handlePlayPause}
         onSeekChange={handleSeekChange}
         onVolumeChange={setVolume}
         onHide={ToggleOnlyMusic}
