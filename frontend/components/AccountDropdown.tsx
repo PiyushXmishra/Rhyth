@@ -92,11 +92,11 @@ export default function AccountMenu() {
 
   if (isMobile) {
     return (
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
+      <Drawer open={isOpen} onOpenChange={setIsOpen} >
         <DrawerTrigger asChild>
             {triggerContent}
         </DrawerTrigger>
-        <DrawerContent>
+        <DrawerContent className='bg-background'>
           <DrawerHeader className="text-center">
             <DrawerTitle>Account</DrawerTitle>
           </DrawerHeader>

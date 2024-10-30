@@ -66,7 +66,7 @@ function CurrentVideoMobile() {
         </div>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-sm ">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -77,9 +77,9 @@ function CurrentVideoMobile() {
                 <div className="flex flex-col items-center">
                   {songInfo.thumbnail_url && (
                     <img
-                      src={songInfo.thumbnail_url}
+                      src={songInfo.thumbnail_url.replace("hqdefault","maxresdefault")}
                       alt={songInfo.title}
-                      className="rounded-xl pb-2"
+                      className="rounded-xl pb-2 "
                     />
                   )}
                   <div>
