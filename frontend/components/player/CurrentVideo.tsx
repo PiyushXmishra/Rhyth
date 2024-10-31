@@ -61,7 +61,7 @@ interface SongInfo {
                   {truncateTitle(songInfo.title, 90)}{" "}
                 </h3>
                 <h3 className="lg:hidden text-sm font-semibold font-sans">
-                  {truncateTitle(songInfo.title, 26)}{" "}
+                  {truncateTitle(songInfo.title, 20)}{" "}
                 </h3>
                 <p className="text-xs lg:text-sm text-muted-foreground">
                   By {songInfo.author_name}
