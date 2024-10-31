@@ -6,15 +6,15 @@ import { usePlayer } from "../contexts/PlayerContext";
 import StickyControls from "../controls/StickyControls";
 import { motion } from "framer-motion"; 
 import { usePlayerControl } from "../contexts/ControlContext";
-export default function YoutubePlayer({ videoId }: { videoId: string }) {
+export default function YoutubePlayer() {
   const {isPlaying , setIsPlaying , elapsedTime ,setElapsedTime ,duration ,setDuration ,onSeekChange} = usePlayerControl();
   //@ts-ignore
   const playerRef = useRef<YT.Player | null>(null);
   const [volume, setVolume] = useState(100);
   const [isMuted] = useState(true);
   const [hidden, setHidden] = useState(false);
-  const { playNextSong } = usePlayer();
-
+  const { playNextSong ,videoId} = usePlayer();
+console.log(videoId)
   const opts = {
     height: "303.75",
     width: "540",
@@ -81,14 +81,14 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
     }
   }, [isPlaying]);
   
-
   const handleSeekChange = (seekTime: number) => {
-    if (playerRef.current) {
+    if (playerRef.current && playerRef.current.seekTo) {
       playerRef.current.seekTo(seekTime, true);
       onSeekChange(seekTime);
+    } else {
+      console.log('YouTube player not ready yet');
     }
   };
-
   // Use useEffect to listen for changes in elapsedTime from the context
   useEffect(() => {
     if (playerRef.current && Math.abs(playerRef.current.getCurrentTime() - elapsedTime) > 1) {

@@ -39,6 +39,7 @@ export default function SongDetails({
 
   const handleVideoSelect = (videoId: string) => {
     setVideoId(videoId)
+    console.log(videoId);
   }
 
   useEffect(() => {
