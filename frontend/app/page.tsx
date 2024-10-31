@@ -1,6 +1,8 @@
 "use client"
 import TrendingTracks from "@/components/Trending";
+import { Skeleton } from "@/components/ui/skeleton";
 import UserPlaylists from "@/components/UserPlaylists";
+import { useEffect, useState } from "react";
 
 const getGreeting = () => {
   const currentHour = new Date().getHours();
@@ -15,14 +17,28 @@ const getGreeting = () => {
 };
 
 const Home: React.FC = () => {
-  const greeting = getGreeting();
+
+  const [greeting, setGreeting] = useState("");
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setGreeting(getGreeting());
+    }, 50)
+  }, [])
+  
 
   return (
     <>
       <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-3xl lg:pb-4 flex-col ">
-        <h1 className="flex lg:hidden text-xl p-2 font-sans font-bold text-white text-start">
-        {greeting}
-        </h1>
+        
+        {greeting ? (
+          <h1 className="flex lg:hidden text-xl p-2 font-sans font-bold text-white text-start">
+            {greeting}
+             </h1>
+        ) :(
+          <Skeleton className="lg:hidden w-2/4 p-2 h-10"/>
+        )}
+       
         <TrendingTracks />
       </div>
       <div className="lg:hidden">
