@@ -4,20 +4,15 @@ import React, { useEffect, useState } from 'react'
 import CurrentVideo from './CurrentVideo'
 import { Button } from "@/components/ui/button"
 import { usePlayer } from "../contexts/PlayerContext"
-import Image from 'next/image'
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
-import MobileWrapper from './MobileWrapper'
 import PlayPauseButton from '../controls/PlayPauseButton'
 
 interface SongInfo {
@@ -29,11 +24,12 @@ interface SongInfo {
 function CurrentVideoMobile() {
   const { videoId } = usePlayer()
   const [songInfo, setSongInfo] = useState<SongInfo | null>(null)
+  const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
 
   const truncateTitle = (title: string, maxLength: number) => {
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
-  };
+  }
 
   useEffect(() => {
     const fetchSongInfo = async () => {
@@ -43,7 +39,22 @@ function CurrentVideoMobile() {
           `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
         )
         setSongInfo(response.data)
-        console.log(response.data)
+
+        // Check if maxresdefault thumbnail is available
+        const maxResUrl = response.data.thumbnail_url.replace("hqdefault", "maxresdefault")
+        const img = new Image()
+        img.src = maxResUrl
+        img.onload = () => {
+          if (img.width > 120) { // Assume placeholder is 120px width
+            setThumbnailUrl(maxResUrl)
+          } else {
+            setThumbnailUrl(response.data.thumbnail_url) // fallback to hqdefault
+          }
+        }
+        img.onerror = () => {
+          setThumbnailUrl(response.data.thumbnail_url) // fallback to hqdefault
+        }
+
       } catch (error) {
         console.error("Error fetching song info:", error)
         setSongInfo(null)
@@ -66,7 +77,7 @@ function CurrentVideoMobile() {
         </div>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm ">
+        <div className="mx-auto w-full max-w-sm">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -74,23 +85,25 @@ function CurrentVideoMobile() {
           ) : songInfo ? (
             <div className="p-4 pb-0">
               <div className="space-y-4">
-                <div className="flex flex-col items-center">
-                  {songInfo.thumbnail_url && (
+                <div className="flex flex-col ">
+                  {thumbnailUrl && (
                     <img
-                      src={songInfo.thumbnail_url.replace("hqdefault","maxresdefault")}
+                      src={thumbnailUrl}
                       alt={songInfo.title}
-                      className="rounded-xl pb-2 "
+                      className="rounded-xl pb-2"
                     />
                   )}
                   <div>
-                    <h2 className="text-white text-base font-semibold font-sans"> {truncateTitle(songInfo.title, 70)}{" "}</h2>
+                    <h2 className="text-white text-base font-semibold font-sans">
+                      {truncateTitle(songInfo.title, 70)}{" "}
+                    </h2>
                     <p className="text-sm text-muted-foreground">{songInfo.author_name}</p>
                   </div>
                 </div>
-                <div className='w-full justify-center flex'>
-                  <div className='p-2 bg-secondary rounded-full'>
-                <PlayPauseButton/>
-                </div>
+                <div className="w-full justify-center flex">
+                  <div className="p-2 bg-secondary rounded-full">
+                    <PlayPauseButton />
+                  </div>
                 </div>
               </div>
             </div>
