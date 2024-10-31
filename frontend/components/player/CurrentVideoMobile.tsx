@@ -14,6 +14,7 @@ import {
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import PlayPauseButton from '../controls/PlayPauseButton'
+import SeekBar from '../controls/SeekBar'
 
 interface SongInfo {
   title: string
@@ -77,7 +78,7 @@ function CurrentVideoMobile() {
         </div>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-sm pb-16">
           {loading ? (
             <div className="flex justify-center items-center h-40">
               <Loader2 className="h-8 w-8 animate-spin" />
@@ -100,10 +101,17 @@ function CurrentVideoMobile() {
                     <p className="text-sm text-muted-foreground">{songInfo.author_name}</p>
                   </div>
                 </div>
-                <div className="w-full justify-center flex">
-                  <div className="p-2 bg-secondary rounded-full">
-                    <PlayPauseButton />
+                <div className="w-full flex-col justify-center flex">
+                  <div className='flex py-4'>
+                  <SeekBar/>
                   </div>
+                  <div className="justify-center flex  rounded-full">
+                    <div className='w-max bg-primary/60 rounded-full p-2'>
+                    <PlayPauseButton/>
+                    </div>
+                    
+                  </div>
+                 
                 </div>
               </div>
             </div>
@@ -112,11 +120,7 @@ function CurrentVideoMobile() {
               Failed to load video information.
             </div>
           )}
-          <DrawerFooter>
-            <DrawerClose asChild>
-              <Button variant="outline" className="w-full">Close</Button>
-            </DrawerClose>
-          </DrawerFooter>
+       
         </div>
       </DrawerContent>
     </Drawer>

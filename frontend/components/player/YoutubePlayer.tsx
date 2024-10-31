@@ -7,12 +7,10 @@ import StickyControls from "../controls/StickyControls";
 import { motion } from "framer-motion"; 
 import { usePlayerControl } from "../contexts/ControlContext";
 export default function YoutubePlayer({ videoId }: { videoId: string }) {
-  const {isPlaying , setIsPlaying} = usePlayerControl();
+  const {isPlaying , setIsPlaying , elapsedTime ,setElapsedTime ,duration ,setDuration ,onSeekChange} = usePlayerControl();
   //@ts-ignore
   const playerRef = useRef<YT.Player | null>(null);
   const [volume, setVolume] = useState(100);
-  const [elapsedTime, setElapsedTime] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [isMuted] = useState(true);
   const [hidden, setHidden] = useState(false);
   const { playNextSong } = usePlayer();
@@ -87,9 +85,18 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
   const handleSeekChange = (seekTime: number) => {
     if (playerRef.current) {
       playerRef.current.seekTo(seekTime, true);
-      setElapsedTime(seekTime);
+      onSeekChange(seekTime);
     }
   };
+
+  // Use useEffect to listen for changes in elapsedTime from the context
+  useEffect(() => {
+    if (playerRef.current && Math.abs(playerRef.current.getCurrentTime() - elapsedTime) > 1) {
+      handleSeekChange(elapsedTime);
+    }
+  }, [elapsedTime]);
+
+  
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -159,10 +166,7 @@ export default function YoutubePlayer({ videoId }: { videoId: string }) {
 
       {/* Sticky Controls */}
       <StickyControls
-        elapsedTime={elapsedTime}
-        duration={duration}
         volume={volume}
-        onSeekChange={handleSeekChange}
         onVolumeChange={setVolume}
         onHide={ToggleOnlyMusic}
       />

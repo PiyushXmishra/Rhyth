@@ -2,17 +2,18 @@
 
 import React from 'react'
 import { Slider } from "@/components/ui/slider"
-
+import { usePlayerControl } from '../contexts/ControlContext'
 interface SeekBarProps {
   elapsedTime: number
   duration: number
   onSeekChange: (value: number) => void
 }
 
-export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBarProps) {
+export default function SeekBar() {
+  const {elapsedTime ,duration , onSeekChange } = usePlayerControl();
   return (
     <div className=" items-center w-full ">
-      <div className='flex space-x-4' >
+      <div className='flex space-x-4 justify-center' >
       <span>{formatTime(elapsedTime)}</span>
       <Slider
         value={[elapsedTime]}
@@ -20,7 +21,7 @@ export default function SeekBar({ elapsedTime, duration, onSeekChange }: SeekBar
         max={duration}
         step={5}
         onValueChange={(value: number[]) => onSeekChange(value[0])}
-        className="flex items-center max-w-[220px] min-w-[180px]"
+        className="flex items-center lg:max-w-[220px] lg:min-w-[180px]"
       />
      <span>{formatTime(duration)}</span>
      </div>

@@ -7,19 +7,13 @@ import { Music2 } from 'lucide-react';
 import { Button } from '../ui/button';
 
 interface StickyControlsProps {
-  elapsedTime: number;
-  duration: number;
   volume: number;
-  onSeekChange: (time: number) => void;
   onVolumeChange: (volume: number) => void;
   onHide:()=>void
 }
 
 const StickyControls: React.FC<StickyControlsProps> = ({
-  elapsedTime,
-  duration,
   volume,
-  onSeekChange,
   onVolumeChange,
   onHide
 }) => {
@@ -32,7 +26,7 @@ const StickyControls: React.FC<StickyControlsProps> = ({
         <VolumeControl volume={volume} onVolumeChange={onVolumeChange} />
       </div>
       <div className='hidden lg:flex items-center'>
-        <SeekBar elapsedTime={elapsedTime} duration={duration} onSeekChange={onSeekChange} />
+        <SeekBar />
       </div>
 
       <Button
