@@ -12,6 +12,8 @@ export default function YoutubePlayer() {
   const playerRef = useRef<YT.Player | null>(null);
   const [volume, setVolume] = useState(100);
   const [isMuted] = useState(true);
+  const [isPlayerReady, setIsPlayerReady] = useState(false)
+
   const [hidden, setHidden] = useState(false);
   const { playNextSong ,videoId} = usePlayer();
 console.log(videoId)
@@ -30,16 +32,24 @@ console.log(videoId)
     playerRef.current = event.target;
     playerRef.current.setVolume(volume);
     playerRef.current.playVideo();
+    setIsPlayerReady(true)
+    console.log("isplayerready true")
   };
 
   const onStateChange = (event: any) => {
     if (event.data === YouTube.PlayerState.PLAYING) {
       setIsPlaying(true);
+      setIsPlayerReady(true)
+      console.log("isplayerready true")
+
     } else if (event.data === YouTube.PlayerState.PAUSED) {
       setIsPlaying(false);
     } else if (event.data === YouTube.PlayerState.ENDED) {
       setIsPlaying(false);
       playNextSong();
+    }else if (event.data === YouTube.PlayerState.UNSTARTED) {
+      setIsPlayerReady(false)
+      console.log("false")
     }
   };
 
@@ -52,7 +62,7 @@ console.log(videoId)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (playerRef.current) {
+      if (playerRef.current && isPlayerReady) {
         const currentTime = playerRef.current.getCurrentTime();
         setElapsedTime(currentTime);
         setDuration(playerRef.current.getDuration());
@@ -60,7 +70,7 @@ console.log(videoId)
     }, 100);
 
     return () => clearInterval(interval);
-  }, [isMuted]);
+  }, [setElapsedTime, setDuration, isPlayerReady]);
 
   const handlePlayPause = () => {
     if (isPlaying) {
@@ -71,6 +81,7 @@ console.log(videoId)
       setIsPlaying(true);
     }
   };
+
   useEffect(() => {
     if (playerRef.current) {
       if (isPlaying) {
@@ -82,20 +93,34 @@ console.log(videoId)
   }, [isPlaying]);
   
   const handleSeekChange = (seekTime: number) => {
-    if (playerRef.current && playerRef.current.seekTo) {
-      playerRef.current.seekTo(seekTime, true);
-      onSeekChange(seekTime);
-    } else {
-      console.log('YouTube player not ready yet');
+    if (!playerRef.current || !isPlayerReady) {
+      console.log('YouTube player not ready yet')
+      return
     }
-  };
+    try {
+      playerRef.current.seekTo(seekTime, true)
+      onSeekChange(seekTime)
+    } catch (error) {
+      console.error("Error seeking video:", error)
+    }
+  }
+
   // Use useEffect to listen for changes in elapsedTime from the context
   useEffect(() => {
-    if (playerRef.current && Math.abs(playerRef.current.getCurrentTime() - elapsedTime) > 1) {
-      handleSeekChange(elapsedTime);
+    if (playerRef.current && isPlayerReady) {
+      try {
+        if (Math.abs(playerRef.current.getCurrentTime() - elapsedTime) > 1) {
+          handleSeekChange(elapsedTime)
+        }
+      } catch (error) {
+        console.error("Error handling elapsed time change:", error)
+      }
     }
-  }, [elapsedTime]);
+  }, [elapsedTime ,isPlayerReady]);
 
+  useEffect(() => {
+    setIsPlayerReady(false)
+  }, [videoId])
   
 
   useEffect(() => {
