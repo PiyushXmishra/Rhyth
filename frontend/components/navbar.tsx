@@ -39,7 +39,7 @@ export default function Navbar() {
 
       <div className="lg:hidden relative h-12 overflow-hidden">
         <div className={`flex items-center justify-between absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? '-translate-x-full' : 'translate-x-0'}`}>
-          <button onClick={toggleSearch} aria-label="Search" className="p-2">
+          <button onClick={toggleSearch} aria-label="Search" className="">
             <Search className="h-6 w-6" />
           </button>
           <Image

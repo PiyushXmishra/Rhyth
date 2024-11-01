@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react'
 import CurrentVideo from './CurrentVideo'
 import { Button } from "@/components/ui/button"
 import { usePlayer } from "../contexts/PlayerContext"
+
 import {
   Drawer,
   DrawerClose,
@@ -91,7 +92,7 @@ function CurrentVideoMobile() {
                     <img
                       src={thumbnailUrl}
                       alt={songInfo.title}
-                      className="rounded-xl pb-2"
+                      className="rounded-xl"
                     />
                   )}
                   <div>
