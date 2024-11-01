@@ -41,7 +41,7 @@ const Home: React.FC = () => {
        
         <TrendingTracks />
       </div>
-      <div className="lg:hidden">
+      <div className="lg:hidden ">
         <UserPlaylists />
       </div>
     </>

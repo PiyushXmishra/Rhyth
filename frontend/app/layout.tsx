@@ -15,7 +15,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("__Secure-next-auth.session-token")?.value || null;
+  const tokenName = process.env.NODE_ENV === "production"
+    ? "__Secure-next-auth.session-token"
+    : "next-auth.session-token";
+  const nextAuthSessionToken = nextCookies.get(tokenName)?.value || null;
   console.log(nextAuthSessionToken)
   return (
     <html lang="en">
@@ -25,8 +28,8 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body>
-        {/* Render the client-side layout */}
-        <TokenProvider token={nextAuthSessionToken}>
+
+       <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>
           {children}
           <Analytics/>

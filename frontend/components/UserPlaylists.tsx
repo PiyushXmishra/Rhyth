@@ -25,6 +25,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import LoginPage from './Login';
 import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
 import axios from 'axios'; // Import Axios
+import { Plus } from 'lucide-react';
 
 type Playlist = {
   id: number;
@@ -85,20 +86,17 @@ export default function UserPlaylists() {
   }, [session, sessionToken]); // Added sessionToken to dependencies
 
   const PlaylistSkeleton = () => (
-    <Card className="flex flex-col items-center h-20 w-full">
-      <CardContent className="flex flex-row items-center justify-start p-4 h-full w-full space-x-4">
-        <Skeleton className="h-12 w-full rounded-full" />
-      </CardContent>
-    </Card>
+    <Skeleton className="flex flex-col animate-pulse items-center h-20 w-full">
+
+    </Skeleton>
   );
 
   return (
-    <div className="mx-auto p-4 bg-secondary lg:bg-none rounded-2xl w-full">
-      <h2 className="text-2xl font-semibold mb-4">Your Playlists</h2>
+    <div className="mx-auto p-4 bg-secondary lg:bg-none h- rounded-lg w-full">
+      <h2 className="text-2xl font-semibold font-sans  mb-4">Your Library</h2>
 
       {session ? (
         <>
-          {/* Carousel for Playlists */}
           <Carousel
             opts={{
               align: "start",
@@ -143,7 +141,7 @@ export default function UserPlaylists() {
                   </CarouselItem>
                 ))
               ) : (
-                <p>No playlists available</p>
+                <h1 className='font-semibold font-sans w-full  text-center'>Create Your First Playlist</h1>
               )}
             </CarouselContent>
           </Carousel>
@@ -152,7 +150,9 @@ export default function UserPlaylists() {
           <Dialog>
             <div className="flex justify-center mt-4">
               <DialogTrigger asChild>
-                <Button variant="outline">Create Playlist</Button>
+                <Button variant="outline" className='bg-muted px-2 gap-x-1'>
+                  <Plus/>
+                  <p className='font-semibold font-sans'> Create Playlist</p></Button>
               </DialogTrigger>
             </div>
             <DialogContent className="sm:max-w-[425px]">

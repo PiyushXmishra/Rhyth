@@ -43,7 +43,7 @@ export default function ClientLayout({
           <PlayerProvider>
             <Navbar />
             <div className="px-4 lg:px-6 lg:pt-5 min-h-[calc(100vh-4.5rem)]  lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] flex lg:block ">
-              <div className="flex flex-col lg:flex-row justify-between w-full lg:gap-10">
+              <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
                 <div className="hidden lg:flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
                   <SideBar />
                 </div>
