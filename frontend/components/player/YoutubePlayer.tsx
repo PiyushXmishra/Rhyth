@@ -85,8 +85,8 @@ export default function YoutubePlayer() {
   }, [setElapsedTime, setDuration, isPlayerReady])
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      playerRef.current?.pauseVideo()
+    if (isPlaying && isPlayerReady) {
+      playerRef.current.pauseVideo()
       setIsPlaying(false)
     } else {
       playerRef.current?.playVideo()
@@ -95,13 +95,23 @@ export default function YoutubePlayer() {
   }
 
   useEffect(() => {
-    if (playerRef.current) {
-      if (isPlaying) {
-        playerRef.current.playVideo()
-      } else {
-        playerRef.current.pauseVideo()
-      }
+    if (!playerRef.current || !isPlayerReady) {
+      console.log('YouTube player not ready yet')
+      return
     }
+
+    try {
+      if (playerRef.current && isPlayerReady) {
+        if (isPlaying) {
+          playerRef.current.playVideo()
+        } else {
+          playerRef.current.pauseVideo()
+        }
+      }
+    } catch (error) {
+      console.error("Error playing / pausing video:", error)
+    }
+    
   }, [isPlaying])
 
   const handleSeekChange = (seekTime: number) => {
