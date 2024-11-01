@@ -3,8 +3,7 @@ import { usePlayer } from "../contexts/PlayerContext";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CurrentVideoLoader from "../loaders/CurrentVideoLoader";
-import { Marquee } from "@devnomic/marquee";
-import "@devnomic/marquee/dist/index.css";
+
 interface SongInfo {
     title: string;
     author_name: string;
@@ -61,14 +60,9 @@ interface SongInfo {
                 <h3 className="hidden lg:flex text-base font-semibold font-sans">
                   {truncateTitle(songInfo.title, 90)}{" "}
                 </h3>
-                <Marquee
-                fade={true}
-                direction="left"
-                reverse={false}
-                pauseOnHover={false}
-                className="lg:hidden text-sm font-semibold font-sans">
-                  {songInfo.title}
-                </Marquee>
+                <h3 className="lg:hidden text-sm font-semibold font-sans">
+                  {truncateTitle(songInfo.title, 20)}{" "}
+                </h3>
                 <p className="text-xs lg:text-sm text-muted-foreground">
                   By {songInfo.author_name}
                 </p>
