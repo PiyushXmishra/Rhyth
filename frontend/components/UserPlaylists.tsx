@@ -170,7 +170,7 @@ export default function UserPlaylists() {
               ) : playlists.length > 0 ? (
                 <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
                   {playlists.map((playlist) => (
-                    <Link href={`/yourplaylists/${playlist.id}`}>
+                    <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
                       <motion.div
                         whileHover={{ scale: 1.05 }}
                         className="rounded-md lg:rounded-xl bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer"
