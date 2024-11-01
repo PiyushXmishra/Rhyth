@@ -58,6 +58,7 @@ export default function YoutubePlayer() {
     if (videoId !== currentVideoId) {
       console.log("VideoId changed from", currentVideoId, "to", videoId)
       setCurrentVideoId(videoId)
+      setElapsedTime(0)
       setIsPlayerReady(false)
       // if (playerRef.current) {
       //   playerRef.current.loadVideoById(videoId)

@@ -32,7 +32,7 @@ const Home: React.FC = () => {
       <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-3xl lg:pb-4 flex-col ">
         
         {greeting ? (
-          <h1 className="flex lg:hidden text-xl p-2 font-sans font-bold text-white text-start">
+          <h1 className="flex lg:hidden text-2xl p-2 font-sans font-bold text-white text-start">
             {greeting}
              </h1>
         ) :(
