@@ -94,7 +94,7 @@ export default function UserPlaylists() {
   const PlaylistItem = ({ playlist }: { playlist: Playlist }) => (
     <div className="flex flex-col items-center p-4 bg-secondary/80 rounded-lg">
       <Disc size={80} className="stroke-muted-foreground" />
-      <h3 className="lg:hidden text-sm font-semibold text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+      <h3 className="lg:hidden text-sm font-semibold font-sans text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
         {playlist.name}
       </h3>
     </div>
