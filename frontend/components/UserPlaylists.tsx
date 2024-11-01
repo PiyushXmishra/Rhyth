@@ -134,7 +134,7 @@ export default function UserPlaylists() {
                           {playlists
                             .slice(index * 2, index * 2 + 2)
                             .map((playlist) => (
-                              <Link href={`/yourplaylists/${playlist.id}`}>
+                              <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
                                 <PlaylistItem
                                   key={playlist.id}
                                   playlist={playlist}
