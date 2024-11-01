@@ -1,22 +1,24 @@
-"use client";
+'use client'
 
-import React, { useEffect, useRef, useState } from "react";
-import YouTube from "react-youtube";
-import { usePlayer } from "../contexts/PlayerContext";
-import StickyControls from "../controls/StickyControls";
-import { motion } from "framer-motion"; 
-import { usePlayerControl } from "../contexts/ControlContext";
+import React, { useEffect, useRef, useState } from "react"
+import YouTube from "react-youtube"
+import { usePlayer } from "../contexts/PlayerContext"
+import StickyControls from "../controls/StickyControls"
+import { motion } from "framer-motion"
+import { usePlayerControl } from "../contexts/ControlContext"
+
 export default function YoutubePlayer() {
-  const {isPlaying , setIsPlaying , elapsedTime ,setElapsedTime ,duration ,setDuration ,onSeekChange} = usePlayerControl();
-  //@ts-ignore
-  const playerRef = useRef<YT.Player | null>(null);
-  const [volume, setVolume] = useState(100);
-  const [isMuted] = useState(true);
+  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange } = usePlayerControl()
+  const playerRef = useRef<YT.Player | null>(null)
+  const [volume, setVolume] = useState(100)
+  const [isMuted] = useState(true)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
+  const [hidden, setHidden] = useState(false)
+  const { playNextSong, videoId } = usePlayer()
+  const [currentVideoId, setCurrentVideoId] = useState(videoId)
 
-  const [hidden, setHidden] = useState(false);
-  const { playNextSong ,videoId} = usePlayer();
-console.log(videoId)
+  console.log("Current videoId:", videoId)
+
   const opts = {
     height: "303.75",
     width: "540",
@@ -26,72 +28,82 @@ console.log(videoId)
       mute: 0,
       rel: 0,
     },
-  };
+  }
 
-  const onReady = (event: any) => {
-    playerRef.current = event.target;
-    playerRef.current.setVolume(volume);
-    playerRef.current.playVideo();
+  const onReady = (event: YT.PlayerEvent) => {
+    playerRef.current = event.target
+    playerRef.current.setVolume(volume)
+    playerRef.current.playVideo()
     setIsPlayerReady(true)
-    console.log("isplayerready true")
-  };
+    console.log("Player ready, videoId:", currentVideoId)
+  }
 
-  const onStateChange = (event: any) => {
+  const onStateChange = (event: YT.OnStateChangeEvent) => {
     if (event.data === YouTube.PlayerState.PLAYING) {
-      setIsPlaying(true);
+      setIsPlaying(true)
       setIsPlayerReady(true)
-      console.log("isplayerready true")
-
+      console.log("Video playing, videoId:", currentVideoId)
     } else if (event.data === YouTube.PlayerState.PAUSED) {
-      setIsPlaying(false);
+      setIsPlaying(false)
     } else if (event.data === YouTube.PlayerState.ENDED) {
-      setIsPlaying(false);
-      playNextSong();
-    }else if (event.data === YouTube.PlayerState.UNSTARTED) {
+      setIsPlaying(false)
+      playNextSong()
+    } else if (event.data === YouTube.PlayerState.UNSTARTED) {
       setIsPlayerReady(false)
-      console.log("false")
+      console.log("Video unstarted")
     }
-  };
+  }
+
+  useEffect(() => {
+    if (videoId !== currentVideoId) {
+      console.log("VideoId changed from", currentVideoId, "to", videoId)
+      setCurrentVideoId(videoId)
+      setIsPlayerReady(false)
+      if (playerRef.current) {
+        playerRef.current.loadVideoById(videoId)
+      }
+    }
+  }, [videoId, currentVideoId])
 
   useEffect(() => {
     if (playerRef.current) {
-      playerRef.current.setVolume(volume);
-      console.log(`Volume set to ${volume}`);
+      playerRef.current.setVolume(volume)
+      console.log(`Volume set to ${volume}`)
     }
-  }, [volume]);
+  }, [volume])
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (playerRef.current && isPlayerReady) {
-        const currentTime = playerRef.current.getCurrentTime();
-        setElapsedTime(currentTime);
-        setDuration(playerRef.current.getDuration());
+        const currentTime = playerRef.current.getCurrentTime()
+        setElapsedTime(currentTime)
+        setDuration(playerRef.current.getDuration())
       }
-    }, 100);
+    }, 100)
 
-    return () => clearInterval(interval);
-  }, [setElapsedTime, setDuration, isPlayerReady]);
+    return () => clearInterval(interval)
+  }, [setElapsedTime, setDuration, isPlayerReady])
 
   const handlePlayPause = () => {
     if (isPlaying) {
-      playerRef.current?.pauseVideo();
-      setIsPlaying(false);
+      playerRef.current?.pauseVideo()
+      setIsPlaying(false)
     } else {
-      playerRef.current?.playVideo();
-      setIsPlaying(true);
+      playerRef.current?.playVideo()
+      setIsPlaying(true)
     }
-  };
+  }
 
   useEffect(() => {
     if (playerRef.current) {
       if (isPlaying) {
-        playerRef.current.playVideo();
+        playerRef.current.playVideo()
       } else {
-        playerRef.current.pauseVideo();
+        playerRef.current.pauseVideo()
       }
     }
-  }, [isPlaying]);
-  
+  }, [isPlaying])
+
   const handleSeekChange = (seekTime: number) => {
     if (!playerRef.current || !isPlayerReady) {
       console.log('YouTube player not ready yet')
@@ -105,7 +117,6 @@ console.log(videoId)
     }
   }
 
-  // Use useEffect to listen for changes in elapsedTime from the context
   useEffect(() => {
     if (playerRef.current && isPlayerReady) {
       try {
@@ -116,62 +127,56 @@ console.log(videoId)
         console.error("Error handling elapsed time change:", error)
       }
     }
-  }, [elapsedTime ,isPlayerReady]);
-
-  useEffect(() => {
-    setIsPlayerReady(false)
-  }, [videoId])
-  
+  }, [elapsedTime, isPlayerReady])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement;
+      const target = event.target as HTMLElement
       const isInputField =
         target.tagName === "INPUT" ||
         target.tagName === "TEXTAREA" ||
-        target.isContentEditable;
+        target.isContentEditable
 
       if (!isInputField && event.code === "Space") {
-        event.preventDefault();
-        handlePlayPause();
+        event.preventDefault()
+        handlePlayPause()
       }
-    };
+    }
 
-    window.addEventListener("keydown", handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown)
 
     return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isPlaying]);
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [isPlaying])
 
   function ToggleOnlyMusic(): void {
-    setHidden(!hidden);
+    setHidden(!hidden)
   }
 
   return (
-    <div
-      className="flex flex-col items-start lg:bg-accent w-max rounded-2xl">
+    <div className="flex flex-col items-start lg:bg-accent w-max rounded-2xl">
       <motion.div
-      className="hidden lg:flex"
-        initial={{ height: "303.75px", opacity: 1 }} // Initial state
+        className="hidden lg:flex"
+        initial={{ height: "303.75px", opacity: 1 }}
         animate={{
-          height: hidden ? 0 : "303.75px", // Animate height when hidden
-          opacity: hidden ? 0 : 1, // Animate opacity
+          height: hidden ? 0 : "303.75px",
+          opacity: hidden ? 0 : 1,
         }}
         transition={{
-          duration: 0.4, 
+          duration: 0.4,
           ease: "easeInOut",
         }}
         style={{ position: "relative", width: "540px", overflow: "hidden" }}
       >
         <YouTube
+          key={currentVideoId}
           iframeClassName="rounded-xl"
-          videoId={videoId}
+          videoId={currentVideoId}
           opts={opts}
           onReady={onReady}
           onStateChange={onStateChange}
         />
-        {/* Transparent Overlay */}
         <div
           style={{
             position: "absolute",
@@ -189,12 +194,11 @@ console.log(videoId)
         />
       </motion.div>
 
-      {/* Sticky Controls */}
       <StickyControls
         volume={volume}
         onVolumeChange={setVolume}
         onHide={ToggleOnlyMusic}
       />
     </div>
-  );
+  )
 }
