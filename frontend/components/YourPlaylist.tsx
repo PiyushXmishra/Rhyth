@@ -51,17 +51,13 @@ function YourPlaylist() {
   }, [session, hasRegistered, sessionToken]); // Added sessionToken to dependencies
 
   return (
-    <div className="flex w-5/12 bg-secondary  rounded-3xl p-4">
+    <>
       {!session ? (
-        <div className="w-full">
           <LoginPage />
-        </div>
       ) : (
-        <div className="w-full ">
           <UserPlaylists />
-        </div>
       )}
-    </div>
+    </>
   );
 }
 

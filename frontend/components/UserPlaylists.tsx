@@ -1,9 +1,8 @@
-'use client';
-import { useSession } from 'next-auth/react';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
-import Image from 'next/image';
-import playistlogo from "@/public/playlist.png";
+"use client";
+
+import { useSession } from "next-auth/react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,17 +14,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Skeleton } from "@/components/ui/skeleton";
-import LoginPage from './Login';
-import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
-import axios from 'axios'; // Import Axios
-import { Plus } from 'lucide-react';
+import LoginPage from "./Login";
+import { useToken } from "@/components/contexts/TokenContext";
+import axios from "axios";
+import { Disc, Plus } from "lucide-react";
+import { motion } from "framer-motion";
 
 type Playlist = {
   id: number;
@@ -34,35 +33,36 @@ type Playlist = {
 
 export default function UserPlaylists() {
   const { data: session } = useSession();
-  const { sessionToken } = useToken(); // Get the session token from context
-  const [playlistName, setPlaylistName] = useState<string>('');
+  const { sessionToken } = useToken();
+  const [playlistName, setPlaylistName] = useState<string>("");
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_URL, // Set your base URL here
+    baseURL: process.env.NEXT_PUBLIC_URL,
   });
 
-  // Add an interceptor to conditionally set the session token
   axiosInstance.interceptors.request.use((config) => {
     if (sessionToken) {
-      config.headers['session-token'] = sessionToken; // Set the session token in the header if available
+      config.headers["session-token"] = sessionToken;
     }
-    return config; // Return the modified config
+    return config;
   });
 
   const createPlaylist = async () => {
     if (session) {
       try {
-        const response = await axiosInstance.post('/api/playlist/createplaylist', {
-          name: playlistName,
-        });
-
+        const response = await axiosInstance.post(
+          "/api/playlist/createplaylist",
+          {
+            name: playlistName,
+          }
+        );
         const data = response.data;
         setPlaylists((prev) => [...prev, data]);
-        setPlaylistName('');
+        setPlaylistName("");
       } catch (error) {
-        console.error('Failed to create playlist', error);
+        console.error("Failed to create playlist", error);
       }
     }
   };
@@ -71,88 +71,137 @@ export default function UserPlaylists() {
     if (session) {
       const fetchPlaylists = async () => {
         try {
-          const response = await axiosInstance.get('/api/playlist/getplaylist');
+          const response = await axiosInstance.get("/api/playlist/getplaylist");
           const data = response.data;
           setPlaylists(data);
           setIsLoading(false);
         } catch (error) {
-          console.error('Failed to fetch playlists', error);
+          console.error("Failed to fetch playlists", error);
           setIsLoading(false);
         }
       };
-
       fetchPlaylists();
     }
-  }, [session, sessionToken]); // Added sessionToken to dependencies
+  }, [session, sessionToken]);
 
   const PlaylistSkeleton = () => (
-    <Skeleton className="flex flex-col animate-pulse items-center h-20 w-full">
-
+    <Skeleton className="flex flex-col animate-pulse items-center h-40 w-full">
+      <Skeleton className="h-24 w-24 rounded-full" />
+      <Skeleton className="h-4 w-3/4 mt-2" />
     </Skeleton>
   );
 
+  const PlaylistItem = ({ playlist }: { playlist: Playlist }) => (
+    <div className="flex flex-col items-center p-4 bg-secondary/80 rounded-lg">
+      <Disc size={80} className="stroke-muted-foreground" />
+      <h3 className="lg:hidden text-sm font-semibold text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+        {playlist.name}
+      </h3>
+    </div>
+  );
+
   return (
-    <div className="mx-auto p-4 bg-secondary lg:bg-none h- rounded-lg w-full">
-      <h2 className="text-2xl font-semibold font-sans  mb-4">Your Library</h2>
+    <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] bg-secondary/50 border lg:border-none p-4 lg:p-0 w-full lg:bg-secondary rounded-xl lg:rounded-3xl lg:pb-4 flex-col ">
+      <h2 className="text-2xl text-white font-semibold font-sans mb-4 lg:text-xl  lg:p-4 lg:pb-0">
+        Your Library
+      </h2>
 
       {session ? (
         <>
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full mx-auto"
-          >
-            <CarouselContent>
-              {isLoading ? (
-                // Loader
-                <CarouselItem className="basis-full p-2">
-                  <div className="grid grid-cols-2 gap-6">
-                    {[...Array(2)].map((_, index) => (
-                      <PlaylistSkeleton key={index} />
-                    ))}
-                  </div>
-                </CarouselItem>
-              ) : playlists.length > 0 ? (
-                // Playlists
-                Array.from({ length: Math.ceil(playlists.length / 2) }).map((_, index) => (
-                  <CarouselItem key={index} className="basis-full p-2">
+          {/* Mobile View */}
+          <div className="lg:hidden">
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-full mx-auto"
+            >
+              <CarouselContent>
+                {isLoading ? (
+                  <CarouselItem className="basis-full p-2">
                     <div className="grid grid-cols-2 gap-6">
-                      {playlists.slice(index * 2, index * 2 + 2).map((playlist) => (
-                        <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
-                          <Card className="flex flex-col items-center h-20 w-full">
-                            <CardContent className="flex flex-row items-center justify-start p-4 h-full w-full space-x-4">
-                              <Image
-                                src={playistlogo}
-                                alt="Playlist logo"
-                                height={48}
-                                width={48}
-                                className="rounded-full"
-                              />
-                              <h3 className="text-lg font-semibold overflow-hidden text-ellipsis whitespace-nowrap max-w-[calc(100%-3rem)]">
-                                {playlist.name}
-                              </h3>
-                            </CardContent>
-                          </Card>
-                        </Link>
+                      {[...Array(2)].map((_, index) => (
+                        <PlaylistSkeleton key={index} />
                       ))}
                     </div>
                   </CarouselItem>
-                ))
-              ) : (
-                <h1 className='font-semibold font-sans w-full  text-center'>Create Your First Playlist</h1>
-              )}
-            </CarouselContent>
-          </Carousel>
+                ) : playlists.length > 0 ? (
+                  Array.from({ length: Math.ceil(playlists.length / 2) }).map(
+                    (_, index) => (
+                      <CarouselItem key={index} className="basis-full p-2">
+                        <div className="grid grid-cols-2 gap-6">
+                          {playlists
+                            .slice(index * 2, index * 2 + 2)
+                            .map((playlist) => (
+                              <Link href={`/yourplaylists/${playlist.id}`}>
+                                <PlaylistItem
+                                  key={playlist.id}
+                                  playlist={playlist}
+                                />
+            
+                              </Link>
+                            ))}
+                        </div>
+                      </CarouselItem>
+                    )
+                  )
+                ) : (
+                  <CarouselItem className="basis-full">
+                    <h1 className="font-semibold font-sans w-full text-center">
+                      Create Your First Playlist
+                    </h1>
+                  </CarouselItem>
+                )}
+              </CarouselContent>
+            </Carousel>
+          </div>
 
-          {/* Dialog for Creating a New Playlist */}
+          {/* Desktop View */}
+
+          <div className="hidden lg:flex flex-col px-2 h-full w-full overflow-y-auto">
+            <div className=" w-full">
+              {isLoading ? (
+                <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
+                  {[...Array(6)].map((_, index) => (
+                    <PlaylistSkeleton key={index} />
+                  ))}
+                </div>
+              ) : playlists.length > 0 ? (
+                <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
+                  {playlists.map((playlist) => (
+                    <Link href={`/yourplaylists/${playlist.id}`}>
+                      <motion.div
+                        whileHover={{ scale: 1.05 }}
+                        className="rounded-md lg:rounded-xl bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer"
+                      >
+                        <div className="relative w-16 h-max lg:w-full overflow-hidden rounded-l-md lg:rounded-xl">
+                          <PlaylistItem key={playlist.id} playlist={playlist} />
+                          
+                        </div>
+                        <h3 className="text-lg font-semibold text-center overflow-hidden text-ellipsis whitespace-nowrap w-full">
+        {playlist.name}
+      </h3>
+                      </motion.div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <h1 className="font-semibold font-sans w-full lg:text-lg text-center">
+                  Create Your First Playlist
+                </h1>
+              )}
+            </div>
+          </div>
+
+          {/* Create Playlist Dialog */}
           <Dialog>
             <div className="flex justify-center mt-4">
               <DialogTrigger asChild>
-                <Button variant="outline" className='bg-muted px-2 gap-x-1'>
-                  <Plus/>
-                  <p className='font-semibold font-sans'> Create Playlist</p></Button>
+                <Button variant="outline" className="bg-muted px-2 gap-x-1">
+                  <Plus />
+                  <p className="font-semibold font-sans">Create Playlist</p>
+                </Button>
               </DialogTrigger>
             </div>
             <DialogContent className="sm:max-w-[425px]">

@@ -23,7 +23,7 @@ const TrendingTracks: React.FC = () => {
 
   return (
     <div className='flex flex-row lg:flex-col lg:px-2 h-full w-full'>
-      <h1 className='hidden lg:flex text-xl font-semibold font-sans text-muted-foreground p-4 pb-0'>Trending Tracks</h1>
+      <h1 className='hidden lg:flex text-xl font-semibold font-sans text-white p-4 pb-0'>Trending Tracks</h1>
       <div className='overflow-y-auto w-full'>
         {loading || tracks.length === 0 ? (
           <LoadingSkeleton count={6} />
