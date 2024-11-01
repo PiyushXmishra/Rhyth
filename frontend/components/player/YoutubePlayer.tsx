@@ -59,9 +59,9 @@ export default function YoutubePlayer() {
       console.log("VideoId changed from", currentVideoId, "to", videoId)
       setCurrentVideoId(videoId)
       setIsPlayerReady(false)
-      if (playerRef.current) {
-        playerRef.current.loadVideoById(videoId)
-      }
+      // if (playerRef.current) {
+      //   playerRef.current.loadVideoById(videoId)
+      // }
     }
   }, [videoId, currentVideoId])
 
