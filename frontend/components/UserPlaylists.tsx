@@ -160,7 +160,7 @@ export default function UserPlaylists() {
           {/* Desktop View */}
 
           <div className="hidden lg:flex flex-col px-2 h-full w-full overflow-y-auto">
-            <div className=" w-full">
+            <div className=" flex w-full h-full ">
               {isLoading ? (
                 <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
                   {[...Array(6)].map((_, index) => (
@@ -187,9 +187,11 @@ export default function UserPlaylists() {
                   ))}
                 </div>
               ) : (
+                <div className="flex w-full h-full items-center justify-center">
                 <h1 className="font-semibold font-sans w-full lg:text-lg text-center">
                   Create Your First Playlist
                 </h1>
+                </div>
               )}
             </div>
           </div>

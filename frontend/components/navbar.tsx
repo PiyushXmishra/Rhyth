@@ -8,7 +8,7 @@ import SearchBar from "./SearchBar"
 import { useSearchContext } from "@/components/contexts/searchContext"
 import Link from "next/link"
 import Logo from "@/public/NavbarImage.png"
-import Logo2 from "@/public/NavbarImage.png"
+import Logo2 from "@/public/web-android icon.png"
 import User from "./User"
 
 export default function Navbar() {
@@ -29,8 +29,7 @@ export default function Navbar() {
           <Image
             src={Logo2}
             alt="Logo"
-            height={50}
-            width={50}
+           className="w-2/5 h-1/3"
           />
         </div>
         <SearchBar />
