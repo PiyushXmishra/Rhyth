@@ -33,7 +33,7 @@ const TrendingTracks: React.FC = () => {
               <Link key={track.id} href={`/playlist/${track.id}?title=${track.name}`} passHref>
                 <motion.div 
                   whileHover={{scale: 1.05}}
-                  className='rounded-md lg:rounded-xl bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer'
+                  className='rounded-md lg:rounded-xl bg-secondary lg:bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer'
                 >
                   <div
                     className='relative w-16 h-14 lg:h-44 lg:w-full overflow-hidden rounded-l-md lg:rounded-xl'

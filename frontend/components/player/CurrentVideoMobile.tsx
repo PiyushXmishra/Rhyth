@@ -95,7 +95,7 @@ function CurrentVideoMobile() {
                       className="rounded-xl"
                     />
                   )}
-                  <div>
+                  <div className='pt-2'>
                     <h2 className="text-white text-base font-semibold font-sans">
                       {truncateTitle(songInfo.title, 70)}{" "}
                     </h2>
@@ -107,7 +107,7 @@ function CurrentVideoMobile() {
                   <SeekBar/>
                   </div>
                   <div className="justify-center flex  rounded-full">
-                    <div className='w-max bg-primary/60 rounded-full p-2'>
+                    <div className='w-max bg-secondary rounded-full p-2'>
                     <PlayPauseButton/>
                     </div>
                     

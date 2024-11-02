@@ -85,9 +85,9 @@ export default function UserPlaylists() {
   }, [session, sessionToken]);
 
   const PlaylistSkeleton = () => (
-    <Skeleton className="flex flex-col animate-pulse items-center h-40 w-full">
-      <Skeleton className="h-24 w-24 rounded-full" />
-      <Skeleton className="h-4 w-3/4 mt-2" />
+    <Skeleton className="flex flex-col animate-pulse items-center w-full p-4 ">
+      <Skeleton className="h-24 w-24 rounded-full mt-2" />
+      <Skeleton className="hidden lg:flex h-3 w-3/4 mt-2" />
     </Skeleton>
   );
 
@@ -102,7 +102,7 @@ export default function UserPlaylists() {
 
   return (
     <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] bg-secondary/50 border lg:border-none p-4 lg:p-0 w-full lg:bg-secondary rounded-xl lg:rounded-3xl lg:pb-4 flex-col ">
-      <h2 className="text-2xl text-white font-semibold font-sans mb-4 lg:text-xl  lg:p-4 lg:pb-0">
+      <h2 className="text-2xl text-white font-bold font-sans mb-4 lg:mb-0 lg:text-xl lg:mx-2 lg:p-4 lg:pb-0">
         Your Library
       </h2>
 

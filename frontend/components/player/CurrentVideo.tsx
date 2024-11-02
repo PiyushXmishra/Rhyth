@@ -28,6 +28,7 @@ interface SongInfo {
           `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
         );
         setSongInfo(response.data); // Set the fetched song info
+        setLoading(false)
         console.log(response.data)
       } catch (error) {
         console.error("Error fetching song info:", error);

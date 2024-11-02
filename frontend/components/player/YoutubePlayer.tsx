@@ -166,7 +166,7 @@ export default function YoutubePlayer() {
   }
 
   return (
-    <div className="flex flex-col items-start lg:bg-accent w-max rounded-2xl">
+    <div className="hidden lg:flex  flex-col items-start lg:bg-accent w-max rounded-2xl">
       <motion.div
         className="hidden lg:flex"
         initial={{ height: "303.75px", opacity: 1 }}
