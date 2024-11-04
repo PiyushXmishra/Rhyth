@@ -13,14 +13,6 @@ const TrendingTracks: React.FC = () => {
     return title.length > maxChars ? title.slice(0, maxChars) + '..' : title
   }
 
-  const imageVariants = {
-    hidden: { clipPath: 'inset(0% 0 100% 0)' },
-    visible: { 
-      clipPath: 'inset(0% 0 0% 0)',
-      transition: { duration: 0.4, ease: 'easeInOut' }
-    },
-  }
-
   return (
     <div className='flex flex-row lg:flex-col lg:px-2 h-full w-full'>
       <h1 className='hidden lg:flex text-xl font-semibold font-sans text-white p-4 pb-0'>Trending Tracks</h1>

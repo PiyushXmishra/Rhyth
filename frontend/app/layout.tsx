@@ -1,6 +1,5 @@
-// app/layout.tsx
 import type { Metadata } from "next";
-import ClientLayout from "./clientLayout"; // Import the client component
+import ClientLayout from "./clientLayout"; 
 import { TokenProvider } from "@/components/contexts/TokenContext";
 import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/react"

@@ -60,9 +60,7 @@ export default function YoutubePlayer() {
       setCurrentVideoId(videoId)
       setElapsedTime(0)
       setIsPlayerReady(false)
-      // if (playerRef.current) {
-      //   playerRef.current.loadVideoById(videoId)
-      // }
+
     }
   }, [videoId, currentVideoId])
 
