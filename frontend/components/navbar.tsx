@@ -24,15 +24,13 @@ export default function Navbar() {
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >
-      <div className="hidden lg:flex max-w-7xl mx-auto items-center justify-between">
-        <div className="flex items-center">
-          <Image
-            src={Logo2}
-            alt="Logo"
-           className="w-2/5 h-1/3"
-          />
+      <div className="hidden lg:flex mx-auto items-center justify-between">
+        <div className="flex items-center text-3xl font-sans font-semibold pl-4">
+          Rhyth.
         </div>
         <SearchBar />
+        <div>
+        </div>
         <User />
       </div>
 

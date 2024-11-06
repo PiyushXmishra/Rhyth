@@ -9,7 +9,7 @@ import MobileWrapper from "./MobileWrapper";
 import PlayPauseButton from "../controls/PlayPauseButton";
 
 const PlayerWrapper: React.FC = () => {
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1023px)");
 
   return (
     <>

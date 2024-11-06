@@ -73,7 +73,7 @@ function AccountContent({ onClose }: { onClose: () => void }) {
 }
 
 export default function AccountMenu() {
-  const isMobile = useMediaQuery("(max-width: 768px)")
+  const isMobile = useMediaQuery("(max-width: 1025px)")
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
 

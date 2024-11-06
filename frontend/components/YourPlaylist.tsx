@@ -10,7 +10,7 @@ import { useToken } from '@/components/contexts/TokenContext';
 
 function YourPlaylist() {
   const { sessionToken } = useToken(); // Get session token from context
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useMediaQuery("(max-width: 1025px)");
   const { data: session } = useSession();
   const [hasRegistered, setHasRegistered] = useState(false);
 
