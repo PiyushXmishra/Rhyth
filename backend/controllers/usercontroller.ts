@@ -62,35 +62,48 @@ export const getHistory = async (req: Request, res: Response): Promise<any> => {
     //@ts-ignore
     const userId = req.user?.id;
     const videoId = req.body.videoId;
-  
+    const listenedAt = req.body.listenedAt
     if (!userId || !videoId) {
       return res.status(400).json({ error: 'User ID and video ID are required' });
     }
-  
+
+   const existingHistory = await prisma.history.findFirst({
+    where: {
+      UserId: userId,
+      videoId: videoId,
+      listenedAt: listenedAt, 
+    },
+  });
+   
+
+  if (existingHistory) {
+   return res.json({message : "song already listened today"})
+  } else {
     try {
-      await prisma.history.create({
-        data: {
-          videoId,
-          user: { connect: { id: userId } },
-        },
-      });
-  
-      const cacheKey = `user:history:${userId}`;
-  
-      try {
-        await redisClient.del(cacheKey);
-        console.log(`Cache invalidated for key: ${cacheKey}`);
-      } catch (cacheError) {
-        console.warn(
-          `Warning: Could not invalidate cache for key ${cacheKey}:`,
-          cacheError
-        );
+        await prisma.history.create({
+          data: {
+            videoId,
+            user: { connect: { id: userId } },
+            listenedAt
+          },
+        });
+    
+        const cacheKey = `user:history:${userId}`;
+        try {
+          await redisClient.del(cacheKey);
+          console.log(`Cache invalidated for key: ${cacheKey}`);
+        } catch (cacheError) {
+          console.warn(
+            `Warning: Could not invalidate cache for key ${cacheKey}:`,
+            cacheError
+          );
+        }
+    
+        return res.status(201).json({ message: 'History updated successfully' });
+      } catch (error: any) {
+        console.error('Failed to add to history:', error.message);
+        return res.status(500).json({ error: 'Failed to add to history' });
       }
-  
-      return res.status(201).json({ message: 'History updated successfully' });
-    } catch (error: any) {
-      console.error('Failed to add to history:', error.message);
-      return res.status(500).json({ error: 'Failed to add to history' });
-    }
+  }
   };
   
