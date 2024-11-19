@@ -1,12 +1,10 @@
 import { Router } from 'express';
-import { registerUser, loginUser } from '../controllers/usercontroller';
 import { searchSongs } from '../controllers/songcontroller';
-
+import {getHistory , UpdateHistory} from  "../controllers/usercontroller"
 const router = Router();
 
 // Use the route handlers
-router.post('/register', registerUser);
-router.post('/login', loginUser);
-
+router.post("/gethistory", getHistory)
+router.post("/updatehistory", UpdateHistory)
 
 export default router;

@@ -7,20 +7,17 @@ export const getSongsOfUserPlaylist = async (req: Request<{ playlistId: string }
     const playlistId: string = req.params.playlistId;
 
     try {
-        // Get the user ID from the request (assuming you are using some authentication middleware)
         //@ts-ignore
         const userId = req.user?.id;
 
         const cacheKey = `UserPlaylist:${playlistId}`;
 
-        // Check if cached data exists in Redis
         const cachedData = await redisClient.get(cacheKey);
         if (cachedData) {
-            // Return cached data if found
             return res.json(JSON.parse(cachedData));
         }
 
-        // Fetch playlist from the database
+
         const playlist = await prisma.playlist.findUnique({
             where: { id: playlistId },
             include: { songs: true },
@@ -32,7 +29,6 @@ export const getSongsOfUserPlaylist = async (req: Request<{ playlistId: string }
 
         const songsArray = playlist.songs;
 
-        // Fetch video details from YouTube for each song
         const detailedSongs = await Promise.all(songsArray.map(async (song) => {
             try {
                 const youtubeResponse = await axios.get(

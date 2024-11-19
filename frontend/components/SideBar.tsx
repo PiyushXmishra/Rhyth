@@ -1,5 +1,5 @@
 import React from "react";
-import { House, ListMusic, Download, Settings, Heart } from "lucide-react";
+import { House, ListMusic, Download, Settings, Heart, History } from "lucide-react";
 import Link from "next/link";
 
 function SideBar() {
@@ -14,8 +14,8 @@ function SideBar() {
           <ListMusic className="w-8 h-8" />
         </Link>
 
-        <Link href={"/favourites"}>
-          <Heart className="w-8 h-8" />
+        <Link href={"/history"}>
+          <History className="w-8 h-8" />
         </Link>
 
         <Link href={"/download"}>

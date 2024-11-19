@@ -9,7 +9,6 @@ function useDebounce(value: string, delay: number): string {
       setDebouncedValue(value);
     }, delay);
 
-    // Cleanup function to clear the timeout if the value changes
     return () => {
       clearTimeout(handler);
     };

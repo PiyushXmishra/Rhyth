@@ -11,7 +11,6 @@ datasource db {
   url      = env("DATABASE_URL") // Your database connection string
 }
 
-// User Model
 model User {
   id            String         @id @default(cuid())
   name          String?
@@ -20,23 +19,31 @@ model User {
   image         String?
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
-  playlists    Playlist[] // Relation to playlists created by the user
+  playlists    Playlist[] 
+  history      History[]
 }
 
-// Playlist Model
+
 model Playlist {
-  id        String       @id @default(cuid()) // Unique ID for each playlist
-  name      String    // Name of the playlist
-  userId    String      // Reference to the User who created the playlist
-  user      User      @relation(fields: [userId], references: [id]) // Relation to User
-  songs     Song[]    @relation("PlaylistSongs") // Relation to songs in the playlist
-  createdAt DateTime  @default(now()) // Date of playlist creation
-  updatedAt DateTime  @updatedAt // Date of last update
+  id        String       @id @default(cuid()) 
+  name      String    
+  userId    String     
+  user      User      @relation(fields: [userId], references: [id]) 
+  songs     Song[]    @relation("PlaylistSongs") 
+  createdAt DateTime  @default(now()) 
+  updatedAt DateTime  @updatedAt 
 }
 
-// Song Model
 model Song {
-  id         Int      @id @default(autoincrement()) // Unique ID for each song
-  videoId    String   @unique                       // YouTube video ID
-  playlists  Playlist[] @relation("PlaylistSongs")   // Relation to playlists that contain this song
+  id         Int      @id @default(autoincrement()) 
+  videoId    String   @unique                       
+  playlists  Playlist[] @relation("PlaylistSongs")   
+}
+
+model History{
+  id          String    @id @default(cuid())
+  UserId      String
+  user        User      @relation(fields: [UserId] , references: [id])
+  videoId     String
+  listenedAt  DateTime @default(now())
 }

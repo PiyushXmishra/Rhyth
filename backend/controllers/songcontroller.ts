@@ -42,7 +42,7 @@ export const addSongToPlaylist = async (req: Request<{ playlistId: string }>, re
           // If the song does not exist, create it
           const newSong = await prisma.song.create({
               data: {
-                  videoId: videoId,
+                  videoId: videoId
               },
           });
           songId = newSong.id; // Get the new song's ID
