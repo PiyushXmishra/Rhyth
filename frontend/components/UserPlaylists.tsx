@@ -38,7 +38,7 @@ export default function UserPlaylists() {
   const [playlists, setPlaylists] = useState<Playlist[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const axiosInstance = axios.create({
+   const axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_URL,
   });
 

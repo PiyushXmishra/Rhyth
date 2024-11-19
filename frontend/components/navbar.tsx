@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from "react"
-import { ArrowLeft, Search, Settings } from "lucide-react"
+import { ArrowLeft, History, Search, Settings } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 import SearchBar from "./SearchBar"
@@ -39,14 +39,13 @@ export default function Navbar() {
           <button onClick={toggleSearch} aria-label="Search" className="">
             <Search className="h-6 w-6" />
           </button>
-          <Image
-            src={Logo}
-            alt="Logo"
-            width={70}
-            height={70}
-            className=""
-          />
+         
+          <div className="flex items-center gap-x-8 ">
+          <Link href={"/history"}>
+          <History  />
+        </Link>
           <User />
+          </div>
         </div>
 
         <div className={`flex items-center w-full absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? 'translate-x-0' : 'translate-x-full'}`}>
