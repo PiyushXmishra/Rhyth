@@ -1,16 +1,50 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Slider } from "@/components/ui/slider"
 import { usePlayerControl } from '../contexts/ControlContext'
-interface SeekBarProps {
-  elapsedTime: number
-  duration: number
-  onSeekChange: (value: number) => void
-}
-
+import axios from 'axios';
+import { useToken } from '../contexts/TokenContext';
+import { usePlayer } from '../contexts/PlayerContext';
 export default function SeekBar() {
+  const {videoId} = usePlayer()
+  const { sessionToken } = useToken();
+  const [isUpdated , setIsUpdated] = useState(false);
+
+  const axiosInstance = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_URL,
+  });
+
+  axiosInstance.interceptors.request.use((config) => {
+    if (sessionToken) {
+      config.headers["session-token"] = sessionToken;
+    }
+    return config;
+  });
+    
   const {elapsedTime ,duration , onSeekChange } = usePlayerControl();
+  const date = new Date;
+  const utcDateString = date.toISOString().split('T')[0];
+  async function updatehistory(){
+   
+      await axiosInstance.post(`${process.env.NEXT_PUBLIC_URL}/api/users/updatehistory`, {
+       videoId : videoId,
+       listenedAt : utcDateString
+      })
+      setIsUpdated(true)
+     }
+
+useEffect(() => {
+ if((duration - elapsedTime) < 10 && duration > 0 && isUpdated == false){
+  updatehistory()
+  setIsUpdated(true)
+ }
+}, [formatTime(elapsedTime) , videoId])
+
+useEffect(() => {
+ setIsUpdated(false)
+}, [videoId])
+
   return (
     <div className=" items-center w-full ">
       <div className='flex space-x-4 justify-center' >

@@ -32,7 +32,7 @@ const HistoryPage: React.FC = () => {
   };
 
   const handleVideoSelect = (videoId: string) => {
-    setVideoId(videoId); // Update the video ID in the context
+    setVideoId(videoId); 
   };
 
 

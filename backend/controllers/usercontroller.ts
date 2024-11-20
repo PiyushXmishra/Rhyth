@@ -6,6 +6,7 @@ import redisClient from '../redis/redisclient';
 const prisma = new PrismaClient();
 
 export const getHistory = async (req: Request, res: Response): Promise<any> => {
+  redisClient.flushall();
   //@ts-ignore
   const UserId = req.user?.id;
   const { date } = req.query;
