@@ -1,4 +1,3 @@
-// controllers/songController.ts
 import { Request, Response } from 'express';
 import prisma from '../models/prismaclient';
 import axios from 'axios';
@@ -8,65 +7,58 @@ import redisClient from '../redis/redisclient';
 
 export const addSongToPlaylist = async (req: Request<{ playlistId: string }>, res: Response):Promise<any> => {
   const playlistId: string = req.params.playlistId;
-  const { videoId }: { videoId: string } = req.body; // Get the videoId from the request body
+  const { videoId }: { videoId: string } = req.body; 
 
   try {
-      // Get the user ID from the request (assuming you are using some authentication middleware)
       //@ts-ignore
-      const userId = req.user?.id; // Modify this line according to how you are retrieving the user ID
+      const userId = req.user?.id; 
 
-      // Find the playlist that belongs to the user
       const playlist = await prisma.playlist.findUnique({
           where: {
-              id: playlistId, // Convert playlistId to a number
+              id: playlistId, 
           },
       });
 
-      // Check if the playlist exists and belongs to the user
       if (!playlist || playlist.userId !== userId) {
           return res.status(404).json({ message: 'Playlist not found or does not belong to the user.' });
       }
 
-      // Check if the song already exists
       const existingSong = await prisma.song.findUnique({
           where: {
-              videoId: videoId, // Check if the song exists by videoId
+              videoId: videoId, 
           },
       });
 
       let songId: number;
 
       if (existingSong) {
-          songId = existingSong.id; // If the song exists, get its ID
+          songId = existingSong.id; 
       } else {
-          // If the song does not exist, create it
           const newSong = await prisma.song.create({
               data: {
                   videoId: videoId
               },
           });
-          songId = newSong.id; // Get the new song's ID
+          songId = newSong.id;
       }
 
-      // Add the song to the playlist
       await prisma.playlist.update({
           where: {
               id: playlistId,
           },
           data: {
               songs: {
-                  connect: { id: songId }, // Connect the song to the playlist
+                  connect: { id: songId }, 
               },
           },
       });
 
       const cacheKey = `UserPlaylist:${playlistId}`;
       try {
-          await redisClient.del(cacheKey); // Attempt to delete cache key
+          await redisClient.del(cacheKey); 
       } catch (cacheError) {
           console.warn(`Warning: Could not invalidate cache for key ${cacheKey}:`, cacheError);
       }
-
 
       return res.status(200).json({ message: 'Song added to playlist successfully.' });
       
@@ -81,29 +73,24 @@ export const addSongToPlaylist = async (req: Request<{ playlistId: string }>, re
 
 export const deleteSongFromPlaylist = async (req: Request<{ playlistId: string }>, res: Response):Promise<any> => {
   const playlistId: string = req.params.playlistId;
-  const { videoId }: { videoId: string } = req.body; // Get the videoId from the request body
-
+  const { videoId }: { videoId: string } = req.body; 
   try {
-      // Get the user ID from the request (assuming you are using some authentication middleware)
 //@ts-ignore
-      const userId = req.user?.id; // Modify this line according to how you are retrieving the user ID
+      const userId = req.user?.id; 
 
-      // Find the playlist that belongs to the user
       const playlist = await prisma.playlist.findUnique({
           where: {
-              id: playlistId, // Convert playlistId to a number
+              id: playlistId, 
           },
       });
 
-      // Check if the playlist exists and belongs to the user
       if (!playlist || playlist.userId !== userId) {
           return res.status(404).json({ message: 'Playlist not found or does not belong to the user.' });
       }
 
-      // Check if the song exists in the playlist
       const song = await prisma.song.findUnique({
           where: {
-              videoId: videoId, // Check if the song exists by videoId
+              videoId: videoId, 
           },
       });
 
@@ -111,21 +98,20 @@ export const deleteSongFromPlaylist = async (req: Request<{ playlistId: string }
           return res.status(404).json({ message: 'Song not found.' });
       }
 
-      // Remove the song from the playlist
       await prisma.playlist.update({
           where: {
               id: playlistId
           },
           data: {
               songs: {
-                  disconnect: { id: song.id }, // Disconnect the song from the playlist
+                  disconnect: { id: song.id }, 
               },
           },
       });
       
       const cacheKey = `UserPlaylist:${playlistId}`;
       try {
-          await redisClient.del(cacheKey); // Attempt to delete cache key
+          await redisClient.del(cacheKey); 
       } catch (cacheError) {
           console.warn(`Warning: Could not invalidate cache for key ${cacheKey}:`, cacheError);
       }
@@ -147,7 +133,6 @@ export const searchSongs = async (req: Request, res: Response): Promise<any> => 
     console.log(req.query);
     const { query } = req.query;
   
-    // Check Redis cache for search results
     const cachedResults = await redisClient.get(query as string);
   
     if (cachedResults) {
@@ -156,27 +141,24 @@ export const searchSongs = async (req: Request, res: Response): Promise<any> => 
     }
   
     try {
-      // Fetch from YouTube API if not in cache
       const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
         params: {
           part: "snippet",
           q: query,
           type: "video",
-          maxResults: 10,
+          maxResults: 20,
           key: process.env.YOUTUBE_API_KEY,
         },
       });
   
-      // Decode HTML entities in the titles
       const decodedItems = response.data.items.map((item: any) => ({
         ...item,
         snippet: {
           ...item.snippet,
-          title: decode(item.snippet.title), // Decode title
+          title: decode(item.snippet.title), 
         },
       }));
   
-      // Cache the decoded results in Redis
       await redisClient.set(query as string, JSON.stringify(decodedItems), "EX", 86400);
   
       res.json(decodedItems);

@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import prisma from '../models/prismaclient';
 import axios from 'axios';
-import redisClient from '../redis/redisclient'; // Ensure this path matches your Redis client import
+import redisClient from '../redis/redisclient';
 
 export const getSongsOfUserPlaylist = async (req: Request<{ playlistId: string }>, res: Response): Promise<any> => {
     const playlistId: string = req.params.playlistId;
@@ -43,16 +43,14 @@ export const getSongsOfUserPlaylist = async (req: Request<{ playlistId: string }
                 console.error('Error fetching video details:', youtubeError);
                 return {
                     videoId: song.videoId,
-                    title: 'Unknown Title', // Fallback title if fetching fails
-                    thumbnail: 'https://via.placeholder.com/150', // Placeholder image
+                    title: 'Unknown Title', 
+                    thumbnail: 'https://via.placeholder.com/150', 
                 };
             }
         }));
 
-        // Cache the detailed song data in Redis for 1 hour (3600 seconds)
         await redisClient.set(cacheKey, JSON.stringify(detailedSongs),"EX" , 3600);
 
-        // Return the detailed song info
         return res.json(detailedSongs);
         
     } catch (error) {
