@@ -1,7 +1,7 @@
 
-# Rhyth 🎵🎥  
+# Rhyth 🎵
 
-**Rhyth** is a music platform built as a passion project, designed to enhance the way we enjoy music by combining audio and video. Unlike traditional platforms, **Rhyth** lets users watch music videos alongside organizing their favorite tracks into playlists.  
+**Rhyth** is a music platform built as a passion project, designed to enhance the way we enjoy music.Unlike traditional platforms, **Rhyth** lets users watch music videos alongside organizing their favorite tracks into playlists.  
 
 ## Features  
 
@@ -27,7 +27,7 @@
 
 1. Clone the repository:  
    ```bash  
-   git clone https://github.com/username/rhyth.git  
+   git clone https://github.com/PiyushXmishra/rhyth
    cd rhyth  
    ```  
 
@@ -62,8 +62,8 @@
 ## Future Goals  
 
 - Add a recommendation system for related videos.  
-- Enable playlist sharing and collaboration.  
-- Optimize performance for high-quality video playback.  
+- will create a room/playground for users to play songs in queue and priority manner.
+- will work on drag and drop for songs (probably dnd kit)
 
 ## Contributing  
 
@@ -74,6 +74,4 @@ Contributions are welcome! Please:
 4. Push to the branch: `git push origin feature-name`.  
 5. Open a pull request for review.  
 
-## License  
 
-This project is open-source and available under the [MIT License](LICENSE).  
