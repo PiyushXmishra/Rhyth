@@ -5,6 +5,7 @@ import { useToken } from "@/components/contexts/TokenContext";
 import { motion } from "framer-motion";
 import { usePlayer } from "../../components/contexts/PlayerContext";
 import { Dropdown } from "@/components/controls/DownloadButton";
+import SkeletonLoading from "@/components/loaders/SearchLoader";
 
 interface Song {
   videoId: string;
@@ -22,6 +23,7 @@ const HistoryPage: React.FC = () => {
   const { sessionToken } = useToken();
   const [groupedHistory, setGroupedHistory] = useState<GroupedHistory>({});
 
+  const [loading, setLoading] = useState(true);
   const {setVideoId} = usePlayer()
   
   const truncateTitle = (title: string, maxLength: number) => {
@@ -56,6 +58,7 @@ const HistoryPage: React.FC = () => {
         const data: GroupedHistory = response.data;
 
         setGroupedHistory(data);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching history:", error);
       }
@@ -104,41 +107,47 @@ const HistoryPage: React.FC = () => {
     <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl pt-2 lg:p-4">
       <div className="flex-1 overflow-y-auto">
       <div className="w-full h-full rounded-lg shadow-lg">
-      {Object.keys(groupedHistory).map((date) => (
-        <div key={date}>
-          <h3 className="text-lg font-semibold font-sans text-white">{formatDate(date)}</h3>
-          <div className="">
-            {groupedHistory[date].map((song) => (
-              <motion.div
-              whileHover={{
-                scale: 1.03,
-                transition: { duration: 0.01 },
-              }}
-              whileTap={{ scale: 0.9 }}
-              key={song.videoId}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"  
-            >
-              <div className="flex items-center w-full" onClick={() => handleVideoSelect(song.videoId)} >
-                <img
-                  src={song.thumbnail}
-                  alt={song.name}
-                  className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
-                />
+      
+{loading ?(
+  <SkeletonLoading count={20} />
+):(
+  Object.keys(groupedHistory).map((date) => (
+    <div key={date}>
+      <h3 className="text-lg font-semibold font-sans text-white">{formatDate(date)}</h3>
+      <div className="">
+        {groupedHistory[date].map((song) => (
+          <motion.div
+          whileHover={{
+            scale: 1.03,
+            transition: { duration: 0.01 },
+          }}
+          whileTap={{ scale: 0.9 }}
+          key={song.videoId}
+          className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"  
+        >
+          <div className="flex items-center w-full" onClick={() => handleVideoSelect(song.videoId)} >
+            <img
+              src={song.thumbnail}
+              alt={song.name}
+              className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
+            />
 
-                <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
-                  <h3 className="text-xs lg:text-base font-semibold font-sans">
-                    {truncateTitle(song.name, 60)}
-                  </h3>
-                </div>
-              </div>
-              <div className="flex">
-                <Dropdown videoId={song.videoId} videoTitle={song.name}/>
-              </div>
-            </motion.div>
-            ))}
+            <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
+              <h3 className="text-xs lg:text-base font-semibold font-sans">
+                {truncateTitle(song.name, 60)}
+              </h3>
+            </div>
           </div>
-        </div>
-      ))}
+          <div className="flex">
+            <Dropdown videoId={song.videoId} videoTitle={song.name}/>
+          </div>
+        </motion.div>
+        ))}
+      </div>
+    </div>
+  ))
+)}
+  
       </div>
     </div>
     </div>
