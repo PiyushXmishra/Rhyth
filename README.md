@@ -1,77 +1,123 @@
-
 # Rhyth 🎵
 
-**Rhyth** is a music platform built as a passion project, designed to enhance the way we enjoy music.Unlike traditional platforms, **Rhyth** lets users watch music videos alongside organizing their favorite tracks into playlists.  
+**Rhyth** is a music platform built as a passion project, designed to enhance the way we enjoy music. Unlike traditional platforms, **Rhyth** lets users watch music videos alongside organizing their favorite tracks into playlists, with robust caching for optimal performance.
 
-## Features  
+## Features
 
-- 🔍 **Search Songs**: Quickly search for songs and fetch 10–20 curated results.  
-- 🎥 **Watch Music Videos**: Play songs with integrated video through an embedded YouTube player.  
-- 📋 **Create Playlists**: Organize favorite tracks and revisit them anytime.  
-- 🌐 **User-Friendly Interface**: Built with modern UI/UX practices for a seamless experience.  
+- 🔍 **Search Songs**: Quickly search for songs and fetch curated results from YouTube
+- 🎥 **Watch Music Videos**: Play songs with integrated video through an embedded YouTube player
+- 📋 **Create & Manage Playlists**: Create, organize and manage personal playlists
+- 🚀 **Performance Optimized**: Redis caching implementation for faster data retrieval
+- 🔒 **Secure Authentication**: JWT-based user authentication system
+- 🌐 **Responsive Design**: Modern UI/UX built for seamless experience across devices
 
-## Tech Stack  
+## Tech Stack
 
-- **Frontend**: [Next.js](https://nextjs.org/), [Tailwind CSS](https://tailwindcss.com/)  
-- **Backend**: Node.js with Express, [Prisma](https://www.prisma.io/) ORM  
-- **Database**: PostgreSQL  
-- **External APIs**: YouTube API for fetching song and video data  
+### Frontend
+- [Next.js](https://nextjs.org/) - React framework for production
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org/) - Static typing for JavaScript
 
-## Installation  
+### Backend
+- Node.js with Express - Server framework
+- [Prisma](https://www.prisma.io/) - Modern database ORM
+- [TypeScript](https://www.typescriptlang.org/) - Type safety for backend
+- Redis - For caching and performance optimization
+- PostgreSQL - Primary database
 
-### Prerequisites  
-- [Node.js](https://nodejs.org/) (v16 or higher)  
-- [PostgreSQL](https://www.postgresql.org/)  
+### APIs & Authentication
+- YouTube Data API v3 - For video metadata
+- JWT (JSON Web Tokens) - Secure authentication
 
-### Steps  
+## Installation
 
-1. Clone the repository:  
-   ```bash  
+### Prerequisites
+- Node.js (v16 or higher)
+- PostgreSQL
+- Redis
+
+### Setup Steps
+
+1. Clone the repository:
+   ```bash
    git clone https://github.com/PiyushXmishra/rhyth
-   cd rhyth  
-   ```  
+   cd rhyth
+   ```
 
-2. Install dependencies:  
-   ```bash  
-   npm install  
-   ```  
+2. Install dependencies for both frontend and backend:
+   ```bash
+   # Install backend dependencies
+   cd backend
+   npm install
 
-3. Set up environment variables:  
-   Create a `.env` file in the root directory with the following variables:  
-   ```plaintext  
-   DATABASE_URL=your_postgresql_connection_string  
-   YOUTUBE_API_KEY=your_youtube_api_key  
-   ```  
+   # Install frontend dependencies
+   cd ../frontend
+   npm install
+   ```
 
-4. Run database migrations:  
-   ```bash  
-   npx prisma migrate dev  
-   ```  
+3. Configure environment variables:
+   Create `.env` files in both frontend and backend directories:
 
-5. Start the development server:  
-   ```bash  
-   npm run dev  
-   ```  
+   Backend `.env`:
+   ```plaintext
+   DATABASE_URL="postgresql://user:password@localhost:5432/rhyth"
+   REDIS_URL="redis://localhost:6379"
+   JWT_SECRET="your-jwt-secret"
+   YOUTUBE_API_KEY="your-youtube-api-key"
+   ```
 
-## Usage  
+   Frontend `.env`:
+   ```plaintext
+   NEXT_PUBLIC_API_URL="http://localhost:3001"
+   ```
 
-1. Open the application at `http://localhost:3000`.  
-2. Search for songs to find their videos.  
-3. Create playlists to organize your favorite tracks and videos.  
+4. Set up the database:
+   ```bash
+   cd backend
+   npx prisma migrate dev
+   ```
 
-## Future Goals  
+5. Start the development servers:
+   ```bash
+   # Start backend server (from backend directory)
+   npm run dev
 
-- Add a recommendation system for related videos.  
-- will create a room/playground for users to play songs in queue and priority manner.
-- will work on drag and drop for songs (probably dnd kit)
+   # Start frontend server (from frontend directory)
+   npm run dev
+   ```
 
-## Contributing  
+## Usage
 
-Contributions are welcome! Please:  
-1. Fork the repository.  
-2. Create a new branch: `git checkout -b feature-name`.  
-3. Commit your changes: `git commit -m "Add a new feature"`.  
-4. Push to the branch: `git push origin feature-name`.  
-5. Open a pull request for review.  
+1. Access the application at `http://localhost:3000`
+2. Create an account or log in
+3. Search for songs using the search bar
+4. Create playlists and add your favorite songs
+5. Enjoy music videos with playlist management capabilities
 
+## Key Features in Development
 
+- 🎮 **Music Rooms**: Collaborative spaces for users to queue and prioritize songs
+- 🎯 **Smart Recommendations**: AI-powered song suggestions based on listening history
+- 🎨 **Drag & Drop Interface**: Implementation of dnd-kit for intuitive playlist management
+- 📱 **Mobile App**: Native mobile application development planned
+
+## Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. Fork the repository
+2. Create your feature branch: `git checkout -b feature/AmazingFeature`
+3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
+4. Push to the branch: `git push origin feature/AmazingFeature`
+5. Open a Pull Request
+
+### Development Guidelines
+- Follow the existing code style and conventions
+- Add appropriate comments and documentation
+- Write tests for new features
+- Update README.md with any necessary changes
+
+## Acknowledgments
+
+- Thanks to all contributors who have helped shape Rhyth
+- Special thanks to the open-source community for the amazing tools and libraries
