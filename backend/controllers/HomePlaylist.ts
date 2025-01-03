@@ -7,19 +7,16 @@ export const HomePlaylists = async (req: Request, res: Response) => {
         const playlists: Array<{ id: string; name: string; thumbnails: any }> = [];
     
         for (const playlistId of playlistIds) {
-            // Check Redis for playlist info
             const cachedPlaylist = await redisClient.get(`playlist:${playlistId}`);
             if (cachedPlaylist) {
                 console.log("returning cached tracks")
                 playlists.push(JSON.parse(cachedPlaylist));
             } else {
-                // Fetch from YouTube API
                 const playlistInfo = await fetchPlaylistInfo(playlistId);
                 const playlist = { id: playlistId, name: playlistInfo.title, thumbnails: playlistInfo.thumbnails };
                 playlists.push(playlist);
     
-                // Store in Redis
-                await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 3600); // Cache for 1 hr
+                await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 3600); 
             }
         }
         res.json(playlists);

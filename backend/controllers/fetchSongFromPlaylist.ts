@@ -16,7 +16,7 @@ export const fetchSongsFromPlaylist = async (playlistId: string) => {
         songs.push({
             title: item.snippet.title,
             videoId: item.snippet.resourceId.videoId,
-            thumbnail: item.snippet.thumbnails, // Change this to the default thumbnail
+            thumbnail: item.snippet.thumbnails, 
         });
     });
 

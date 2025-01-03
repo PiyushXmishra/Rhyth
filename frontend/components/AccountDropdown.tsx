@@ -100,7 +100,7 @@ export default function AccountMenu() {
           <DrawerHeader className="text-center">
             <DrawerTitle>Account</DrawerTitle>
           </DrawerHeader>
-          <div className="p-4 pb-0">
+          <div className="p-4 pb-0 flex justify-center">
             <AccountContent onClose={() => setIsOpen(false)} />
           </div>
           <DrawerFooter>
