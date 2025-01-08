@@ -26,7 +26,7 @@ function Greeting() {
   return (
     <div>
       {greeting ? (
-          <h1 className="flex lg:hidden text-2xl p-2 font-sans font-bold text-white text-start">
+          <h1 className="flex lg:hidden text-2xl p-2   font-bold text-white text-start">
             {greeting}
              </h1>
         ) :(

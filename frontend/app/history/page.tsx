@@ -113,7 +113,7 @@ const HistoryPage: React.FC = () => {
 ):(
   Object.keys(groupedHistory).map((date) => (
     <div key={date}>
-      <h3 className="text-lg font-semibold font-sans text-white">{formatDate(date)}</h3>
+      <h3 className="text-lg  font-bold   text-white">{formatDate(date)}</h3>
       <div className="">
         {groupedHistory[date].map((song) => (
           <motion.div
@@ -133,7 +133,7 @@ const HistoryPage: React.FC = () => {
             />
 
             <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
-              <h3 className="text-xs lg:text-base font-semibold font-sans">
+              <h3 className="text-xs lg:text-base  font-bold  ">
                 {truncateTitle(song.name, 60)}
               </h3>
             </div>

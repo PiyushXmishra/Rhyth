@@ -53,11 +53,11 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
                 />
 
                 <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
-                  <h3 className="text-xs lg:text-base font-semibold font-sans">
+                  <h3 className="text-xs lg:text-base  font-bold  ">
                     {truncateTitle(result.snippet.title, 60)}
                   </h3>
                   {/* Optional: display artist info */}
-                  {/* <p className="text-xs font-sans font-semibold text-muted-foreground">{result.snippet.channelTitle}</p> */}
+                  {/* <p className="text-xs    font-bold text-muted-foreground">{result.snippet.channelTitle}</p> */}
                 </div>
               </div>
               <div className="flex">

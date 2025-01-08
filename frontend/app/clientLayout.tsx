@@ -1,4 +1,3 @@
-import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import SideBar from "@/components/SideBar";
@@ -8,16 +7,7 @@ import PlayerWrapper from "@/components/player/PlayerWrapper";
 import { TracksProvider } from "@/components/contexts/TracksContext";
 import SessionProviderWrapper from "./SessionProvider";
 import { PlayerControlProvider } from "@/components/contexts/ControlContext";
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 600 700 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 600 700 900",
-});
+
 
 export default function ClientLayout({
   children,
@@ -26,7 +16,7 @@ export default function ClientLayout({
 }>) {
 
   return (
-    <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <div>
       <PlayerControlProvider>
       <SessionProviderWrapper>
       <TracksProvider>

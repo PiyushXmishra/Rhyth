@@ -14,7 +14,7 @@ const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ count }) => {
           <Skeleton className="relative w-80 h-14 lg:h-44 lg:w-full overflow-hidden rounded-l-md lg:rounded-xl " />
           
           {/* Title skeleton */}
-          <Skeleton className="pl-2 lg:pl-0 font-semibold font-sans text-sm lg:text-base text-muted-foreground text-center" />
+          <Skeleton className="pl-2 lg:pl-0  font-bold   text-sm lg:text-base text-muted-foreground text-center" />
         </Skeleton>
       ))}
     </div>

@@ -48,7 +48,7 @@ function AccountContent({ onClose }: { onClose: () => void }) {
           <UserRound className="h-24 w-24 rounded-full bg-secondary p-4" />
         )}
         {session?.user?.name && (
-          <p className="text-lg font-semibold">{session.user.name}</p>
+          <p className="text-lg  font-bold">{session.user.name}</p>
         )}
         {session?.user?.email && (
           <p className="text-sm text-muted-foreground">{session.user.email}</p>

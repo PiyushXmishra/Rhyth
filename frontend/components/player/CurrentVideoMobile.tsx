@@ -96,7 +96,7 @@ function CurrentVideoMobile() {
                     />
                   )}
                   <div className='pt-2'>
-                    <h2 className="text-white text-base font-semibold font-sans">
+                    <h2 className="text-white text-base  font-bold  ">
                       {truncateTitle(songInfo.title, 70)}{" "}
                     </h2>
                     <p className="text-sm text-muted-foreground">By {songInfo.author_name}</p>

@@ -39,7 +39,6 @@ export default function SongDetails({
 
   const handleVideoSelect = (videoId: string) => {
     setVideoId(videoId)
-    console.log(videoId);
   }
 
   useEffect(() => {
@@ -95,7 +94,7 @@ export default function SongDetails({
       
       <div className="overflow-y-auto relative">
      
-        <div className="flex flex-col items-center text-xl text-muted-foreground font-semibold font-sans mb-2 px-2 h-max">
+        <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold   mb-2 px-2 h-max">
         <DotPattern
         className={cn(
           "[mask-image:radial-gradient(green,transparent)]  inset-auto h-max ",
@@ -127,7 +126,7 @@ export default function SongDetails({
               className="w-16 h-12 lg:w-20 lg:h-16 rounded-lg object-cover"
             />
             <div className="mx-4 lg:ml-4">
-              <h3 className="text-xs lg:text-base font-semibold font-sans">
+              <h3 className="text-xs lg:text-base  font-bold  ">
                 {truncateTitle(song.title, 60)}
               </h3>
             </div>

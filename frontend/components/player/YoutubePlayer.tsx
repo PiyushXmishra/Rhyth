@@ -17,7 +17,6 @@ export default function YoutubePlayer() {
   const { playNextSong, videoId } = usePlayer()
   const [currentVideoId, setCurrentVideoId] = useState(videoId)
 
-  console.log("Current videoId:", videoId)
 
   const opts = {
     height: "303.75",
@@ -42,7 +41,6 @@ export default function YoutubePlayer() {
     if (event.data === YouTube.PlayerState.PLAYING) {
       setIsPlaying(true)
       setIsPlayerReady(true)
-      console.log("Video playing, videoId:", currentVideoId)
     } else if (event.data === YouTube.PlayerState.PAUSED) {
       setIsPlaying(false)
     } else if (event.data === YouTube.PlayerState.ENDED) {

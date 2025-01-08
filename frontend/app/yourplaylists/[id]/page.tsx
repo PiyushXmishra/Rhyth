@@ -15,7 +15,6 @@ function Page({ params }: { params: { id: string } }) {
   const playlistId = params.id;
 
   useEffect(() => {
-    console.log(sessionToken)
     const fetchSongs = async () => {
       try {
         // Set the session token in the headers for this request
@@ -55,7 +54,7 @@ function Page({ params }: { params: { id: string } }) {
 
   return (
     <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl pt-2 lg:p-4">
-      <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground font-semibold font-sans mb-2 px-2">
+      <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground  font-bold   mb-2 px-2">
         <h1 className="text-base lg:text-xl">Songs</h1>
       </div>
       <div className="h-full overflow-y-auto">
@@ -80,11 +79,11 @@ function Page({ params }: { params: { id: string } }) {
                 />
 
                 <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
-                  <h3 className="text-xs lg:text-base font-semibold font-sans">
+                  <h3 className="text-xs lg:text-base  font-bold  ">
                     {truncateTitle(song.title, 60)}
                   </h3>
                   {/* Optional: display additional song info, e.g., artist */}
-                  {/* <p className="text-xs font-sans font-semibold text-muted-foreground">{song.artist}</p> */}
+                  {/* <p className="text-xs    font-bold text-muted-foreground">{song.artist}</p> */}
                 </div>
               </div>
             </motion.div>

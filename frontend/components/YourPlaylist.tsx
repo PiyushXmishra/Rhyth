@@ -23,19 +23,17 @@ function YourPlaylist() {
   useEffect(() => {
     const registerUser = async () => {
       try {
-        // Explicitly set the session-token in the header for this request
         const response = await axios.post(
           `${process.env.NEXT_PUBLIC_URL}/api/playlist/createuser`,
           {},
           {
             headers: {
-              'session-token': sessionToken || '', // Send the session token here
+              'session-token': sessionToken || '',
             }
           }
         );
-        console.log(response.data);
         setHasRegistered(true);
-        localStorage.setItem("hasRegistered", "true"); // Store in local storage
+        localStorage.setItem("hasRegistered", "true"); 
       } catch (error) {
         //@ts-ignore
         console.error("Error registering user:", error.response ? error.response.data : error);
@@ -46,9 +44,9 @@ function YourPlaylist() {
     if (session && !hasRegistered && !hasRegisteredLocal) {
       registerUser();
     } else if (hasRegisteredLocal) {
-      setHasRegistered(true); // Update state if already registered
+      setHasRegistered(true); 
     }
-  }, [session, hasRegistered, sessionToken]); // Added sessionToken to dependencies
+  }, [session, hasRegistered, sessionToken]); 
 
   return (
     <>

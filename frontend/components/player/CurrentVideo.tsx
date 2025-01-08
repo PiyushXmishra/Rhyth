@@ -29,7 +29,6 @@ interface SongInfo {
         );
         setSongInfo(response.data); // Set the fetched song info
         setLoading(false)
-        console.log(response.data)
       } catch (error) {
         console.error("Error fetching song info:", error);
         setSongInfo(null); // Handle error case
@@ -58,10 +57,10 @@ interface SongInfo {
                 className="w-14 h-10 lg:w-20 lg:h-16 rounded-lg mr-4"
               />
               <div>
-                <h3 className="hidden lg:flex text-base font-semibold font-sans">
+                <h3 className="hidden lg:flex text-base  font-bold  ">
                   {truncateTitle(songInfo.title, 90)}{" "}
                 </h3>
-                <h3 className="lg:hidden text-sm font-semibold font-sans">
+                <h3 className="lg:hidden text-sm  font-bold  ">
                   {truncateTitle(songInfo.title, 20)}{" "}
                 </h3>
                 <p className="text-xs lg:text-sm text-muted-foreground">

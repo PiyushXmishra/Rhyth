@@ -3,10 +3,18 @@ import ClientLayout from "./clientLayout";
 import { TokenProvider } from "@/components/contexts/TokenContext";
 import { cookies } from "next/headers";
 import { Analytics } from "@vercel/analytics/react"
+import { Nunito } from "next/font/google";
 export const metadata: Metadata = {
   title: "Rhyth",
   description: "Music Platform",
 };
+
+
+const Nunitomono = Nunito({
+  variable: "--font-nunito-mono",
+  subsets: ["latin"],
+});
+
 
 export default function RootLayout({
   children,
@@ -18,7 +26,6 @@ export default function RootLayout({
     ? "__Secure-next-auth.session-token"
     : "next-auth.session-token";
   const nextAuthSessionToken = nextCookies.get(tokenName)?.value || null;
-  console.log(nextAuthSessionToken)
   return (
     <html lang="en">
       <head>
@@ -26,7 +33,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body>
+      <body className={`${Nunitomono.variable} antialiased`}>
 
        <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>

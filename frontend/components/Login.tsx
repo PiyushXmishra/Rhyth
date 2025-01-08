@@ -21,7 +21,7 @@ export default function LoginPage() {
     <div className="w-full">
       <Card className="w-full bg-accent">
         <CardHeader className="space-y-1">
-          <CardTitle className="text-xl font-sans font-semibold ">Sign in & Customize your playlist</CardTitle>
+          <CardTitle className="text-xl    font-bold ">Sign in & Customize your playlist</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
           <Button variant="secondary" type="button" onClick={handleSignin}>

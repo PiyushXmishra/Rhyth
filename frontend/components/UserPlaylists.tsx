@@ -94,7 +94,7 @@ export default function UserPlaylists() {
   const PlaylistItem = ({ playlist }: { playlist: Playlist }) => (
     <div className="flex flex-col items-center p-4 bg-secondary/80 rounded-lg">
       <Disc size={80} className="stroke-muted-foreground" />
-      <h3 className="lg:hidden text-sm font-semibold font-sans text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+      <h3 className="lg:hidden text-sm  font-bold   text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
         {playlist.name}
       </h3>
     </div>
@@ -102,7 +102,7 @@ export default function UserPlaylists() {
 
   return (
     <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] bg-secondary/50 border lg:border-none p-4 lg:p-0 w-full lg:bg-secondary rounded-xl lg:rounded-3xl lg:pb-4 flex-col ">
-      <h2 className="text-2xl text-white font-bold font-sans mb-4 lg:mb-0 lg:text-xl lg:mx-2 lg:p-4 lg:pb-0">
+      <h2 className="text-2xl text-white font-bold   mb-4 lg:mb-0 lg:text-xl lg:mx-2 lg:p-4 lg:pb-0">
         Your Library
       </h2>
 
@@ -148,7 +148,7 @@ export default function UserPlaylists() {
                   )
                 ) : (
                   <CarouselItem className="basis-full">
-                    <h1 className="font-semibold font-sans w-full text-center">
+                    <h1 className=" font-bold   w-full text-center">
                       Create Your First Playlist
                     </h1>
                   </CarouselItem>
@@ -179,7 +179,7 @@ export default function UserPlaylists() {
                           <PlaylistItem key={playlist.id} playlist={playlist} />
                           
                         </div>
-                        <h3 className="text-lg font-semibold text-center overflow-hidden text-ellipsis whitespace-nowrap w-full">
+                        <h3 className="text-lg  font-bold text-center overflow-hidden text-ellipsis whitespace-nowrap w-full">
         {playlist.name}
       </h3>
                       </motion.div>
@@ -188,7 +188,7 @@ export default function UserPlaylists() {
                 </div>
               ) : (
                 <div className="flex w-full h-full items-center justify-center">
-                <h1 className="font-semibold font-sans w-full lg:text-lg text-center">
+                <h1 className=" font-bold   w-full lg:text-lg text-center">
                   Create Your First Playlist
                 </h1>
                 </div>
@@ -202,7 +202,7 @@ export default function UserPlaylists() {
               <DialogTrigger asChild>
                 <Button variant="outline" className="bg-muted px-2 gap-x-1">
                   <Plus />
-                  <p className="font-semibold font-sans">Create Playlist</p>
+                  <p className=" font-bold  ">Create Playlist</p>
                 </Button>
               </DialogTrigger>
             </div>
