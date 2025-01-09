@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios"; // Regular axios import
 import UserPlaylists from "@/components/UserPlaylists";
 import LoginPage from "@/components/Login";
-import useMediaQuery from "@/components/controls/hooks/useMediaQuery";
+import useMediaQuery from "@/components/hooks/useMediaQuery";
 import { redirect } from "next/navigation";
 import { useToken } from '@/components/contexts/TokenContext';
 
