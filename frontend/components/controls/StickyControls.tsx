@@ -5,38 +5,29 @@ import SeekBar from './SeekBar';
 import VolumeControl from './VolumeControl';
 import { Music2 } from 'lucide-react';
 import { Button } from '../ui/button';
+import { usePlayerControl } from '../contexts/ControlContext';
 
-interface StickyControlsProps {
-  volume: number;
-  onVolumeChange: (volume: number) => void;
-  onHide:()=>void
-}
-
-const StickyControls: React.FC<StickyControlsProps> = ({
-  volume,
-  onVolumeChange,
-  onHide
-}) => {
+const StickyControls = () => {
+  const {onHide} = usePlayerControl();
   return (
-    <div className=" hidden lg:flex w-full items-center justify-between px-4 py-2">
-      <div className='hidden lg:flex'>
+    <div className="flex w-full px-4 space-x-10 items-center ">
+      <div className=' flex flex-col w-3/5'>
+      <div className=' flex justify-center items-center pb-2'>
       <PlayPauseButton />
       </div>
-      <div className='hidden lg:flex'>
-        <VolumeControl volume={volume} onVolumeChange={onVolumeChange} />
+      <SeekBar />
       </div>
-      <div className='hidden lg:flex items-center'>
-        <SeekBar />
+      <div className=' flex '>
+      <VolumeControl/>
       </div>
-
-      <Button
-        variant="ghost"
-        size="icon"
+      <div className='flex items-end'>
+      <button
         onClick={onHide}
-        className="hover:bg-secondary hidden lg:flex "
+        className="flex "
       >
-        <Music2/>
-      </Button>
+        <Music2 size={20}/>
+      </button>
+      </div>
       
     </div>
   );

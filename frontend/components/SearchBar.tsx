@@ -4,6 +4,7 @@ import { Input } from './ui/input'
 import Link from 'next/link'
 import useDebounce from '@/components/hooks/useDebounce'
 import React, { useEffect } from 'react'
+import { Search } from 'lucide-react'
 export default function SearchBar() {
   const { searchTerm, setSearchTerm, setIsSearching } = useSearchContext()
   const debouncedSearchTerm = useDebounce(searchTerm, 300)
@@ -26,6 +27,7 @@ export default function SearchBar() {
     <div className="relative flex-grow mx-4 max-w-lg">
       <div className="relative flex items-center">
         <Link href={"/search"} className="flex-grow">
+          
           <Input
             placeholder="Search"
             className="block w-full pl-5 pr-12 bg-secondary text-md"
@@ -33,6 +35,9 @@ export default function SearchBar() {
             onChange={handleInputChange}
           />
         </Link>
+        <button>
+        <Search className="absolute right-4 top-1/2 transform -translate-y-1/2 " />
+        </button>
       </div>
     </div>
   )

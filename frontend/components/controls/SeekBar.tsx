@@ -47,17 +47,17 @@ useEffect(() => {
 
   return (
     <div className=" items-center w-full ">
-      <div className='flex space-x-4 justify-center' >
-      <span>{formatTime(elapsedTime)}</span>
+      <div className='flex space-x-2 justify-center' >
+      <span className='text-xs'>{formatTime(elapsedTime)}</span>
       <Slider
         value={[elapsedTime]}
         min={0}
         max={duration}
         step={5}
         onValueChange={(value: number[]) => onSeekChange(value[0])}
-        className="flex items-center lg:max-w-[220px] lg:min-w-[180px]"
+        className="flex items-center w-full"
       />
-     <span>{formatTime(duration)}</span>
+     <span className='text-xs'>{formatTime(duration)}</span>
      </div>
     </div>
   )

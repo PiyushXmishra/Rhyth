@@ -4,16 +4,15 @@ import React, { useState } from 'react'
 import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
 import { Volume2, VolumeX } from "lucide-react"
+import { usePlayerControl } from '../contexts/ControlContext'
 
-interface VolumeControlProps {
-  volume: number
-  onVolumeChange: (value: number) => void
-}
 
-export default function VolumeControl({ volume, onVolumeChange }: VolumeControlProps) {
+
+
+export default function VolumeControl() {
+  const {volume , onVolumeChange} = usePlayerControl();
   const [lastVolume, setLastVolume] = useState<number>(volume)
   const [isMuted, setIsMuted] = useState<boolean>(volume === 0)
-  const [isHovered, setIsHovered] = useState<boolean>(false)
 
   const handleVolumeClick = () => {
     if (isMuted) {
@@ -33,39 +32,29 @@ export default function VolumeControl({ volume, onVolumeChange }: VolumeControlP
     }
   }
 
-  return (
-    <div 
-      className="flex items-center space-x-2 group"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={handleVolumeClick}
-        className="hover:bg-secondary"
-      >
-        {isMuted ? (
-          <VolumeX className="h-6 w-6" />
-        ) : (
-          <Volume2 className="h-6 w-6" />
-        )}
-        <span className="sr-only">{isMuted ? 'Unmute' : 'Mute'}</span>
-      </Button>
-      <div 
-        className={`transition-all duration-700 ease-in-out ${
-          isHovered ? 'w-[100px] opacity-100' : 'w-0 opacity-0'
-        }`}
-      >
-        <Slider
-          min={0}
-          max={100}
-          step={1}
-          value={[isMuted ? 0 : volume]}
-          onValueChange={handleSliderChange}
-          className="w-[100px]"
-        />
-      </div>
-    </div>
-  )
+
+ return (
+  <div className="flex items-center space-x-2">
+    <button
+      onClick={handleVolumeClick}    >
+      {isMuted ? (
+        <VolumeX size={20} />
+      ) : (
+        <Volume2 size={20} />
+      )}
+      <span className="sr-only">{isMuted ? 'Unmute' : 'Mute'}</span>
+    </button>
+    <div className="relative">
+  
+  <Slider
+    min={0}
+    max={100}
+    step={1}
+    value={[isMuted ? 0 : volume]}
+    onValueChange={handleSliderChange}
+    className="relative w-[100px] z-10 pointer-events-auto"
+  />
+</div>
+  </div>
+)
 }

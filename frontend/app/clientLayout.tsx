@@ -1,3 +1,4 @@
+"use client"
 import "./globals.css";
 import Navbar from "@/components/navbar";
 import SideBar from "@/components/SideBar";
@@ -7,35 +8,46 @@ import PlayerWrapper from "@/components/player/PlayerWrapper";
 import { TracksProvider } from "@/components/contexts/TracksContext";
 import SessionProviderWrapper from "./SessionProvider";
 import { PlayerControlProvider } from "@/components/contexts/ControlContext";
-
+import CurrentVideo from "@/components/player/CurrentVideo";
+import BraveSupportBanner from "@/components/PromotionalBanner";
+import StickyControls from "@/components/controls/StickyControls";
+import SeekBar from "@/components/controls/SeekBar";
+import PlayPauseButton from "@/components/controls/PlayPauseButton";
+import VolumeControl from "@/components/controls/VolumeControl";
 
 export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
-    <div>
+    <div className="min-h-screen">
       <PlayerControlProvider>
-      <SessionProviderWrapper>
-      <TracksProvider>
-        <SearchProvider>
-          <PlayerProvider>
-            <Navbar />
-            <div className="px-4 lg:px-6 lg:pt-5 min-h-[calc(100vh-4.5rem)]  lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] flex lg:block ">
-              <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
-                <div className="hidden lg:flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
-                  <SideBar />
+        <SessionProviderWrapper>
+          <TracksProvider>
+            <SearchProvider>
+              <PlayerProvider>
+                <Navbar />
+                <div className="px-4 lg:px-6 lg:pt-5 min-h-[calc(100vh-4.5rem)]  lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] flex lg:block ">
+                  <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
+                    <div className="hidden lg:flex w-1/12 bg-secondary rounded-3xl max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] p-4">
+                      <SideBar />
+                    </div>
+                    {children}
+                    <PlayerWrapper />
+                  </div>
                 </div>
-                {children}
-                <PlayerWrapper />
-              </div>
-            </div>
-          </PlayerProvider>
-        </SearchProvider>
-      </TracksProvider>
-      </SessionProviderWrapper>
+                <div className="fixed bottom-0 hidden lg:flex w-full flex-row  bg-card/50 backdrop-blur-md">
+                <div className="min-w-max">
+                <CurrentVideo />
+                </div>
+                  <StickyControls/>
+                  </div>
+        
+              </PlayerProvider>
+            </SearchProvider>
+          </TracksProvider>
+        </SessionProviderWrapper>
       </PlayerControlProvider>
     </div>
   );

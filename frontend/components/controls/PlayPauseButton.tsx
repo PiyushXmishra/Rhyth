@@ -11,13 +11,11 @@ setIsPlaying((prev) => !prev);
  }
   
   return (
-    <Button
-    variant="ghost"
-    size="icon" 
+    <button
     onClick={handlePlayPause}
-    className="hover:bg-secondary">
-    {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-    </Button>
+    className="bg-white rounded-3xl p-1.5 justify-center items-center flex outline-none">
+    {isPlaying ? <Pause size={24} strokeWidth={0.5} className=' fill-black' /> : <Play size={24} strokeWidth={0.5} className='fill-black  pl-0.5 rounded-sm' />}
+    </button>
   );
 };
 

@@ -8,12 +8,10 @@ import { motion } from "framer-motion"
 import { usePlayerControl } from "../contexts/ControlContext"
 
 export default function YoutubePlayer() {
-  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange } = usePlayerControl()
+  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange , volume , hidden} = usePlayerControl()
   const playerRef = useRef<YT.Player | null>(null)
-  const [volume, setVolume] = useState(100)
   const [isMuted] = useState(true)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
-  const [hidden, setHidden] = useState(false)
   const { playNextSong, videoId } = usePlayer()
   const [currentVideoId, setCurrentVideoId] = useState(videoId)
 
@@ -74,9 +72,10 @@ export default function YoutubePlayer() {
       if (playerRef.current && isPlayerReady) {
         const currentTime = playerRef.current.getCurrentTime()
         setElapsedTime(currentTime)
+        console.log(currentTime)
         setDuration(playerRef.current.getDuration())
       }
-    }, 100)
+    }, 1000)
 
     return () => clearInterval(interval)
   }, [setElapsedTime, setDuration, isPlayerReady])
@@ -157,9 +156,24 @@ export default function YoutubePlayer() {
     }
   }, [isPlaying])
 
-  function ToggleOnlyMusic(): void {
-    setHidden(!hidden)
-  }
+  // const handleFullscreen = () => {
+  //   if (playerRef.current) {
+  //     const iframe = playerRef.current.getIframe()
+  //     if (iframe.requestFullscreen) {
+  //       iframe.requestFullscreen()
+  //     } else if ((iframe as any).mozRequestFullScreen) {
+  //       (iframe as any).mozRequestFullScreen() // Firefox
+  //     } else if ((iframe as any).webkitRequestFullscreen) {
+  //       (iframe as any).webkitRequestFullscreen() // Chrome and Safari
+  //     } else if ((iframe as any).msRequestFullscreen) {
+  //       (iframe as any).msRequestFullscreen() // Edge
+  //     }
+  //   }
+  // }
+
+
+
+
 
   return (
     <div className="hidden lg:flex  flex-col items-start lg:bg-accent w-max rounded-2xl">
@@ -200,12 +214,6 @@ export default function YoutubePlayer() {
           className="rounded-xl"
         />
       </motion.div>
-
-      <StickyControls
-        volume={volume}
-        onVolumeChange={setVolume}
-        onHide={ToggleOnlyMusic}
-      />
     </div>
   )
 }

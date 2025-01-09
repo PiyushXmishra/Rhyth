@@ -12,6 +12,12 @@ interface PlayerContextProps {
   duration :number
   setDuration : React.Dispatch<React.SetStateAction<number>>;
   onSeekChange: (seekTime:number) => void;
+  volume: number;
+  setVolume: React.Dispatch<React.SetStateAction<number>>;
+  onVolumeChange: (volume: number) => void;
+  hidden: boolean;
+  setHidden: React.Dispatch<React.SetStateAction<boolean>>;
+  onHide: () => void;
 }
 
 // Create Context
@@ -22,7 +28,17 @@ export const PlayerControlProvider: React.FC<{ children: React.ReactNode }> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [volume, setVolume] = useState(100);
+  const [hidden, setHidden] = useState(false);
 
+
+const onHide = ()=>{
+  setHidden(!hidden);
+}
+
+  const onVolumeChange = (volume: number) => {
+    setVolume(volume);
+  }
  const onSeekChange =( seekTime: number)=>{
 setElapsedTime(seekTime);
   }
@@ -36,7 +52,13 @@ setElapsedTime(seekTime);
         setElapsedTime,
         duration,
         setDuration,
-        onSeekChange
+        onSeekChange,
+        volume,
+        setVolume,
+        onVolumeChange,
+        hidden,
+        setHidden,
+        onHide
       }}>
       {children} {/* Render children within the provider */}
     </PlayerControlContext.Provider>
