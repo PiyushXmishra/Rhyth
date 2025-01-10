@@ -15,16 +15,16 @@ const TrendingTracks: React.FC = () => {
   }
 
   return (
-    <div className='flex flex-row  h-full w-full'>
-      <div className='overflow-y-auto w-full'>
+    <div className='flex flex-row w-full'>
+      <div className=' w-full'>
         {loading || tracks.length === 0 ? (
           <LoadingSkeleton count={6} />
         ) : (
           <motion.div 
             layout
             transition={{ duration: 0.5 }}
-          className={`grid gap-4 pt-2 w-full ${
-            hidden ? 'grid-cols-4' : 'grid-cols-2'
+          className={`grid gap-4 pt-2 grid-cols-2 w-full ${
+            hidden ? 'lg:grid-cols-4' : 'lg:grid-cols-2'
           }`}
           > 
             {tracks.map((track) => (
@@ -42,7 +42,7 @@ const TrendingTracks: React.FC = () => {
                       className='absolute top-0 left-0 w-full h-full object-cover'
                     />
                   </div>
-                  <h2 className='flex-1 pl-3 sm:pl-2   font-bold   text-sm lg:text-base text-white text-start line-clamp-2 lg:line-clamp-none'>
+                  <h2 className='flex-1 pl-3 sm:pl-2 font-bold   text-sm lg:text-base text-white text-start line-clamp-2 lg:line-clamp-none'>
                     {truncateTitle(track.name)}
                   </h2>
                 </motion.div>

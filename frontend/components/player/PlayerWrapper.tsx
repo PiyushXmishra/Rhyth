@@ -15,7 +15,7 @@ const PlayerWrapper: React.FC = () => {
     <>
     {isMobile ? (
       <div className="lg:hidden">
-        <div className="flex items-center justify-between bg-secondary rounded-lg">
+        <div className=" flex items-center justify-between bg-secondary rounded-lg">
           <CurrentVideoMobile/>
           <MobileWrapper/>
           <div className=" items-center justify-between px-4 py-2">

@@ -7,14 +7,22 @@ import StickyControls from "../controls/StickyControls"
 import { motion } from "framer-motion"
 import { usePlayerControl } from "../contexts/ControlContext"
 
+const getLast5Songs = () => {
+  const storedSongs = localStorage.getItem('last5Songs');
+  return storedSongs ? JSON.parse(storedSongs) : [];
+}
+
+const setLast5Songs = (songs: any) => {
+  localStorage.setItem('last5Songs', JSON.stringify(songs));
+}
+
 export default function YoutubePlayer() {
-  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange , volume , hidden} = usePlayerControl()
+  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange, volume, hidden, isFullscreen } = usePlayerControl()
   const playerRef = useRef<YT.Player | null>(null)
   const [isMuted] = useState(true)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
   const { playNextSong, videoId } = usePlayer()
   const [currentVideoId, setCurrentVideoId] = useState(videoId)
-
 
   const opts = {
     height: "303.75",
@@ -51,12 +59,26 @@ export default function YoutubePlayer() {
   }
 
   useEffect(() => {
+    const updateLast5Songs = (newVideoId: string) => {
+      const currentSongs = getLast5Songs();
+      if (currentSongs.includes(newVideoId)) {
+        console.log(`Video ID ${newVideoId} already exists in the last 5 songs.`);
+        return; 
+      }
+      currentSongs.unshift(newVideoId);
+      if (currentSongs.length > 6) {
+        currentSongs.pop();
+      }
+      setLast5Songs(currentSongs);
+    };
+
     if (videoId !== currentVideoId) {
-      console.log("VideoId changed from", currentVideoId, "to", videoId)
+      console.log("VideoId changed from", currentVideoId, "to", videoId);
+      updateLast5Songs(videoId);
+
       setCurrentVideoId(videoId)
       setElapsedTime(0)
       setIsPlayerReady(false)
-
     }
   }, [videoId, currentVideoId])
 
@@ -107,7 +129,6 @@ export default function YoutubePlayer() {
     } catch (error) {
       console.error("Error playing / pausing video:", error)
     }
-    
   }, [isPlaying])
 
   const handleSeekChange = (seekTime: number) => {
@@ -156,24 +177,36 @@ export default function YoutubePlayer() {
     }
   }, [isPlaying])
 
-  // const handleFullscreen = () => {
-  //   if (playerRef.current) {
-  //     const iframe = playerRef.current.getIframe()
-  //     if (iframe.requestFullscreen) {
-  //       iframe.requestFullscreen()
-  //     } else if ((iframe as any).mozRequestFullScreen) {
-  //       (iframe as any).mozRequestFullScreen() // Firefox
-  //     } else if ((iframe as any).webkitRequestFullscreen) {
-  //       (iframe as any).webkitRequestFullscreen() // Chrome and Safari
-  //     } else if ((iframe as any).msRequestFullscreen) {
-  //       (iframe as any).msRequestFullscreen() // Edge
-  //     }
-  //   }
-  // }
-
-
-
-
+  useEffect(() => {
+    const iframe = playerRef.current?.getIframe();
+    const handleFullscreen = () => {
+      if (isFullscreen && iframe) {
+        if (iframe.requestFullscreen) {
+          iframe.requestFullscreen();
+        } else if (iframe?.mozRequestFullScreen) {
+          iframe?.mozRequestFullScreen(); // Firefox
+        } else if (iframe?.webkitRequestFullscreen) {
+          iframe?.webkitRequestFullscreen(); // Chrome and Safari
+        } else if (iframe?.msRequestFullscreen) {
+          iframe?.msRequestFullscreen(); // Edge
+        }
+      } else {
+        if (document.fullscreenElement) {
+          document.exitFullscreen();
+        } else if ((document as any).mozCancelFullScreen) {
+          (document as any).mozCancelFullScreen(); // Firefox
+        } else if ((document as any).webkitExitFullscreen) {
+          (document as any).webkitExitFullscreen(); // Chrome, Safari
+        } else if ((document as any).msExitFullscreen) {
+          (document as any).msExitFullscreen(); // Edge
+        }
+      }
+    };
+    handleFullscreen();
+    return () => {
+        document.removeEventListener("fullscreenchange", handleFullscreen);
+    };
+  }, [isFullscreen]);
 
   return (
     <div className="hidden lg:flex bg-card flex-col items-start  w-max ">
@@ -210,9 +243,9 @@ export default function YoutubePlayer() {
             backdropFilter: isPlaying ? "none" : "blur(15px)",
             pointerEvents: "all",
           }}
-        
         />
       </motion.div>
+
     </div>
   )
 }

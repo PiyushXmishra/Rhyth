@@ -18,6 +18,8 @@ interface PlayerContextProps {
   hidden: boolean;
   setHidden: React.Dispatch<React.SetStateAction<boolean>>;
   onHide: () => void;
+  isFullscreen: boolean;
+  toggleFullscreen: () => void;
 }
 
 // Create Context
@@ -30,7 +32,11 @@ export const PlayerControlProvider: React.FC<{ children: React.ReactNode }> = ({
   const [duration, setDuration] = useState(0);
   const [volume, setVolume] = useState(100);
   const [hidden, setHidden] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
 
+  const toggleFullscreen = () => {
+    setIsFullscreen(!isFullscreen);
+  };
 
 const onHide = ()=>{
   setHidden(!hidden);
@@ -42,6 +48,8 @@ const onHide = ()=>{
  const onSeekChange =( seekTime: number)=>{
 setElapsedTime(seekTime);
   }
+
+
 
   return (
     <PlayerControlContext.Provider
@@ -58,7 +66,9 @@ setElapsedTime(seekTime);
         onVolumeChange,
         hidden,
         setHidden,
-        onHide
+        onHide,
+        isFullscreen,
+        toggleFullscreen
       }}>
       {children} {/* Render children within the provider */}
     </PlayerControlContext.Provider>
