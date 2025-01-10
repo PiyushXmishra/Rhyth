@@ -176,23 +176,22 @@ export default function YoutubePlayer() {
 
 
   return (
-    <div className="hidden lg:flex  flex-col items-start lg:bg-accent w-max rounded-2xl">
+    <div className="hidden lg:flex bg-card flex-col items-start  w-max ">
       <motion.div
-        className="hidden lg:flex"
-        initial={{ height: "303.75px", opacity: 1 }}
+        className="hidden lg:flex pointer-events-none"
+        initial={{ width: "540px", opacity: 1 }}
         animate={{
-          height: hidden ? 0 : "303.75px",
+          width: hidden ? 0 : "540px",
           opacity: hidden ? 0 : 1,
         }}
         transition={{
-          duration: 0.4,
+          duration: 0.3,
           ease: "easeInOut",
         }}
         style={{ position: "relative", width: "540px", overflow: "hidden" }}
       >
         <YouTube
           key={currentVideoId}
-          iframeClassName="rounded-xl"
           videoId={currentVideoId}
           opts={opts}
           onReady={onReady}
@@ -211,7 +210,7 @@ export default function YoutubePlayer() {
             backdropFilter: isPlaying ? "none" : "blur(15px)",
             pointerEvents: "all",
           }}
-          className="rounded-xl"
+        
         />
       </motion.div>
     </div>

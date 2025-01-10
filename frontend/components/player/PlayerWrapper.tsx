@@ -24,8 +24,7 @@ const PlayerWrapper: React.FC = () => {
         </div>
       </div>
     ) : (
-      <div className="hidden lg:flex">  
-      
+      <div className="hidden lg:flex bg-card justify-center items-center">  
       <div>
         <YoutubePlayer />
       </div>

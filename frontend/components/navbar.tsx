@@ -19,8 +19,8 @@ export default function Navbar() {
   }
 
   return (
-    <nav
-      className={`p-2 lg:p-4 px-6 sticky top-0 z-10 bg-background/30 rounded-b-xl backdrop-blur-md ${
+    <div
+      className={`p-2 lg:p-4 px-6 sticky top-0 z-10 bg-card backdrop-blur-md ${
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >
@@ -59,6 +59,6 @@ export default function Navbar() {
           </div>
         </div>
       </div>
-    </nav>
+    </div>
   )
 }

@@ -72,7 +72,7 @@ export default function SongDetails({
 
   if (loading) {
     return (
-      <div className="z-50 flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl lg:p-4">
+      <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full rounded-md lg:rounded-3xl lg:p-4">
         <SkeletonLoading count={20} />
       </div>
     )
@@ -90,20 +90,19 @@ export default function SongDetails({
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] lg:bg-secondary rounded-md lg:rounded-3xl lg:p-4">
-      
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)]  rounded-md lg:rounded-3xl w-full">
       <div className="overflow-y-auto relative">
      
         <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold   mb-2 px-2 h-max">
         <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(green,transparent)]  inset-auto h-max ",
+          "[mask-image:radial-gradient(green,transparent)]  inset-auto h-max -z-10 ",
         )}
       />
           <img
             src={playlistImage}
             alt={playlistTitle}
-            className="h-32 w-32 object-cover rounded-lg z-50"
+            className="h-48 object-contain rounded-lg  "
           />
           <h1 className="text-white shadow-lg underline underline-offset-4 decoration-muted-foreground text-base lg:text-xl mt-4 self-start">
             {playlistTitle}
@@ -112,12 +111,12 @@ export default function SongDetails({
         {songs.map((song) => (
           <motion.div
             whileHover={{
-              scale: 1.03,
+              scale: 1.01,
               transition: { duration: 0.01 },
             }}
             whileTap={{ scale: 0.9 }}
             key={song.videoId}
-            className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"
+            className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out  rounded-xl lg:m-2 justify-between"
           >
             <div className="flex items-center " onClick={() => handleVideoSelect(song.videoId)}>
             <img
@@ -137,6 +136,6 @@ export default function SongDetails({
           </motion.div>
         ))}
       </div>
-    </div>
+  </div>
   )
 }

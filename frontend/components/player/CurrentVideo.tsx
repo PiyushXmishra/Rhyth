@@ -45,7 +45,7 @@ interface SongInfo {
 
 
     return (
-      <div className="p-2 lg:p-3 rounded-t-xl">
+      <div className="p-2 lg:p-3 rounded-t-xl min-w-80 xl:min-w-96">
           {/* Song info at the bottom */}
           {loading ? (
             <CurrentVideoLoader/>
@@ -61,8 +61,8 @@ interface SongInfo {
               />
                </div>
               <div>
-                <h3 className="hidden lg:flex text-md font-bold">
-                  {truncateTitle(songInfo.title, 35)}{" "}
+                <h3 className="hidden lg:flex text-sm font-bold">
+                  {truncateTitle(songInfo.title, 30)}{" "}
                 </h3>
                 <h3 className="lg:hidden text-sm  font-bold  ">
                   {truncateTitle(songInfo.title, 20)}{" "}

@@ -26,11 +26,11 @@ function Greeting() {
   return (
     <div>
       {greeting ? (
-          <h1 className="flex lg:hidden text-2xl p-2   font-bold text-white text-start">
+          <h1 className="flex text-2xl p-2   font-bold text-white text-start">
             {greeting}
              </h1>
         ) :(
-          <Skeleton className="lg:hidden w-2/4 p-2 h-10"/>
+          <Skeleton className=" w-2/4 p-2 h-10"/>
         )}
        
     </div>

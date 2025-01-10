@@ -7,14 +7,13 @@ interface LoadingSkeletonProps {
 
 const LoadingSkeleton: React.FC<LoadingSkeletonProps> = ({ count }) => {
   return (
-    <div className="grid grid-cols-2 gap-4 lg:px-2 pt-2 lg:pt-4 w-full">
+    <div className="grid grid-cols-2 gap-4  pt-2  w-full">
       {Array.from({ length: count }).map((_, index) => (
-        <Skeleton key={index} className="rounded-md lg:rounded-xl bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer">
+        <Skeleton key={index} className="rounded-md bg-accent  flex flex-row  items-center  cursor-pointer">
           {/* Image skeleton */}
-          <Skeleton className="relative w-80 h-14 lg:h-44 lg:w-full overflow-hidden rounded-l-md lg:rounded-xl " />
-          
+          <Skeleton className="relative w-80 h-14  overflow-hidden rounded-l-md  " />
           {/* Title skeleton */}
-          <Skeleton className="pl-2 lg:pl-0  font-bold   text-sm lg:text-base text-muted-foreground text-center" />
+          <Skeleton className="pl-2   font-bold   text-sm  text-muted-foreground text-center" />
         </Skeleton>
       ))}
     </div>

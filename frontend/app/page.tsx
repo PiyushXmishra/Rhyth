@@ -4,7 +4,7 @@ import UserPlaylists from "@/components/UserPlaylists";
 const Home: React.FC = () => {
   return (
     <>
-      <div className="flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-3xl lg:pb-4 flex-col ">
+      <div className="flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] w-full  rounded-3xl lg:pb-4 flex-col ">
         <Greeting/>  
         <TrendingTracks />
       </div>
