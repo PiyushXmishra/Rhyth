@@ -72,7 +72,7 @@ export default function SongDetails({
 
   if (loading) {
     return (
-      <div className=" flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full rounded-md lg:rounded-3xl lg:p-4">
+      <div className=" flex flex-col h-full w-full rounded-md lg:rounded-3xl lg:p-4">
         <SkeletonLoading count={20} />
       </div>
     )
@@ -90,7 +90,7 @@ export default function SongDetails({
   }
 
   return (
-    <div className="flex flex-col rounded-md lg:rounded-3xl w-full">
+    <div className="flex flex-col h-full rounded-md lg:rounded-3xl w-full">
       <div className="overflow-y-auto relative">
      
         <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold   mb-2 px-2 h-max">

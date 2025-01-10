@@ -32,7 +32,7 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
 
   return (
     <div className="w-full h-full rounded-lg shadow-lg">
-      <div className="h-full overflow-y-auto">
+      <div className="h-full overflow-y-auto overflow-x-hidden">
         {results.length > 0 ? (
           results.map((result, index) => (
             <motion.div
