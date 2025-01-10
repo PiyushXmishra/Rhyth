@@ -116,9 +116,9 @@ const HistoryPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full pt-2 lg:p-4">
-      <div className="flex-1 overflow-y-auto">
-        <div className="w-full h-full rounded-lg shadow-lg">
+    <div className="flex flex-col h-full w-full pt-2 lg:pt-4">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden">
+        <div className="w-full h-full rounded-lg">
           {loading ? (
             <SkeletonLoading count={20} />
           ) : (

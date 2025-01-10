@@ -90,7 +90,7 @@ export default function SongDetails({
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)]  rounded-md lg:rounded-3xl w-full">
+    <div className="flex flex-col rounded-md lg:rounded-3xl w-full">
       <div className="overflow-y-auto relative">
      
         <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold   mb-2 px-2 h-max">

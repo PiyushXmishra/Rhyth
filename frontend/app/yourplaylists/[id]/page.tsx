@@ -54,7 +54,7 @@ function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full pt-2 lg:py-4">
+    <div className="flex flex-col  w-full pt-2 lg:py-4">
       <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground  font-bold   mb-2 px-2">
         <h1 className="text-base lg:text-xl ">Songs</h1>
       </div>

@@ -101,7 +101,7 @@ export default function UserPlaylists() {
   );
 
   return (
-    <div className="flex  p-4 max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] lg:p-0 w-full lg:pb-4 flex-col ">
+    <div className="flex  p-4  lg:p-0 w-full h-full lg:pb-4 flex-col ">
       <h2 className="text-2xl text-white font-bold  mb-4 lg:mb-0 lg:text-2xl lg:mx-2 lg:p-4 lg:pb-0">
         Your Library
       </h2>

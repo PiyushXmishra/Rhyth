@@ -12,7 +12,7 @@ const Page: React.FC = () => {
   const showLoader = isSearching && results.length === 0; // Show loader when searching and no results
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full pt-2 lg:p-4">
+    <div className="flex flex-col  w-full pt-2 lg:p-4">
       <div className="flex flex-row justify-between text-white underline underline-offset-4 decoration-muted-foreground font-bold mb-2 ">
         <h1 className="text-base lg:text-2xl">Search Results</h1>
         <div className="flex items-center">

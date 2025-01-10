@@ -28,11 +28,12 @@ export default function ClientLayout({
             <SearchProvider>
               <PlayerProvider>
                 <Navbar />
-                <div className="px-4 lg:px-0  min-h-[calc(100vh-4.5rem)]  lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] flex lg:block">
+                <div className="px-4 lg:px-0 flex lg:block">
                   <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
                     <div className="hidden lg:flex justify-center items-center">
                       <SideBar />
                     </div>
+
                     {children}
                     <PlayerWrapper />
                   </div>
