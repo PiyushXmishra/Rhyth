@@ -12,10 +12,9 @@ const Page: React.FC = () => {
   const showLoader = isSearching && results.length === 0; // Show loader when searching and no results
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl pt-2 lg:p-4">
-      {/* Header Section */}
-      <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground  font-bold   mb-2 px-2">
-        <h1 className="text-base lg:text-xl">Search Results</h1>
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full pt-2 lg:p-4">
+      <div className="flex flex-row justify-between text-white underline underline-offset-4 decoration-muted-foreground font-bold mb-2 ">
+        <h1 className="text-base lg:text-2xl">Search Results</h1>
         <div className="flex items-center">
           <Link href={"/"}>
             <X className="cursor-pointer" onClick={clearResults} />
@@ -23,10 +22,9 @@ const Page: React.FC = () => {
         </div>
       </div>
 
-      {/* Results Section */}
       <div className="flex-1 overflow-y-auto">
         {showLoader ? (
-          <SkeletonLoading count={20} /> // Show loader while searching
+          <SkeletonLoading count={20} />
         ) : showResults ? (
           <SearchResults results={results} onClose={clearResults} />
         ) : null}

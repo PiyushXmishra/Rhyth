@@ -37,7 +37,7 @@ export default function ClientLayout({
                     <PlayerWrapper />
                   </div>
                 </div>
-                <div className="fixed bottom-0 hidden lg:flex w-full flex-row  bg-card/50 backdrop-blur-md">
+                <div className="fixed bottom-0 hidden lg:flex w-full flex-row bg-card/50 backdrop-blur-md">
                 <div className="min-w-max">
                 <CurrentVideo />
                 </div>

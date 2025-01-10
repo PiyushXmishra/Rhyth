@@ -12,10 +12,9 @@ interface SongInfo {
 
   const CurrentVideo: React.FC = () => {
     const { videoId } = usePlayer(); 
-    const [songInfo, setSongInfo] = useState<SongInfo | null>(null); // State to store song info
-    const [loading, setLoading] = useState(true); // Loading state for async request
+    const [songInfo, setSongInfo] = useState<SongInfo | null>(null);
+    const [loading, setLoading] = useState(true);
 
-      // Function to truncate the title
   const truncateTitle = (title: string, maxLength: number) => {
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
   };
@@ -27,11 +26,11 @@ interface SongInfo {
         const response = await axios.get(
           `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
         );
-        setSongInfo(response.data); // Set the fetched song info
+        setSongInfo(response.data); 
         setLoading(false)
       } catch (error) {
         console.error("Error fetching song info:", error);
-        setSongInfo(null); // Handle error case
+        setSongInfo(null); 
       } finally {
         setLoading(false);
       }
@@ -41,12 +40,10 @@ interface SongInfo {
       fetchSongInfo();
       localStorage.setItem("LastVidId", videoId)
     }
-  }, [videoId]); // Fetch song info when videoId changes
-
+  }, [videoId]); 
 
     return (
       <div className="p-2 lg:p-3 rounded-t-xl min-w-80 xl:min-w-96">
-          {/* Song info at the bottom */}
           {loading ? (
             <CurrentVideoLoader/>
           ) : songInfo ? (
@@ -61,7 +58,7 @@ interface SongInfo {
               />
                </div>
               <div>
-                <h3 className="hidden lg:flex text-sm font-bold">
+                <h3 className="hidden lg:flex text-base font-bold">
                   {truncateTitle(songInfo.title, 30)}{" "}
                 </h3>
                 <h3 className="lg:hidden text-sm  font-bold  ">

@@ -26,9 +26,8 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
     return title;
   };
 
-  // Function to handle video selection
   const handleVideoSelect = (videoId: string) => {
-    setVideoId(videoId); // Update the video ID in the context
+    setVideoId(videoId);
   };
 
   return (
@@ -38,12 +37,12 @@ const SearchResults: React.FC<SearchResultsProps> = ({ results, onClose }) => {
           results.map((result, index) => (
             <motion.div
               whileHover={{
-                scale: 1.03,
+                scale: 1.01,
                 transition: { duration: 0.01 },
               }}
               whileTap={{ scale: 0.9 }}
               key={index}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"  
+              className="flex items-center py-2 cursor-pointer transition duration-200 ease-in-out lg:my-2 justify-between"  
             >
               <div className="flex items-center w-full" onClick={() => handleVideoSelect(result.id.videoId)} >
                 <img

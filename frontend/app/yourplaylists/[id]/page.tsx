@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import SkeletonLoading from '@/components/loaders/SearchLoader';
 import { usePlayer } from '@/components/contexts/PlayerContext';
 import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
+import { Dropdown } from '@/components/controls/DownloadButton';
 
 function Page({ params }: { params: { id: string } }) {
   const [songs, setSongs] = useState<any[]>([]);
@@ -53,9 +54,9 @@ function Page({ params }: { params: { id: string } }) {
   }
 
   return (
-    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full lg:bg-secondary rounded-md lg:rounded-3xl pt-2 lg:p-4">
+    <div className="flex flex-col max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] w-full pt-2 lg:py-4">
       <div className="flex flex-row justify-between text-xl text-white underline underline-offset-4 decoration-muted-foreground  font-bold   mb-2 px-2">
-        <h1 className="text-base lg:text-xl">Songs</h1>
+        <h1 className="text-base lg:text-xl ">Songs</h1>
       </div>
       <div className="h-full overflow-y-auto">
         {loading ? (
@@ -69,7 +70,7 @@ function Page({ params }: { params: { id: string } }) {
               }}
               whileTap={{ scale: 0.9 }}
               key={index}
-              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out lg:bg-accent rounded-xl lg:m-2 justify-between"
+              className="flex items-center p-2 cursor-pointer transition duration-200 ease-in-out  lg:m-2 justify-between"
             >
               <div className="flex items-center w-full" onClick={() => handleVideoSelect(song.videoId)}>
                 <img
@@ -80,11 +81,15 @@ function Page({ params }: { params: { id: string } }) {
 
                 <div className="ml-4 mr-2 lg:ml-4 lg:mr-0">
                   <h3 className="text-xs lg:text-base  font-bold  ">
-                    {truncateTitle(song.title, 60)}
+                    {truncateTitle(song.title, 40)}
                   </h3>
-                  {/* Optional: display additional song info, e.g., artist */}
-                  {/* <p className="text-xs    font-bold text-muted-foreground">{song.artist}</p> */}
+                  
+
                 </div>
+                
+              </div>
+              <div className="flex">
+                <Dropdown videoId={song.videoId} videoTitle={truncateTitle(song.title, 40)}/>
               </div>
             </motion.div>
           ))

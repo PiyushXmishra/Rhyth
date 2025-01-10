@@ -92,7 +92,7 @@ export default function UserPlaylists() {
   );
 
   const PlaylistItem = ({ playlist }: { playlist: Playlist }) => (
-    <div className="flex flex-col items-center p-4 bg-secondary/80 rounded-lg">
+    <div className="flex flex-col  items-center p-4 bg-secondary/80 rounded-lg">
       <Disc size={80} className="stroke-muted-foreground" />
       <h3 className="lg:hidden text-sm  font-bold   text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
         {playlist.name}
@@ -101,14 +101,13 @@ export default function UserPlaylists() {
   );
 
   return (
-    <div className="z-50 flex lg:max-h-[calc(100vh-8rem)] lg:min-h-[calc(100vh-8rem)] bg-secondary/50 border lg:border-none p-4 lg:p-0 w-full lg:bg-secondary rounded-xl lg:rounded-3xl lg:pb-4 flex-col ">
-      <h2 className="text-2xl text-white font-bold   mb-4 lg:mb-0 lg:text-xl lg:mx-2 lg:p-4 lg:pb-0">
+    <div className="flex  p-4 max-h-[calc(100vh-8rem)] min-h-[calc(100vh-8rem)] lg:p-0 w-full lg:pb-4 flex-col ">
+      <h2 className="text-2xl text-white font-bold  mb-4 lg:mb-0 lg:text-2xl lg:mx-2 lg:p-4 lg:pb-0">
         Your Library
       </h2>
 
       {session ? (
         <>
-          {/* Mobile View */}
           <div className="lg:hidden">
             <Carousel
               opts={{
@@ -157,7 +156,6 @@ export default function UserPlaylists() {
             </Carousel>
           </div>
 
-          {/* Desktop View */}
 
           <div className="hidden lg:flex flex-col px-2 h-full w-full overflow-y-auto">
             <div className=" flex w-full h-full ">

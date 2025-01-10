@@ -19,12 +19,12 @@ import {
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useToken } from '@/components/contexts/TokenContext'; // Import your TokenContext
+import { useToken } from '@/components/contexts/TokenContext';
 
 export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle: string }) {
-  const { sessionToken } = useToken(); // Get the session token from context
-  const [playlists, setPlaylists] = useState<any[]>([]); // State to hold playlists
-  const [loading, setLoading] = useState(true); // State to manage loading state
+  const { sessionToken } = useToken(); 
+  const [playlists, setPlaylists] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Function to handle downloading the song
   const DownloadSong = async (videoId: string) => {
@@ -32,47 +32,45 @@ export function Dropdown({ videoId, videoTitle }: { videoId: string; videoTitle:
       const response = await axios.get(`${process.env.NEXT_PUBLIC_SONG_DOWNLAOD_URL}/${videoId}`, {
         responseType: 'blob',
         headers: {
-          'ngrok-skip-browser-warning': 'true', // Set the custom header
+          'ngrok-skip-browser-warning': 'true', 
         },
       });
       const url = URL.createObjectURL(response.data);
       const link = document.createElement('a');
       link.href = url;
-      link.download = `${videoTitle}.m4a`; // or appropriate file name
+      link.download = `${videoTitle}.m4a`; 
       link.click();
-      URL.revokeObjectURL(url); // Clean up
+      URL.revokeObjectURL(url); 
     } catch (error) {
       console.error("Download error:", error);
     }
   };
 
-  // Fetch playlists when the dropdown is opened
   const fetchPlaylists = async () => {
     try {
       const response = await axios.get(`${process.env.NEXT_PUBLIC_URL}/api/playlist/getplaylist`, {
         withCredentials: true,
         headers: {
-          'session-token': sessionToken || '', // Include session token if available
+          'session-token': sessionToken || '', 
         },
       });
-      setPlaylists(response.data); // Assuming the response contains the playlists
+      setPlaylists(response.data); 
     } catch (error) {
       console.error("Error fetching playlists:", error);
     } finally {
-      setLoading(false); // Set loading to false after the fetch
+      setLoading(false);
     }
   };
 
-  // Function to handle adding the song to a playlist
   const addToPlaylist = async (playlistId: number) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_URL}/api/playlist/addsongtoplaylist/${playlistId}`,
         { videoId },
         {
-          withCredentials: true, // Include credentials for auth
+          withCredentials: true, 
           headers: {
-            'session-token': sessionToken || '', // Include session token if available
+            'session-token': sessionToken || '', 
           },
         }
       );
