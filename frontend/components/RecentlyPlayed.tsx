@@ -75,11 +75,11 @@ const RecentlyPlayed: React.FC = () => {
   return (
     <div className="pt-4">
       <div className="flex justify-between items-center">
-        <div className=" flex text-xl lg:text-2xl p-2 lg:p-4 lg:pl-0 font-bold">
+        <div className=" flex text-xl lg:text-2xl p-2 pl-0 lg:p-4 lg:pl-0 font-bold">
           Recently Played
         </div>
 
-        <div className="flex items-center justify-center  cursor-pointer" onClick={handleShowAll}>
+        <div className="flex items-center justify-center cursor-pointer" onClick={handleShowAll}>
               <p className="text-sm font-bold">Show All</p>
             </div>
       </div>
@@ -93,7 +93,7 @@ const RecentlyPlayed: React.FC = () => {
             {recentSongs.map((song) => (
               <motion.div
                 key={song.id}
-                className="group flex flex-col max-w-48 xl:max-w-56 items-start shadow-lg rounded-lg overflow-hidden p-2"
+                className="group flex flex-col max-w-48 xl:max-w-56 items-start shadow-lg rounded-lg overflow-hidden lg:p-2"
                 whileHover={{
                   backgroundColor: "rgba(255, 255, 255, 0.1)", 
                 }}
@@ -116,7 +116,7 @@ const RecentlyPlayed: React.FC = () => {
                       }`}
                     />
                     <button
-                      className="hidden group-hover:block absolute bottom-2 right-2 bg-white/40 backdrop-blur-md rounded-full p-3 focus:outline-none"
+                      className="lg:hidden block group-hover:block absolute bottom-2 right-2 bg-white/40 backdrop-blur-md rounded-full p-3 focus:outline-none"
                       onClick={() => setVideoId(song.id)}
                     >
                       <PlayIcon fill="black" stroke="black" size={20} />

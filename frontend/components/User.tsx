@@ -18,7 +18,7 @@ function User() {
         <Button
           variant="outline"
           onClick={()=>signIn("google")}
-          className="bg-secondary text-md font-medium text-secondary-foreground rounded-full py-6 px-5"
+          className="bg-secondary text-md font-medium text-secondary-foreground rounded-full py-5 px-5"
         >
           Sign In
         </Button>

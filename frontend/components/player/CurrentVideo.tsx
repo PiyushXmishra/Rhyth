@@ -43,7 +43,7 @@ interface SongInfo {
   }, [videoId]); 
 
     return (
-      <div className="p-2 lg:p-3 rounded-t-xl min-w-80 xl:min-w-96">
+      <div className="p-2 lg:p-3 rounded-t-xl lg:min-w-80 xl:min-w-96">
           {loading ? (
             <CurrentVideoLoader/>
           ) : songInfo ? (
@@ -62,7 +62,7 @@ interface SongInfo {
                   {truncateTitle(songInfo.title, 30)}{" "}
                 </h3>
                 <h3 className="lg:hidden text-sm  font-bold  ">
-                  {truncateTitle(songInfo.title, 20)}{" "}
+                  {truncateTitle(songInfo.title, 25)}{" "}
                 </h3>
                 <p className="text-xs lg:text-sm text-muted-foreground">
                   By {songInfo.author_name}

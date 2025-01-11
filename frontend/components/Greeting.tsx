@@ -26,9 +26,9 @@ function Greeting() {
   return (
     <div>
       {greeting ? (
-          <h1 className="flex text-2xl lg:text-4xl p-2 lg:p-4 lg:pl-0 font-bold bg-gradient-to-r from-white to-gray-300 text-transparent bg-clip-text text-start">
+          <h1 className="flex text-3xl lg:text-4xl p-3 pl-0 lg:p-4 font-extrabold bg-white text-transparent bg-clip-text text-start">
             {greeting}
-             </h1>
+          </h1>
         ) :(
           <Skeleton className="p-2 lg:p-4 lg:pl-0 w-2/4  h-8"/>
         )}

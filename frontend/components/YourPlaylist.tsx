@@ -4,21 +4,15 @@ import { useSession } from "next-auth/react";
 import axios from "axios"; // Regular axios import
 import UserPlaylists from "@/components/UserPlaylists";
 import LoginPage from "@/components/Login";
-import useMediaQuery from "@/components/hooks/useMediaQuery";
 import { redirect } from "next/navigation";
 import { useToken } from '@/components/contexts/TokenContext';
 
 function YourPlaylist() {
   const { sessionToken } = useToken(); // Get session token from context
-  const isMobile = useMediaQuery("(max-width: 1025px)");
   const { data: session } = useSession();
   const [hasRegistered, setHasRegistered] = useState(false);
 
-  useEffect(() => {
-    if (isMobile) {
-      redirect("/");
-    }
-  }, [isMobile]);
+
 
   useEffect(() => {
     const registerUser = async () => {

@@ -20,7 +20,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`p-2 lg:p-4 px-6 sticky top-0 z-10 bg-card backdrop-blur-md ${
+      className={`lg:p-4 px-4 sticky top-0 z-10 bg-card/70 backdrop-blur-xl rounded-lg ${
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >
@@ -36,21 +36,21 @@ export default function Navbar() {
 
       <div className="lg:hidden relative h-12 overflow-hidden">
         <div className={`flex items-center justify-between absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? '-translate-x-full' : 'translate-x-0'}`}>
+
+        <div className="flex items-center gap-x-8 ">
+          <User />
+          </div>
+          
           <button onClick={toggleSearch} aria-label="Search" className="">
             <Search className="h-6 w-6" />
           </button>
          
-          <div className="flex items-center gap-x-8 ">
-          <Link href={"/history"}>
-          <History  />
-        </Link>
-          <User />
-          </div>
+          
         </div>
 
         <div className={`flex items-center w-full absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? 'translate-x-0' : 'translate-x-full'}`}>
           <Link href="/">
-            <div onClick={toggleSearch} className="p-2">
+            <div onClick={toggleSearch} className="">
               <ArrowLeft className="h-6 w-6" />
             </div>
           </Link>

@@ -24,7 +24,7 @@ export default function SearchBar() {
   }
 
   return (
-    <div className="relative flex-grow mx-4 max-w-lg">
+    <div className="relative flex-grow mx-2 max-w-lg">
       <div className="relative flex items-center">
         <Link href={"/search"} className="flex-grow">
           

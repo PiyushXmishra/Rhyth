@@ -5,7 +5,7 @@ import UserPlaylists from "@/components/UserPlaylists";
 const Home: React.FC = () => {
   return (
     <>
-      <div className="flex h-full w-full  lg:pb-4 flex-col overflow-y-auto">
+      <div className="flex h-full w-full lg:pb-4 flex-col overflow-y-auto">
         <Greeting/>  
         <TrendingTracks />
         <RecentlyPlayed/>

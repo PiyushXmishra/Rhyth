@@ -14,15 +14,13 @@ const PlayerWrapper: React.FC = () => {
   return (
     <>
     {isMobile ? (
-      <div className="lg:hidden">
-        <div className=" flex items-center justify-between bg-secondary rounded-lg">
+        <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex items-center justify-between bg-card/70 backdrop-blur-xl rounded-lg mt-auto">
           <CurrentVideoMobile/>
           <MobileWrapper/>
-          <div className=" items-center justify-between px-4 py-2">
+          <div className=" flex py-2 px-2">
          <PlayPauseButton/>
          </div>
-        </div>
-      </div>
+         </div>
     ) : (
       <div className="hidden lg:flex bg-card justify-center items-center">  
       <div>

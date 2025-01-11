@@ -9,11 +9,9 @@ import { TracksProvider } from "@/components/contexts/TracksContext";
 import SessionProviderWrapper from "./SessionProvider";
 import { PlayerControlProvider } from "@/components/contexts/ControlContext";
 import CurrentVideo from "@/components/player/CurrentVideo";
-import BraveSupportBanner from "@/components/PromotionalBanner";
 import StickyControls from "@/components/controls/StickyControls";
-import SeekBar from "@/components/controls/SeekBar";
-import PlayPauseButton from "@/components/controls/PlayPauseButton";
-import VolumeControl from "@/components/controls/VolumeControl";
+import MobileFooter from "@/components/MobileFooter";
+
 
 export default function ClientLayout({
   children,
@@ -21,14 +19,15 @@ export default function ClientLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen">
+    <>
       <PlayerControlProvider>
         <SessionProviderWrapper>
           <TracksProvider>
             <SearchProvider>
               <PlayerProvider>
                 <Navbar />
-                <div className="px-4 lg:px-0 flex lg:block">
+                <div className="flex px-2 lg:px-0 ">
+                <div className=" flex lg:block w-full">
                   <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
                     <div className="hidden lg:flex justify-center items-center">
                       <SideBar />
@@ -44,11 +43,13 @@ export default function ClientLayout({
                 </div>
                   <StickyControls/>
                </div>
+               </div>
+               <MobileFooter/>
               </PlayerProvider>
             </SearchProvider>
           </TracksProvider>
         </SessionProviderWrapper>
       </PlayerControlProvider>
-    </div>
+    </>
   );
 }
