@@ -26,7 +26,7 @@ export default function ClientLayout({
             <SearchProvider>
               <PlayerProvider>
                 <Navbar />
-                <div className="flex px-2 lg:px-0 ">
+                <div className="flex px-3 lg:px-0 ">
                 <div className=" flex lg:block w-full">
                   <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
                     <div className="hidden lg:flex justify-center items-center">

@@ -37,7 +37,7 @@ export default function RootLayout({
 
        <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>
-        <div className="lg:max-h-[calc(100vh-9rem)] lg:min-h-[calc(100vh-9rem)] min-h-screen w-full">
+        <div className="max-h-[calc(100vh-9rem)] min-h-[calc(100vh-9rem)]  w-full">
           {children}
           <Analytics/>
           </div>
