@@ -10,12 +10,21 @@ import Link from "next/link"
 import Logo from "@/public/NavbarImage.png"
 import Logo2 from "@/public/web-android icon.png"
 import User from "./User"
+import { useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
 
 export default function Navbar() {
+  const router = useRouter();
+  const pathname = usePathname();
+
   const { isSearching } = useSearchContext()
   const [isSearchActive, setIsSearchActive] = useState(false)
   const toggleSearch = () => {
-    setIsSearchActive(!isSearchActive)
+    setIsSearchActive(!isSearchActive);
+
+    if(isSearchActive && pathname === '/search') {
+      router.back();
+    }
   }
 
   return (
@@ -49,12 +58,12 @@ export default function Navbar() {
         </div>
 
         <div className={`flex items-center w-full absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? 'translate-x-0' : 'translate-x-full'}`}>
-          <Link href="/">
+          
             <div onClick={toggleSearch} className="">
               <ArrowLeft className="h-6 w-6" />
             </div>
-          </Link>
-          <div className="flex-grow">
+      
+          <div className="flex-grow pl-4">
             <SearchBar />
           </div>
         </div>

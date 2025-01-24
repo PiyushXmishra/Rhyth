@@ -94,21 +94,21 @@ export default function UserPlaylists() {
   const PlaylistItem = ({ playlist }: { playlist: Playlist }) => (
     <div className="flex flex-col  items-center p-4 bg-secondary/80 rounded-lg">
       <Disc size={80} className="stroke-muted-foreground" />
-      <h3 className="lg:hidden text-sm  font-bold   text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
+      <h3 className=" text-sm  font-bold   text-center pt-2 overflow-hidden text-ellipsis whitespace-nowrap w-full">
         {playlist.name}
       </h3>
     </div>
   );
 
   return (
-    <div className="flex  p-4  lg:p-0 w-full h-full lg:pb-4 flex-col ">
-      <h2 className="text-2xl text-white font-bold  mb-4 lg:mb-0 lg:text-2xl lg:mx-2 lg:p-4 lg:pb-0">
+    <div className="flex  py-4 px-1  lg:p-0 w-full h-full lg:pb-4 flex-col ">
+      <h2 className="text-3xl text-white font-bold mb-2 lg:mb-0 lg:mx-2 lg:p-4 lg:pb-0">
         Your Library
       </h2>
 
       {session ? (
         <>
-          <div className="lg:hidden">
+          {/* <div className="lg:hidden">
             <Carousel
               opts={{
                 align: "start",
@@ -154,10 +154,10 @@ export default function UserPlaylists() {
                 )}
               </CarouselContent>
             </Carousel>
-          </div>
+          </div> */}
 
 
-          <div className="hidden lg:flex flex-col px-2 h-full w-full overflow-y-auto">
+          <div className="flex flex-col h-full w-full overflow-y-auto">
             <div className=" flex w-full h-full ">
               {isLoading ? (
                 <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
@@ -166,20 +166,18 @@ export default function UserPlaylists() {
                   ))}
                 </div>
               ) : playlists.length > 0 ? (
-                <div className="grid grid-cols-2 gap-4 px-2 pt-4 w-full">
+                <div className="grid grid-cols-2 gap-4  pt-4 w-full">
                   {playlists.map((playlist) => (
                     <Link key={playlist.id} href={`/yourplaylists/${playlist.id}`}>
                       <motion.div
                         whileHover={{ scale: 1.05 }}
-                        className="rounded-md lg:rounded-xl bg-accent lg:p-2 flex flex-row lg:flex-col items-center lg:space-y-2 cursor-pointer"
+                        className="rounded-xl  p-2 flex flex-col items-center space-y-2 cursor-pointer"
                       >
-                        <div className="relative w-16 h-max lg:w-full overflow-hidden rounded-l-md lg:rounded-xl">
+                        <div className="relative h-max w-full overflow-hidden rounded-xl">
                           <PlaylistItem key={playlist.id} playlist={playlist} />
                           
                         </div>
-                        <h3 className="text-lg  font-bold text-center overflow-hidden text-ellipsis whitespace-nowrap w-full">
-        {playlist.name}
-      </h3>
+              
                       </motion.div>
                     </Link>
                   ))}

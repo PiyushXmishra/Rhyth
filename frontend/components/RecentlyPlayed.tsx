@@ -74,8 +74,8 @@ const RecentlyPlayed: React.FC = () => {
 
   return (
     <div className="pt-4 ">
-      <div className="flex justify-between items-center">
-        <div className=" flex text-xl lg:text-2xl p-2 pl-0 lg:p-4 lg:pl-0 font-bold">
+      <div className="flex justify-between items-center px-2">
+        <div className="flex text-xl lg:text-2xl p-2 pl-0 lg:p-4 lg:pl-0 font-bold">
           Recently Played
         </div>
 

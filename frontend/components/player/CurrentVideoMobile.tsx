@@ -110,7 +110,7 @@ function CurrentVideoMobile() {
                     <div className='w-max bg-secondary rounded-full p-2'>
                     <PlayPauseButton/>
                     </div>
-                    
+      
                   </div>
                  
                 </div>

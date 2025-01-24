@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton componen
 const SkeletonLoading: React.FC<{ count: number }> = ({ count }) => {
   return (
     <div>
-      <div className="overflow-y-auto pt-6">
+      <div className="overflow-y-auto pt-2">
         {[...Array(count)].map((_, index) => (
           <Skeleton key={index} className="flex items-center py-2 lg:my-2 bg-transparent">
             <Skeleton className="w-20 h-12 lg:w-28 lg:h-16 bg-muted-foreground/30" /> 

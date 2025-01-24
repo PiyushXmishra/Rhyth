@@ -5,8 +5,7 @@ import { useToken } from "@/components/contexts/TokenContext";
 import { motion } from "framer-motion";
 import { usePlayer } from "../../components/contexts/PlayerContext";
 import { Dropdown } from "@/components/controls/DownloadButton";
-import SkeletonLoading from "@/components/loaders/SearchLoader";
-
+import HistoryLoader from "@/components/loaders/HistoryLoader";
 interface Song {
   videoId: string;
   listenedAt: string;
@@ -116,15 +115,15 @@ const HistoryPage: React.FC = () => {
   }
 
   return (
-    <div className="flex flex-col h-full w-full pt-2 lg:pt-4">
+    <div className="flex flex-col h-full w-full pt-2 px-1 lg:pt-4">
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <div className="w-full h-full rounded-lg">
           {loading ? (
-            <SkeletonLoading count={20} />
+            <HistoryLoader count={20} />
           ) : (
             Object.keys(groupedHistory).map((date) => (
               <div key={date}>
-                <h3 className="text-xl  font-bold   text-white">
+                <h3 className="text-xl font-bold  text-white">
                   {formatDate(date)}
                 </h3>
                 <div className="">
@@ -136,7 +135,7 @@ const HistoryPage: React.FC = () => {
                       }}
                       whileTap={{ scale: 0.9 }}
                       key={song.videoId}
-                      className="flex items-center py-2 cursor-pointer transition duration-200 ease-in-out lg:my-2 justify-between"
+                      className="flex items-center py-2 cursor-pointer transition duration-200 ease-in-out justify-between"
                     >
                       <div
                         className="flex items-center w-full"
