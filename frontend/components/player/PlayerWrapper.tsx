@@ -7,30 +7,44 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import CurrentVideoMobile from "./CurrentVideoMobile";
 import MobileWrapper from "./MobileWrapper";
 import PlayPauseButton from "../controls/PlayPauseButton";
+import { Slider2 } from "../ui/slider2";
+import { usePlayerControl } from "../contexts/ControlContext";
 
 const PlayerWrapper: React.FC = () => {
+  const { elapsedTime, duration, onSeekChange } = usePlayerControl();
   const isMobile = useMediaQuery("(max-width: 1023px)");
 
   return (
     <>
-    {isMobile ? (
-        <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex items-center justify-between bg-card/50 backdrop-blur-lg rounded-lg mt-auto">
-          <CurrentVideoMobile/>
-          <MobileWrapper/>
-          <div className="flex py-2 px-4">
-         <PlayPauseButton/>
-         </div>
-         </div>
-    ) : (
-      <div className="hidden lg:flex bg-card justify-center items-center">  
-      <div>
-        <YoutubePlayer />
-      </div>
-     
-    </div>
-  )
-}
-</>
-)}
+      {isMobile ? (
+        <>
+          <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex flex-col justify-between bg-card/70 backdrop-blur-md rounded-lg mt-auto overflow-hidden">
+            <div className="flex flex-row justify-between  ">
+              <CurrentVideoMobile />
+              <MobileWrapper />
+              <div className="flex py-2 px-2">
+                <PlayPauseButton />
+              </div>
+            </div>
+            <Slider2
+              value={[elapsedTime]}
+              min={0}
+              max={duration}
+              step={5}
+              onValueChange={(value: number[]) => onSeekChange(value[0])}
+              className="flex items-center w-11/12"
+            />
+          </div>
+        </>
+      ) : (
+        <div className="hidden lg:flex bg-card justify-center items-center">
+          <div>
+            <YoutubePlayer />
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
 
 export default PlayerWrapper;

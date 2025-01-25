@@ -33,7 +33,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#000000" />
         <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
-      <body className={`${Nunitomono.variable} antialiased`}>
+      <body className={`${Nunitomono.variable} antialiased `}>
 
        <TokenProvider token={nextAuthSessionToken}>
         <ClientLayout>

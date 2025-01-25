@@ -14,7 +14,7 @@ function MobileFooter() {
   }
 
   return (
-    <div className='flex lg:hidden sticky bottom-0 w-full bg-card/70 mt-auto'>
+    <div className='flex lg:hidden sticky bottom-0 w-full mt-auto bg-gradient-to-t from-custom-black via-custom-custom-transparent to-transparent  '>
       <div className="flex flex-row justify-between px-8 py-2 items-center w-full">
         <Link href={"/"} className={getLinkClass('/')}>
           <House size={28} />

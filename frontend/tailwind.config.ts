@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
   	extend: {
+		gradientColorStops: {
+			'custom-black': '#000000',
+			'custom-transparent': 'rgba(0, 0, 0, 0.3)', // Example transparent stop
+		  },
 		fontFamily: {
 			sans: ['var(--font-geist-sans)'],
 			mono: ['var(--font-geist-mono)'],

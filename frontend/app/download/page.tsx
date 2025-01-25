@@ -1,9 +1,10 @@
 import React from 'react'
-
+import { Component } from '@/components/DownloadPage'
 function page() {
   return (
-    <div className="flex w-5/12 p-4">
+    <div className="flex flex-col w-full h-full items-center justify-center">
       
+        <Component/>
      </div>
   )
 }
