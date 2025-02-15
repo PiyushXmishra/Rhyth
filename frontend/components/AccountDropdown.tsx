@@ -39,9 +39,9 @@ function AccountContent({ onClose }: { onClose: () => void }) {
           <Image
             className="h-24 w-24 rounded-full"
             src={session.user.image}
-            width={96}
-            height={96}
-            alt={`Profile picture of ${session.user.name}`}
+            width={90}
+            height={90}
+            alt={`${session.user.name}`}
             loading="lazy"
           />
         ) : (
@@ -79,7 +79,7 @@ export default function AccountMenu() {
 
   const triggerContent = session?.user?.image ? (
     <Image
-      className="h-8 w-8 rounded-full"
+      className="rounded-full"
       src={session.user.image}
       width={32}
       height={32}
@@ -120,10 +120,10 @@ export default function AccountMenu() {
          {triggerContent}
         </div>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56" align="end">
+      <DropdownMenuContent className="w-56 !rounded-xl outline-none border-none " align="end">
         <DropdownMenuLabel>Account</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <div className="px-2 py-1.5">
+        <div className="px-2 py-1.5 ">
           <AccountContent onClose={() => {}} />
         </div>
       </DropdownMenuContent>

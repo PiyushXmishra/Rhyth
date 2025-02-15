@@ -7,7 +7,7 @@ html,body {
 }
 
 body {
-  font-family: var(--font-nunito-mono), sans-serif;
+  font-family: var(--font-roboto), sans-serif;
 }
 
 @layer utilities {

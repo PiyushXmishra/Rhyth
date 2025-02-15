@@ -27,7 +27,7 @@ const StickyControls = () => {
   }, [toggleFullscreen]);
 
   return (
-    <div className="flex w-full px-4 space-x-10 items-center ">
+    <div className="flex w-full px-4 space-x-10 items-center justify-center ">
       <div className="flex flex-col w-3/5">
         <div className="flex justify-center items-center pb-2">
           <PlayPauseButton />

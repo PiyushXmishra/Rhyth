@@ -35,7 +35,9 @@ export default function Navbar() {
     >
       <div className="hidden lg:flex mx-auto items-center justify-between">
         <div className="flex items-center text-3xl font-bold pl-4">
+          <Link href={"/"}>
           Rhyth.
+          </Link>
         </div>
         <SearchBar />
         <div>

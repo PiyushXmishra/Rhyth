@@ -8,8 +8,8 @@ function SideBar() {
   
     const getLinkClass = (path:any) => {
       return pathname === path 
-        ? ''
-        : 'text-gray-400';  
+        ? 'stroke-primary scale-105'
+        : 'text-muted-foreground';  
     }
   
   return (

@@ -6,8 +6,10 @@ import { usePlayerControl } from '../contexts/ControlContext'
 import axios from 'axios';
 import { useToken } from '../contexts/TokenContext';
 import { usePlayer } from '../contexts/PlayerContext';
+import { useSession } from 'next-auth/react';
 export default function SeekBar() {
   const {videoId} = usePlayer()
+  const { data: session } = useSession();
   const { sessionToken } = useToken();
   const [isUpdated , setIsUpdated] = useState(false);
 
@@ -35,7 +37,7 @@ export default function SeekBar() {
      }
 
 useEffect(() => {
- if((duration - elapsedTime) < 10 && duration > 0 && isUpdated == false){
+ if((duration - elapsedTime) < 10 && duration > 0 && isUpdated == false && session ){
   updatehistory()
   setIsUpdated(true)
  }
@@ -65,7 +67,7 @@ useEffect(() => {
 
 const formatTime = (time: number) => {
   if (isNaN(time) || time < 0) {
-    return "0:00"; // Fallback for invalid time
+    return "0:00";
   }
   const minutes = Math.floor(time / 60);
   const seconds = Math.floor(time % 60);

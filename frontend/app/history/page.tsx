@@ -6,6 +6,8 @@ import { motion } from "framer-motion";
 import { usePlayer } from "../../components/contexts/PlayerContext";
 import { Dropdown } from "@/components/controls/DownloadButton";
 import HistoryLoader from "@/components/loaders/HistoryLoader";
+import { useSession } from "next-auth/react";
+import LoginPage from "@/components/Login";
 interface Song {
   videoId: string;
   listenedAt: string;
@@ -18,6 +20,7 @@ interface GroupedHistory {
 }
 
 const HistoryPage: React.FC = () => {
+  const {data:session} = useSession();
   const { sessionToken } = useToken();
   const [groupedHistory, setGroupedHistory] = useState<GroupedHistory>({});
 
@@ -114,8 +117,12 @@ const HistoryPage: React.FC = () => {
     return `${formattedDay} ${monthName}`;
   }
 
-  return (
-    <div className="flex flex-col h-full w-full pt-2 px-1 lg:pt-4">
+  return(
+    <>{
+      !session ? (
+      <LoginPage/>
+      ) : (
+<div className="flex flex-col h-full w-full pt-2 px-1 lg:pt-4">
       <div className="flex-1 overflow-y-auto overflow-x-hidden">
         <div className="w-full h-full rounded-lg">
           {loading ? (
@@ -167,6 +174,10 @@ const HistoryPage: React.FC = () => {
         </div>
       </div>
     </div>
+      )
+    }
+    </>
+    
   );
 };
 

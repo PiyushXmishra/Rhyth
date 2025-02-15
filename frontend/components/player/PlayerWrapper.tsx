@@ -32,7 +32,7 @@ const PlayerWrapper: React.FC = () => {
               max={duration}
               step={5}
               onValueChange={(value: number[]) => onSeekChange(value[0])}
-              className="flex items-center w-11/12"
+              className="flex items-center cursor-not-allowed "
             />
           </div>
         </>

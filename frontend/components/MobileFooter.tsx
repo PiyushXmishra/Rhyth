@@ -9,12 +9,12 @@ function MobileFooter() {
 
   const getLinkClass = (path:any) => {
     return pathname === path 
-      ? 'stroke-primary'
-      : 'text-gray-500';  
+      ? 'stroke-primary scale-105'
+      : 'text-muted-foreground';  
   }
 
   return (
-    <div className='flex lg:hidden sticky bottom-0 w-full mt-auto bg-gradient-to-t from-custom-black via-custom-custom-transparent to-transparent  '>
+    <div className='flex lg:hidden sticky bottom-0 w-full mt-auto bg-gradient-to-t from-custom-black via-custom-custom-transparent to-transparent'>
       <div className="flex flex-row justify-between px-8 py-2 items-center w-full">
         <Link href={"/"} className={getLinkClass('/')}>
           <House size={28} />

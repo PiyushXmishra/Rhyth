@@ -7,7 +7,7 @@ import LoginPage from "@/components/Login";
 import { useToken } from '@/components/contexts/TokenContext';
 
 function YourPlaylist() {
-  const { sessionToken } = useToken(); // Get session token from context
+  const { sessionToken } = useToken(); 
   const { data: session } = useSession();
   const [hasRegistered, setHasRegistered] = useState(false);
 
