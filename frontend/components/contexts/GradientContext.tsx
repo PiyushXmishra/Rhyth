@@ -9,17 +9,13 @@ const GradientContext = createContext<GradientContextType | undefined>(undefined
 
 export const GradientProvider = ({ children }: { children: ReactNode }) => {
   const darkColors = [
-   "#2EC0F9",
    "#C4E0F9",
    "#B95F89",
    "#606c38",
-   "#ffb703",
-   "#778da9",
    "#ccd5ae",
    "#3a5a40",
    "#be95c4",
    "#a4ac86"
-
   ];
 
   const getRandomDarkColor = () => {

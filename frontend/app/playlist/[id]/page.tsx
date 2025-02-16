@@ -93,8 +93,8 @@ export default function SongDetails({
   return (
     <div className="flex flex-col h-full rounded-md lg:rounded-3xl w-full">
       <div
-        className="absolute lg:hidden top-[-3rem] w-full -ml-3 h-2/3 pointer-events-none"
-        style={{ background: gradient, zIndex: -1 , opacity:0.6 }}
+        className="absolute lg:hidden top-[-3rem] w-full -ml-3 h-80 pointer-events-none"
+        style={{ background: gradient, zIndex: -1  }}
       />
       <div className="overflow-y-auto relative">
         <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold mb-2 p-2 h-max">

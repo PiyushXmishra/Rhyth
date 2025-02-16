@@ -12,6 +12,7 @@ import CurrentVideo from "@/components/player/CurrentVideo";
 import StickyControls from "@/components/controls/StickyControls";
 import MobileFooter from "@/components/MobileFooter";
 import { GradientProvider } from "@/components/contexts/GradientContext";
+import { CurrentVidColorProvider } from "@/components/contexts/CurrentVidColorContext";
 
 export default function ClientLayout({
   children,
@@ -24,6 +25,7 @@ export default function ClientLayout({
      <SessionProviderWrapper>
        <TracksProvider>
          <SearchProvider>
+          <CurrentVidColorProvider>
           <GradientProvider>
            <PlayerProvider>
              <Navbar />
@@ -48,6 +50,7 @@ export default function ClientLayout({
              <MobileFooter />
            </PlayerProvider>
            </GradientProvider>
+           </CurrentVidColorProvider>
          </SearchProvider>
          
        </TracksProvider>

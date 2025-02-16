@@ -3,7 +3,7 @@ import { usePlayer } from "../contexts/PlayerContext";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CurrentVideoLoader from "../loaders/CurrentVideoLoader";
-
+import { useGradient } from "../contexts/CurrentVidColorContext";
 interface SongInfo {
     title: string;
     author_name: string;
@@ -15,9 +15,11 @@ interface SongInfo {
     const [songInfo, setSongInfo] = useState<SongInfo | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const {backgroundColor , extractColorFromImage} = useGradient();
   const truncateTitle = (title: string, maxLength: number) => {
     return title.length > maxLength ? `${title.slice(0, maxLength)}...` : title;
   };
+
 
   useEffect(() => {
     const fetchSongInfo = async () => {
@@ -27,6 +29,7 @@ interface SongInfo {
           `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
         );
         setSongInfo(response.data); 
+        extractColorFromImage(`${response.data?.thumbnail_url.replace("hqdefault", "maxresdefault")}`)
         setLoading(false)
       } catch (error) {
         console.error("Error fetching song info:", error);
@@ -49,8 +52,6 @@ interface SongInfo {
           ) : songInfo ? (
             <div className="flex items-center">
               <div className="w-14 h-10 lg:w-20 object-cover lg:h-16 bg-cover rounded-lg mr-4">
-
-             
               <img
                 src={songInfo.thumbnail_url.replace("hqdefault", "maxresdefault")}
                 alt={songInfo.title}

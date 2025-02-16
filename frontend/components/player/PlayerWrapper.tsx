@@ -9,16 +9,17 @@ import MobileWrapper from "./MobileWrapper";
 import PlayPauseButton from "../controls/PlayPauseButton";
 import { Slider2 } from "../ui/slider2";
 import { usePlayerControl } from "../contexts/ControlContext";
-
+import { useGradient } from "../contexts/CurrentVidColorContext";
 const PlayerWrapper: React.FC = () => {
   const { elapsedTime, duration, onSeekChange } = usePlayerControl();
+  const { backgroundColor } = useGradient();
   const isMobile = useMediaQuery("(max-width: 1023px)");
 
   return (
     <>
       {isMobile ? (
         <>
-          <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex flex-col justify-between bg-card/70 backdrop-blur-md rounded-lg mt-auto overflow-hidden">
+          <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex flex-col justify-between rounded-lg mt-auto overflow-hidden" style={{backgroundColor:backgroundColor }}>
             <div className="flex flex-row justify-between  ">
               <CurrentVideoMobile />
               <MobileWrapper />
