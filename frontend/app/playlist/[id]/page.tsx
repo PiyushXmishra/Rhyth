@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { EllipsisVertical } from "lucide-react"
 import { Dropdown } from "@/components/controls/DownloadButton"
-
+import { useGradient } from "@/components/contexts/GradientContext"
 interface Song {
   title: string
   videoId: string
@@ -35,7 +35,8 @@ export default function SongDetails({
   const [playlistTitle, setPlaylistTitle] = useState<string>("")
   const [playlistImage, setPlaylistImage] = useState<string>("")
 
-  const { setVideoId, setPlaylist } = usePlayer()
+  const { setVideoId, setPlaylist } = usePlayer();
+  const{gradient} = useGradient();
 
   const handleVideoSelect = (videoId: string) => {
     setVideoId(videoId)
@@ -91,14 +92,12 @@ export default function SongDetails({
 
   return (
     <div className="flex flex-col h-full rounded-md lg:rounded-3xl w-full">
-      <div className="overflow-y-auto relative">
-     
-        <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold mb-2 p-2 h-max">
-        <DotPattern
-        className={cn(
-          "[mask-image:radial-gradient(green,transparent)] inset-auto h-max -z-10 ",
-        )}
+      <div
+        className="absolute lg:hidden top-[-3rem] w-full -ml-3 h-2/3 pointer-events-none"
+        style={{ background: gradient, zIndex: -1 , opacity:0.6 }}
       />
+      <div className="overflow-y-auto relative">
+        <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold mb-2 p-2 h-max">
           <img
             src={playlistImage}
             alt={playlistTitle}

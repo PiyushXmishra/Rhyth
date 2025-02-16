@@ -10,7 +10,7 @@ import { useGradient } from './contexts/GradientContext'
 const TrendingTracks: React.FC = () => {
   const { hidden } = usePlayerControl();
   const { tracks, loading } = useTracks();
-  const {generateGradient} = useGradient();
+  const {extractColorFromImage} = useGradient();
 
   const truncateTitle = (title: string, maxChars: number = 18) => {
     return title.length > maxChars ? title.slice(0, maxChars) + '..' : title
@@ -33,7 +33,7 @@ const TrendingTracks: React.FC = () => {
               <Link key={track.id} href={`/playlist/${track.id}?title=${track.name}`} passHref>
                 <motion.div 
                   whileHover={{scale: 1.01}}
-                  onClick={generateGradient}
+                  onClick={()=> extractColorFromImage(`${track.thumbnails?.maxres?.url}?not-from-cache-please`)}
                   className='rounded-md  bg-secondary flex flex-row  items-center cursor-pointer'
                 >
                   <div

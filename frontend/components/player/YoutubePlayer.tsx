@@ -75,7 +75,6 @@ export default function YoutubePlayer() {
     if (videoId !== currentVideoId) {
       console.log("VideoId changed from", currentVideoId, "to", videoId);
       updateLast5Songs(videoId);
-
       setCurrentVideoId(videoId)
       setElapsedTime(0)
       setIsPlayerReady(false)
@@ -94,7 +93,6 @@ export default function YoutubePlayer() {
       if (playerRef.current && isPlayerReady) {
         const currentTime = playerRef.current.getCurrentTime()
         setElapsedTime(currentTime)
-        console.log(currentTime)
         setDuration(playerRef.current.getDuration())
       }
     }, 1000)

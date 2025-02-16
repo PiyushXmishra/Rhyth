@@ -22,7 +22,7 @@ const nextConfig = withPWA({
       },
       {
         protocol: 'https',
-        hostname: 'i.ytimg.com',
+        hostname: '**.ytimg.com',
         port: '',
       },
     ],

@@ -11,7 +11,7 @@ const config: Config = {
   	extend: {
 		gradientColorStops: {
 			'custom-black': '#000000',
-			'custom-transparent': 'rgba(0, 0, 0, 0.3)', // Example transparent stop
+			'custom-transparent': 'rgba(0, 0, 0, 0.3)', 
 		  },
 		fontFamily: {
 			sans: ['var(--font-geist-sans)'],

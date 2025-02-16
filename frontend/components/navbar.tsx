@@ -41,7 +41,6 @@ export default function Navbar() {
         isScrolled ? "bg-card/70 backdrop-blur-lg" : "bg-transparent"
       }`}
     >
-      {/* Desktop Navbar */}
       <div className="hidden lg:flex mx-auto items-center justify-between">
         <div className="flex items-center text-3xl font-bold pl-4">
           <Link href={"/"}>Rhyth.</Link>
@@ -50,7 +49,6 @@ export default function Navbar() {
         <User />
       </div>
 
-      {/* Mobile Navbar */}
       <div className="lg:hidden relative h-12 overflow-hidden">
         <div className={`flex items-center justify-between absolute inset-0 transition-transform duration-300 ease-in-out ${isSearchActive ? '-translate-x-full' : 'translate-x-0'}`}>
           <div className="flex items-center gap-x-8">
@@ -65,7 +63,7 @@ export default function Navbar() {
           <div onClick={toggleSearch}>
             <ArrowLeft className="h-6 w-6" />
           </div>
-          <div className="flex-grow pl-4">
+          <div className="flex-grow ">
             <SearchBar />
           </div>
         </div>

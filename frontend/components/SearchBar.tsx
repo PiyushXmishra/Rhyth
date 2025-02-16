@@ -28,7 +28,7 @@ export default function SearchBar() {
         <Link href={"/search"} className="flex-grow">
           <Input
             placeholder="Search"
-            className="block w-full pl-5 bg-secondary text-md font-bold"
+            className="block w-full lg:pl-5 bg-transparent border-none lg:border-solid lg:bg-secondary text-md font-bold"
             value={searchTerm}
             onChange={handleInputChange}
           />
