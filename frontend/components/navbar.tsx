@@ -29,8 +29,8 @@ export default function Navbar() {
 
   return (
     <div
-      className={`lg:p-4 px-4 sticky top-0 z-10 bg-card/70 backdrop-blur-lg ${
-        isSearching ? "backdrop-blur-lg" : ""
+      className={`lg:p-4 px-4 sticky top-0 z-10 bg-card lg:bg-card/70 lg:backdrop-blur-lg ${
+        isSearching ? "lg:backdrop-blur-lg" : ""
       }`}
     >
       <div className="hidden lg:flex mx-auto items-center justify-between">
