@@ -51,7 +51,7 @@ function AccountContent({ onClose }: { onClose: () => void }) {
           <p className="text-lg  font-bold">{session.user.name}</p>
         )}
         {session?.user?.email && (
-          <p className="text-sm text-muted-foreground">{session.user.email}</p>
+          <p className="text-sm font-bold text-muted-foreground">{session.user.email}</p>
         )}
       </div>
       <Separator />
@@ -96,7 +96,7 @@ export default function AccountMenu() {
         <DrawerTrigger asChild>
             {triggerContent}
         </DrawerTrigger>
-        <DrawerContent className='bg-background'>
+        <DrawerContent>
           <DrawerHeader className="text-center">
             <DrawerTitle>Account</DrawerTitle>
           </DrawerHeader>

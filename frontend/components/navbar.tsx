@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`lg:p-4 px-4 sticky top-0 z-10 bg-card/70 backdrop-blur-xl rounded-lg ${
+      className={`lg:p-4 px-4 sticky top-0 z-10 bg-card/70 backdrop-blur-lg ${
         isSearching ? "backdrop-blur-lg" : ""
       }`}
     >

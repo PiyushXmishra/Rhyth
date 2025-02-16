@@ -93,16 +93,16 @@ export default function SongDetails({
     <div className="flex flex-col h-full rounded-md lg:rounded-3xl w-full">
       <div className="overflow-y-auto relative">
      
-        <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold   mb-2 px-2 h-max">
+        <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold mb-2 p-2 h-max">
         <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(green,transparent)]  inset-auto h-max -z-10 ",
+          "[mask-image:radial-gradient(green,transparent)] inset-auto h-max -z-10 ",
         )}
       />
           <img
             src={playlistImage}
             alt={playlistTitle}
-            className="h-48 object-contain rounded-lg  "
+            className="h-48 object-contain rounded-xl "
           />
           <h1 className="text-white shadow-lg underline underline-offset-4 decoration-muted-foreground text-base lg:text-xl mt-4 self-start">
             {playlistTitle}

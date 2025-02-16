@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { Play, Pause } from "lucide-react";
 import { usePlayerControl } from "../contexts/ControlContext";
 
-const PlayPauseButton: React.FC = () => {
+const PlayPauseButton2: React.FC = () => {
   const { isPlaying, setIsPlaying } = usePlayerControl();
 
   const handlePlayPause = () => {
@@ -12,23 +12,23 @@ const PlayPauseButton: React.FC = () => {
   return (
     <button
       onClick={handlePlayPause}
-      className="bg-transparent lg:bg-white rounded-3xl p-2 justify-center items-center flex outline-none"
+      className="bg-white rounded-3xl  justify-center items-center flex outline-none"
     >
       {isPlaying ? (
         <Pause
-          size={24}
+          size={28}
           strokeWidth={0.5}
-          className=" fill-white lg:fill-black"
+          className="fill-black"
         />
       ) : (
         <Play
-          size={24}
+          size={28}
           strokeWidth={0.5}
-          className="fill-white lg:fill-black  pl-0.5 rounded-sm"
+          className="fill-black pl-0.5 rounded-sm"
         />
       )}
     </button>
   );
 };
 
-export default PlayPauseButton;
+export default PlayPauseButton2;

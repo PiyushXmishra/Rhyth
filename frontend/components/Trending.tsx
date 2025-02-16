@@ -6,9 +6,11 @@ import { useTracks } from './contexts/TracksContext'
 import LoadingSkeleton from '@/components/loaders/TrendingLoader'
 import { motion } from 'framer-motion'
 import { usePlayerControl } from './contexts/ControlContext'
+import { useGradient } from './contexts/GradientContext'
 const TrendingTracks: React.FC = () => {
   const { hidden } = usePlayerControl();
-  const { tracks, loading } = useTracks()
+  const { tracks, loading } = useTracks();
+  const {generateGradient} = useGradient();
 
   const truncateTitle = (title: string, maxChars: number = 18) => {
     return title.length > maxChars ? title.slice(0, maxChars) + '..' : title
@@ -31,10 +33,11 @@ const TrendingTracks: React.FC = () => {
               <Link key={track.id} href={`/playlist/${track.id}?title=${track.name}`} passHref>
                 <motion.div 
                   whileHover={{scale: 1.01}}
-                  className='rounded-md  bg-secondary flex flex-row  items-center  cursor-pointer'
+                  onClick={generateGradient}
+                  className='rounded-md  bg-secondary flex flex-row  items-center cursor-pointer'
                 >
                   <div
-                    className='relative w-16 h-14  overflow-hidden rounded-l-md '
+                    className='relative w-16 h-14 overflow-hidden rounded-l-md '
                   >
                     <img 
                       src={track.thumbnails?.maxres?.url}

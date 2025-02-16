@@ -11,6 +11,7 @@ import { PlayerControlProvider } from "@/components/contexts/ControlContext";
 import CurrentVideo from "@/components/player/CurrentVideo";
 import StickyControls from "@/components/controls/StickyControls";
 import MobileFooter from "@/components/MobileFooter";
+import { GradientProvider } from "@/components/contexts/GradientContext";
 
 export default function ClientLayout({
   children,
@@ -23,11 +24,12 @@ export default function ClientLayout({
      <SessionProviderWrapper>
        <TracksProvider>
          <SearchProvider>
+          <GradientProvider>
            <PlayerProvider>
              <Navbar />
              <div className="flex px-3 lg:px-0">
-               <div className=" flex lg:block w-full ">
-                 <div className="flex flex-col lg:flex-row justify-between  w-full lg:gap-10">
+               <div className=" flex w-full">
+                 <div className="flex flex-col lg:flex-row justify-between w-full lg:gap-10">
                    <div className="hidden lg:flex justify-center items-center">
                      <SideBar />
                    </div>
@@ -45,7 +47,9 @@ export default function ClientLayout({
              </div>
              <MobileFooter />
            </PlayerProvider>
+           </GradientProvider>
          </SearchProvider>
+         
        </TracksProvider>
      </SessionProviderWrapper>
    </PlayerControlProvider>

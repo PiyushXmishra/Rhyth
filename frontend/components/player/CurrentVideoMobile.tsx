@@ -14,8 +14,8 @@ import {
 } from "@/components/ui/drawer"
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
-import PlayPauseButton from '../controls/PlayPauseButton'
 import SeekBar from '../controls/SeekBar'
+import PlayPauseButton2 from '../controls/PlayPauseButton2'
 
 interface SongInfo {
   title: string
@@ -107,8 +107,8 @@ function CurrentVideoMobile() {
                   <SeekBar/>
                   </div>
                   <div className="justify-center flex  rounded-full">
-                    <div className='w-max bg-secondary rounded-full p-2'>
-                    <PlayPauseButton/>
+                    <div className='w-max bg-white rounded-full p-2'>
+                    <PlayPauseButton2/>
                     </div>
       
                   </div>
