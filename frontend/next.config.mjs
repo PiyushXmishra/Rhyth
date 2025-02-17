@@ -9,6 +9,7 @@ const nextConfig = withPWA({
 
 })({
   images: {
+    domains: ['i9.ytimg.com', 'ytimg.com', 'i.ytimg.com'],
     remotePatterns: [
       {
         protocol: 'https',

@@ -36,7 +36,7 @@ export default function SongDetails({
   const [playlistImage, setPlaylistImage] = useState<string>("")
 
   const { setVideoId, setPlaylist } = usePlayer();
-  const{gradient} = useGradient();
+  const{gradient,extractColorFromImage  , isLoading} = useGradient();
 
   const handleVideoSelect = (videoId: string) => {
     setVideoId(videoId)
@@ -56,6 +56,7 @@ export default function SongDetails({
         )
 
         setPlaylistImage(TrackResponse.data[0].thumbnails?.maxres?.url)
+        extractColorFromImage(TrackResponse.data[0].thumbnails?.maxres?.url)
         setSongs(response.data)
         const videoIds = response.data.map((song) => song.videoId)
         setPlaylist(videoIds)
@@ -93,15 +94,19 @@ export default function SongDetails({
   return (
     <div className="flex flex-col h-full rounded-md lg:rounded-3xl w-full">
       <div
-        className="absolute lg:hidden top-[-3rem] w-full -ml-3 h-80 pointer-events-none"
-        style={{ background: gradient, zIndex: -1  }}
+        className="absolute lg:hidden top-[-3rem] w-full -ml-3 pointer-events-none  transition-all duration-1000 ease-in-out"
+        style={{
+          background: gradient,
+          transition: 'background 0.5s ease-in-out',
+        height:"25rem"
+        }}
       />
       <div className="overflow-y-auto relative">
         <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold mb-2 p-2 h-max">
           <img
             src={playlistImage}
             alt={playlistTitle}
-            className="h-48 object-contain rounded-xl "
+            className="h-64 object-cover rounded-xl shadow-[0px_0px_5px_4px_rgba(0,_0,_0,_0.1)]"
           />
           <h1 className="text-white shadow-lg underline underline-offset-4 decoration-muted-foreground text-base lg:text-xl mt-4 self-start">
             {playlistTitle}
