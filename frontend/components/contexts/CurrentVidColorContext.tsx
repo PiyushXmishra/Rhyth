@@ -30,7 +30,7 @@ export const CurrentVidColorProvider = ({
     return darkColors[Math.floor(Math.random() * darkColors.length)];
   };
 
-  const [backgroundColor, setBackgroundColor] = useState("");
+  const [backgroundColor, setBackgroundColor] = useState("#000000");
   const [gradient, setGradient] = useState(
     `linear-gradient(to bottom, ${getRandomDarkColor()}, transparent)`
   );
