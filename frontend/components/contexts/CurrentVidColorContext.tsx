@@ -42,7 +42,7 @@ export const CurrentVidColorProvider = ({
   
     img.onload = async () => {
       const fac = new FastAverageColor();
-      const color = await fac.getColorAsync(img, { algorithm: "sqrt" });
+      const color = await fac.getColorAsync(img, { algorithm: "dominant" });
   
       // Function to calculate luminance
       const getLuminance = (hex: string) => {
@@ -52,7 +52,6 @@ export const CurrentVidColorProvider = ({
         return 0.2126 * r + 0.7152 * g + 0.0722 * b; // Standard luminance formula
       };
   
-      // Function to darken color
       const darkenColor = (hex: string, factor: number ) => {
         const r = Math.floor(parseInt(hex.substring(1, 3), 16) * factor);
         const g = Math.floor(parseInt(hex.substring(3, 5), 16) * factor);
@@ -62,9 +61,8 @@ export const CurrentVidColorProvider = ({
           .padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
       };
   
-      // Check luminance and darken if needed
       const isLight = getLuminance(color.hex) > 0.1;
-      const finalColor = isLight ? darkenColor(color.hex, 0.3) : color.hex; // Darken by 40%
+      const finalColor = isLight ? darkenColor(color.hex, 0.2) : color.hex; 
   
       setGradient(`linear-gradient(to bottom, ${finalColor}, transparent)`);
       setBackgroundColor(finalColor);

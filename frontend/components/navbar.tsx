@@ -37,7 +37,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`lg:p-4 px-4 sticky top-0 z-10 transition-all duration-300 ${
+      className={`lg:p-4 px-4 sticky top-0 z-10 transition-all duration-300 lg:bg-card/70  ${
         isScrolled ? "bg-card/70 backdrop-blur-lg" : "bg-transparent"
       }`}
     >
