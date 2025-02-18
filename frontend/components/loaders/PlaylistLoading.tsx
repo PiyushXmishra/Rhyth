@@ -6,9 +6,9 @@ import { Skeleton } from '@/components/ui/skeleton'; // Import Skeleton componen
 const SkeletonLoading: React.FC<{ count: number }> = ({ count }) => {
   return (
     <div className='overflow-y-auto'>
-       <div className="flex flex-col items-center text-xl text-muted-foreground  font-bold  lg:mb-2 px-2">
+       <div className="flex flex-col items-center lg:items-start text-xl text-muted-foreground  font-bold  lg:mb-2 px-2">
           <Skeleton
-            className="h-32 w-32 rounded-lg bg-muted-foreground/30"
+            className="h-60 w-60 lg:h-52 lg:w-52 rounded-lg bg-muted-foreground/30"
           />
         </div>
       <div className="flex flex-row justify-between text-xl text-muted-foreground  font-bold   px-2 mt-5">

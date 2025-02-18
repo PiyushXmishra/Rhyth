@@ -40,7 +40,7 @@ export const GradientProvider = ({ children }: { children: ReactNode }) => {
     img.onload = async () => {
       try {
         const fac = new FastAverageColor();
-        const color = await fac.getColorAsync(img, { algorithm: "sqrt" , mode:"precision" });
+        const color = await fac.getColorAsync(img, { algorithm: "sqrt" , mode:"speed" });
         
         if (color) {
           const newGradient = `linear-gradient(to bottom, ${color.hex}, transparent)`;

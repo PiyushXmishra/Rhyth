@@ -5,6 +5,7 @@ export const fetchPlaylistInfo = async (playlistId: string) => {
     const playlistSnippet = response.data.items[0].snippet;
     return {
         title: playlistSnippet.title,
+        description:playlistSnippet.description,
         thumbnails: playlistSnippet.thumbnails, 
     };
 };

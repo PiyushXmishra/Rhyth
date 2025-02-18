@@ -13,7 +13,7 @@ export const HomePlaylists = async (req: Request, res: Response) => {
                 playlists.push(JSON.parse(cachedPlaylist));
             } else {
                 const playlistInfo = await fetchPlaylistInfo(playlistId);
-                const playlist = { id: playlistId, name: playlistInfo.title, thumbnails: playlistInfo.thumbnails };
+                const playlist = { id: playlistId, name: playlistInfo.title, thumbnails: playlistInfo.thumbnails,description:playlistInfo.description };
                 playlists.push(playlist);
     
                 await redisClient.set(`playlist:${playlistId}`, JSON.stringify(playlist), 'EX', 3600); 
