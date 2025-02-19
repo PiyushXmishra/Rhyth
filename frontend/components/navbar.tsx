@@ -17,7 +17,6 @@ export default function Navbar() {
   const [isSearchActive, setIsSearchActive] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Track scroll position
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 0);

@@ -26,12 +26,18 @@ export default function SeekBar() {
     
   const {elapsedTime ,duration , onSeekChange } = usePlayerControl();
   const date = new Date;
-  const utcDateString = date.toISOString().split('T')[0];
+  const istDateString = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Kolkata',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(date);
+
   async function updatehistory(){
    
       await axiosInstance.post(`${process.env.NEXT_PUBLIC_URL}/api/users/updatehistory`, {
        videoId : videoId,
-       listenedAt : utcDateString
+       listenedAt : istDateString
       })
       setIsUpdated(true)
      }

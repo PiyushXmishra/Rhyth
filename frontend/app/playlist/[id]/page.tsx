@@ -148,7 +148,7 @@ export default function SongDetails({
               className="flex items-center w-full"
               onClick={() => handleVideoSelect(song.videoId)}
             >
-              <h1 className="text-xs lg:text-sm pr-4 lg:pr-5 text-muted-foreground font-semibold ">{index+1}</h1>
+              <h1 className="hidden lg:flex text-sm pr-5 text-muted-foreground font-semibold ">{index+1}</h1>
               <img
                 src={song.thumbnail.high.url}
                 alt={song.title}
