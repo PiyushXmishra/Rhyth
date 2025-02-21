@@ -144,7 +144,7 @@ export const searchSongs = async (req: Request, res: Response): Promise<any> => 
       const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
         params: {
           part: "snippet",
-          q: query,
+          q: query + "songs music videos",
           type: "video",
           maxResults: 20,
           key: process.env.YOUTUBE_API_KEY,
