@@ -9,69 +9,77 @@ export const getHistory = async (req: Request, res: Response): Promise<any> => {
   //@ts-ignore
   const UserId = req.user?.id;
   const { date } = req.query;
+  const {page} = req.query
+  const pageSize = 50;
+  const cacheKey = `user:history:${UserId}:page:${page}`;
 
   if (!UserId) {
       return res.status(400).json({ error: 'User ID is required' });
   }
 
   try {
-      const cachedHistory = await redisClient.get(`user:history:${UserId}`);
-
+    console.log(page)
+      const cachedHistory = await redisClient.get(cacheKey);
       if (cachedHistory) {
-          console.log('Returning cached history');
+          console.log(`Returning cached history for page ${page}`);
           const history = JSON.parse(cachedHistory);
-          const groupedHistory = groupHistoryByDate(history);
-          const sortedGroupedHistory = sortGroupedHistoryByDate(groupedHistory);
 
           if (date) {
-              const filteredHistory = filterHistoryByDate(sortedGroupedHistory, date as string);
-              return res.status(200).json(filteredHistory);
+              const groupedHistory = groupHistoryByDate(history);
+              const sortedGroupedHistory = sortGroupedHistoryByDate(groupedHistory);
+              return res.status(200).json(filterHistoryByDate(sortedGroupedHistory, date as string));
           }
 
-          return res.status(200).json(sortedGroupedHistory);
+          return res.status(200).json(history);
       }
 
+      // Fetch history from database with pagination
       const history = await prisma.history.findMany({
           where: { UserId },
           orderBy: { listenedAt: 'desc' },
+          skip: page ? (Number(page) - 1) * pageSize : 0,
+          take: pageSize,
       });
 
-      const enrichedHistory = await Promise.all(
-          history.map(async (entry) => {
-              try {
-                  const youtubeResponse = await axios.get(
-                      `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${entry.videoId}&format=json`
-                  );
-                  return {
-                      videoId: entry.videoId,
-                      listenedAt: entry.listenedAt,
-                      name: youtubeResponse.data.title,
-                      thumbnail: youtubeResponse.data.thumbnail_url,
-                  };
-              } catch (error: any) {
+      // Enrich history with YouTube metadata
+      const enrichedHistory = await Promise.all(history.map(async (entry) => {
+          try {
+              const youtubeResponse = await axios.get(
+                  `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${entry.videoId}&format=json`
+              );
+              return {
+                  videoId: entry.videoId,
+                  listenedAt: entry.listenedAt,
+                  name: youtubeResponse.data.title,
+                  thumbnail: youtubeResponse.data.thumbnail_url,
+              };
+          } catch (error: unknown) {
+              if (error instanceof Error) {
                   console.error(`Failed to fetch details for videoId: ${entry.videoId}`, error.message);
-                  return { videoId: entry.videoId, listenedAt: entry.listenedAt, error: 'Failed to fetch video details' };
+              } else {
+                  console.error(`Failed to fetch details for videoId: ${entry.videoId}`, 'Unknown error');
               }
-          })
-      );
+              return { videoId: entry.videoId, listenedAt: entry.listenedAt, error: 'Failed to fetch video details' };
+          }
+      }));
 
       const groupedHistory = groupHistoryByDate(enrichedHistory);
       const sortedGroupedHistory = sortGroupedHistoryByDate(groupedHistory);
 
+      // Cache the paginated result
+      await redisClient.setex(cacheKey, 3600, JSON.stringify(sortedGroupedHistory));
+
       if (date) {
-        //@ts-ignore
-          const filteredHistory = filterHistoryByDate(sortedGroupedHistory, date);
-          await redisClient.setex(`user:history:${UserId}`, 3600, JSON.stringify(filteredHistory));
-          return res.status(200).json(filteredHistory);
+          return res.status(200).json(filterHistoryByDate(sortedGroupedHistory, date as string));
       }
 
-      await redisClient.setex(`user:history:${UserId}`, 3600, JSON.stringify(sortedGroupedHistory));
       return res.status(200).json(sortedGroupedHistory);
   } catch (error: any) {
       console.error('Failed to fetch user history:', error.message);
       return res.status(500).json({ error: 'Failed to fetch user history' });
   }
 };
+
 
 const groupHistoryByDate = (history: any[]) => {
   return history.reduce((acc, entry) => {
