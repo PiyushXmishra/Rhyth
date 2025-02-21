@@ -19,7 +19,7 @@ const Slider2 = React.forwardRef<
   >
     <SliderPrimitive.Track className="relative h-0.5 w-full grow overflow-hidden rounded-full bg-transparent cursor-not-allowed">
       
-      <SliderPrimitive.Range className="absolute h-full rounded-lg bg-white/80 cursor-not-allowed" />
+      <SliderPrimitive.Range className="absolute h-full rounded-lg bg-white/80 cursor-not-allowed transition-all ease-linear duration-1000" />
     </SliderPrimitive.Track>
     
   </SliderPrimitive.Root>
