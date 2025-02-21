@@ -17,7 +17,7 @@ const setLast5Songs = (songs: any) => {
 }
 
 export default function YoutubePlayer() {
-  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange, volume, hidden, isFullscreen ,toggleFullscreen } = usePlayerControl()
+  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange, volume, hidden, isFullscreen ,setIsFullscreen } = usePlayerControl()
   const playerRef = useRef<YT.Player | null>(null)
   const [isMuted] = useState(true)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
@@ -181,7 +181,6 @@ export default function YoutubePlayer() {
       if (isFullscreen && iframe) {
         if (iframe.requestFullscreen) {
        iframe.requestFullscreen();
-        
         } else if (iframe?.mozRequestFullScreen) {
           iframe?.mozRequestFullScreen(); // Firefox
         } else if (iframe?.webkitRequestFullscreen) {
@@ -198,8 +197,8 @@ export default function YoutubePlayer() {
           (document as any).webkitExitFullscreen(); // Chrome, Safari
         } else if ((document as any).msExitFullscreen) {
           (document as any).msExitFullscreen(); // Edge
+          
         }
-        toggleFullscreen()
       }
     };
     handleFullscreen();
@@ -207,6 +206,18 @@ export default function YoutubePlayer() {
         document.removeEventListener("fullscreenchange", handleFullscreen);
     };
   }, [isFullscreen]);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+    };
+  }, []);
 
   return (
     <div className="hidden lg:flex bg-card flex-col items-start  w-max ">

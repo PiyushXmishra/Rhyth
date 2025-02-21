@@ -44,7 +44,6 @@ export function Component() {
         { timeout: 60000 }
       );
       const result = response.data;
-      console.log(result);
       if (Array.isArray(result.qualities)) {
         setThemeOptions(result.qualities);
         setTitle(result.Metadata.Title);
