@@ -15,24 +15,26 @@ const PlayerWrapper: React.FC = () => {
   const { backgroundColor } = useGradient();
   const isMobile = useMediaQuery("(max-width: 1023px)");
 
-  return (
+   return (
     <>
       {isMobile ? (
         <>
           <div className="lg:hidden sticky bottom-11 left-0 right-0 -mx-2 flex flex-col justify-between rounded-lg mt-auto overflow-hidden" style={{backgroundColor:backgroundColor }}>
-            <div className="flex flex-row justify-between  ">
+            <div className="flex flex-row justify-between transition-all ease-linear duration-100">
               <CurrentVideoMobile />
               <MobileWrapper />
               <div className="flex py-2 px-2">
                 <PlayPauseButton />
               </div>
             </div>
+           {elapsedTime > 0.5 ? 
             <Slider2
-              value={[elapsedTime]}
-              min={0}
-              max={duration}
-              className="flex items-center"
-            />
+            value={[elapsedTime]}
+            min={0}
+            max={duration}
+            className="flex items-center"
+          />:<div className="h-0.5 flex"/>
+           }
           </div>
         </>
       ) : (
