@@ -8,7 +8,6 @@ redisClient.on('connect', () => {
     console.log('Connected to Redis');
 });
 
-redisClient.flushall();
 redisClient.on('error', (err) => {
     console.error('Redis error:', err);
 });
