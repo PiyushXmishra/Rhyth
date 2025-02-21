@@ -17,7 +17,7 @@ const setLast5Songs = (songs: any) => {
 }
 
 export default function YoutubePlayer() {
-  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange, volume, hidden, isFullscreen } = usePlayerControl()
+  const { isPlaying, setIsPlaying, elapsedTime, setElapsedTime, duration, setDuration, onSeekChange, volume, hidden, isFullscreen ,toggleFullscreen } = usePlayerControl()
   const playerRef = useRef<YT.Player | null>(null)
   const [isMuted] = useState(true)
   const [isPlayerReady, setIsPlayerReady] = useState(false)
@@ -180,7 +180,8 @@ export default function YoutubePlayer() {
     const handleFullscreen = () => {
       if (isFullscreen && iframe) {
         if (iframe.requestFullscreen) {
-          iframe.requestFullscreen();
+       iframe.requestFullscreen();
+        
         } else if (iframe?.mozRequestFullScreen) {
           iframe?.mozRequestFullScreen(); // Firefox
         } else if (iframe?.webkitRequestFullscreen) {
@@ -198,6 +199,7 @@ export default function YoutubePlayer() {
         } else if ((document as any).msExitFullscreen) {
           (document as any).msExitFullscreen(); // Edge
         }
+        toggleFullscreen()
       }
     };
     handleFullscreen();
