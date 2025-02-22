@@ -148,6 +148,7 @@ export const searchSongs = async (req: Request, res: Response): Promise<any> => 
           type: "video",
           maxResults: 20,
           topicId:"/m/04rlf",
+          channelType:"any",
           key: process.env.YOUTUBE_API_KEY,
         },
       });
