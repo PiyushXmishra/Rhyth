@@ -144,9 +144,10 @@ export const searchSongs = async (req: Request, res: Response): Promise<any> => 
       const response = await axios.get("https://www.googleapis.com/youtube/v3/search", {
         params: {
           part: "snippet",
-          q: query + "songs music videos",
+          q: query ,
           type: "video",
           maxResults: 20,
+          topicId:"/m/04rlf",
           key: process.env.YOUTUBE_API_KEY,
         },
       });
