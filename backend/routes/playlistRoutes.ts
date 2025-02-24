@@ -1,4 +1,3 @@
-// routes/playlistRoutes.ts
 import { Router } from 'express';
 import { createPlaylist, getUserPlaylists } from '../controllers/playlistcontroller';
 import { HomePlaylists } from '../controllers/HomePlaylist';

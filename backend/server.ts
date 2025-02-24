@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 4000;
 const allowedOrigins = ['http://localhost:3000','https://localhost:3000','https://rhyth.vercel.app', 'https://rhyth.tech'] ;
 app.use(cors({
     origin: allowedOrigins,
-    credentials: true,  // Allow cookies to be sent with requests
+    credentials: true, 
   }));
 app.use(cookieParser());
 app.use(express.json());
