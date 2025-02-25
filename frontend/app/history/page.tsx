@@ -32,8 +32,9 @@ const HistoryPage: React.FC = () => {
 
   const observerRef = useRef<HTMLDivElement | null>(null);
   const isFetching = useRef(false);
-
+  
   const truncateTitle = (title: string, maxLength: number) => {
+    if (!title) return "";
     return title.length > maxLength ? title.slice(0, maxLength) + "..." : title;
   };
 
