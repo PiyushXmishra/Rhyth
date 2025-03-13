@@ -98,8 +98,6 @@
 
 - 🎮 **Music Rooms**: Collaborative spaces for users to queue and prioritize songs
 - 🎯 **Smart Recommendations**: AI-powered song suggestions based on listening history
-- 🎨 **Drag & Drop Interface**: Implementation of dnd-kit for intuitive playlist management
-- 📱 **Mobile App**: Native mobile application development planned
 
 ## Contributing
 
@@ -110,14 +108,3 @@ We welcome contributions! Here's how you can help:
 3. Commit your changes: `git commit -m 'Add some AmazingFeature'`
 4. Push to the branch: `git push origin feature/AmazingFeature`
 5. Open a Pull Request
-
-### Development Guidelines
-- Follow the existing code style and conventions
-- Add appropriate comments and documentation
-- Write tests for new features
-- Update README.md with any necessary changes
-
-## Acknowledgments
-
-- Thanks to all contributors who have helped shape Rhyth
-- Special thanks to the open-source community for the amazing tools and libraries
